@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, FileDown, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowRight, FileDown, Mail, MapPin } from "lucide-react";
+import { Github, Linkedin } from "@/components/icons";
 import { site } from "@/content/site.config";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";

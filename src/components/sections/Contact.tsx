@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FileDown, Github, Linkedin, Mail, Send } from "lucide-react";
+import { FileDown, Mail, Send } from "lucide-react";
+import { Github, Linkedin } from "@/components/icons";
 import { site } from "@/content/site.config";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";

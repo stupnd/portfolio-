@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CheckCircle2, Github } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { Github } from "@/components/icons";
 import { site } from "@/content/site.config";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";

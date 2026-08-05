@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# stuti.tech — Portfolio
 
-## Getting Started
+Personal portfolio for Stuti Pandya. Next.js 14 (App Router) · TypeScript · Tailwind CSS · Framer Motion.
 
-First, run the development server:
+## Editing content
+
+**Every word on the site lives in one file: [`src/content/site.config.ts`](src/content/site.config.ts).**
+Headline, bio, stats, skills, experience, projects, case studies, education, socials — edit that file and every page updates. Types are in `src/content/types.ts`.
+
+Content rule carried over from the resume master file: nothing goes in the config that isn't defensible in an interview. Skill badges are honest depth tiers (Built / Used / Touched), not percentage bars, and every stat has a source line.
+
+Sections that are currently empty (`testimonials`, `certifications`, `blogPosts`) are hidden automatically — add an entry to the array and the section appears.
+
+## Before going live — checklist
+
+- [ ] **Resume**: drop the finalized PDF at `public/resume.pdf` (the download buttons 404 until you do)
+- [ ] **Headshot**: current photo is `public/photos/headshot.jpg` — swap the file to change it
+- [ ] **Ledger case study assets**: the README of the ledger repo is the deliverable per the master file — once its architecture diagram / dashboard GIF exist, consider linking or embedding them in the case study (`sections` field supports extra content per project)
+- [ ] **Domain**: point `stuti.tech` at the Vercel deployment (Vercel → Project → Settings → Domains). The old `ports` project should be retired so only one portfolio is live
+- [ ] **Contact form (optional)**: set `RESEND_API_KEY` in Vercel env vars to enable direct email sending. Without it the form gracefully falls back to opening the visitor's mail client
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploying to Vercel
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Push this repo to GitHub (`stupnd/portfolio-`).
+2. [vercel.com/new](https://vercel.com/new) → import the repo → deploy (defaults are correct; no env vars required).
+3. Add the `stuti.tech` domain in project settings and update your DNS with the records Vercel shows.
+4. Optional: add `RESEND_API_KEY` for the contact form.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Dark mode by default with persistent light/dark toggle (`next-themes`)
+- ⌘K command palette (cmdk) — navigation, socials, resume, theme
+- Scroll progress bar, scroll-reveal animations, animated stat counters
+- Custom cursor glow (desktop only, disabled for `prefers-reduced-motion`)
+- Case-study pages with the four-beat structure: problem → decisions & alternatives → evidence → retrospective
+- SEO: per-route metadata, Open Graph image generated at the edge, `sitemap.xml`, `robots.txt`, JSON-LD (`Person`, `CreativeWork`)
+- Accessibility: skip link, semantic landmarks, focus-visible rings, reduced-motion guards throughout
+- Fully static pages (except the contact API route) — fast by construction

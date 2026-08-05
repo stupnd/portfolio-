@@ -6,14 +6,13 @@ import { Command } from "cmdk";
 import {
   FileDown,
   FolderGit2,
-  Github,
   Home,
-  Linkedin,
   Mail,
   Moon,
   Sun,
   User,
 } from "lucide-react";
+import { Github, Linkedin } from "@/components/icons";
 import { useTheme } from "next-themes";
 import { site } from "@/content/site.config";
 
