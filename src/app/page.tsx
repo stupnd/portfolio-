@@ -4,6 +4,7 @@ import { About } from "@/components/sections/About";
 import { Skills } from "@/components/sections/Skills";
 import { Experience } from "@/components/sections/Experience";
 import { Projects } from "@/components/sections/Projects";
+import { GithubActivity } from "@/components/sections/GithubActivity";
 import { Leadership } from "@/components/sections/Leadership";
 import { Education } from "@/components/sections/Education";
 import { Certifications } from "@/components/sections/Certifications";
@@ -19,6 +20,7 @@ export default function Home() {
       <Skills />
       <Experience />
       <Projects />
+      <GithubActivity />
       <Leadership />
       <Education />
       {/* These render nothing until their config arrays have entries */}
