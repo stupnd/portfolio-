@@ -17,14 +17,14 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const title = `${site.name} — Software Engineer`;
+const title = `${site.name} | Software Engineer`;
 const description = site.subheadline;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.siteUrl),
   title: {
     default: title,
-    template: `%s — ${site.name}`,
+    template: `%s | ${site.name}`,
   },
   description,
   keywords: [

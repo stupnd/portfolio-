@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
-/** Real numbers only — every stat's source line comes from the content config. */
+/** Real numbers only. Every stat's source line comes from the content config. */
 export function Stats() {
   return (
     <section className="border-y border-[var(--border)] py-12 sm:py-16">

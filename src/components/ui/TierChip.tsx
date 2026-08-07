@@ -8,7 +8,7 @@ const tierStyles: Record<SkillTier, string> = {
 };
 
 /**
- * Honest skill depth badge — Built / Used / Touched, straight from
+ * Honest skill depth badge: Built / Used / Touched, straight from
  * the skill depth ledger. No fake percentage bars.
  */
 export function TierChip({ tier, className }: { tier: SkillTier; className?: string }) {

@@ -9,7 +9,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 /**
- * Carousel — renders nothing until site.testimonials has entries.
+ * Carousel: renders nothing until site.testimonials has entries.
  * Add real quotes to the config to activate this section.
  */
 export function Testimonials() {

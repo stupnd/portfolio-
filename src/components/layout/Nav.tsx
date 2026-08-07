@@ -1,22 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Command, FileDown, Menu, X } from "lucide-react";
 import { site } from "@/content/site.config";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
+// Order mirrors the page: work first, personal later.
 const links = [
-  { href: "/#about", label: "About" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#contact", label: "Contact" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
 ];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+
+  // Highlight whichever section is currently in the upper half of the viewport
+  useEffect(() => {
+    if (!onHome) return;
+    const sections = links
+      .map((l) => document.getElementById(l.id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-20% 0px -55% 0px", threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [onHome]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -24,28 +50,43 @@ export function Nav() {
         <Link
           href="/"
           className="font-mono text-sm font-semibold tracking-tight"
-          aria-label={`${site.name} — home`}
+          aria-label={`${site.name}, home`}
         >
           {site.initials.toLowerCase()}
           <span className="text-accent">.</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="rounded-full px-3.5 py-1.5 text-sm text-muted transition-colors hover:text-[var(--fg)]"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {links.map((l) => {
+            const isActive = onHome && active === l.id;
+            return (
+              <Link
+                key={l.id}
+                href={`/#${l.id}`}
+                aria-current={isActive ? "true" : undefined}
+                className={cn(
+                  "relative rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                  isActive
+                    ? "text-[var(--fg)]"
+                    : "text-muted hover:text-[var(--fg)]"
+                )}
+              >
+                {l.label}
+                {isActive && (
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-3.5 -bottom-0.5 h-px bg-accent"
+                  />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-1">
           <button
             type="button"
-            aria-label="Open command palette (⌘K)"
+            aria-label="Open command palette (Cmd K)"
             onClick={() =>
               document.dispatchEvent(
                 new KeyboardEvent("keydown", { key: "k", metaKey: true })
@@ -86,8 +127,8 @@ export function Nav() {
         <nav className="flex flex-col p-3" aria-label="Mobile">
           {links.map((l) => (
             <Link
-              key={l.href}
-              href={l.href}
+              key={l.id}
+              href={`/#${l.id}`}
               onClick={() => setOpen(false)}
               className="rounded-xl px-4 py-3 text-sm text-muted transition-colors hover:bg-[var(--card-hover)] hover:text-[var(--fg)]"
             >

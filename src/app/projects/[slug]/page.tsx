@@ -83,13 +83,13 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           </div>
         </ScrollReveal>
 
-        {/* Beat 1 — the problem */}
+        {/* Beat 1: the problem */}
         <ScrollReveal className="mt-16">
           <Beat number="01" title="The problem" />
           <p className="text-base leading-relaxed text-muted sm:text-lg">{cs.problem}</p>
         </ScrollReveal>
 
-        {/* Beat 2 — decisions and their alternatives */}
+        {/* Beat 2: decisions and their alternatives */}
         <ScrollReveal className="mt-16">
           <Beat number="02" title="Decisions, and what they cost" />
           <p className="mb-6 text-sm text-faint">
@@ -111,7 +111,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           ))}
         </div>
 
-        {/* Beat 3 — evidence */}
+        {/* Beat 3: evidence */}
         <ScrollReveal className="mt-16">
           <Beat number="03" title="Evidence it works" />
         </ScrollReveal>
@@ -124,7 +124,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           ))}
         </ul>
 
-        {/* Beat 4 — retrospective */}
+        {/* Beat 4: retrospective */}
         <ScrollReveal className="mt-16">
           <Beat number="04" title="What I'd do differently" />
           <div className="card border-accent/20 p-6">

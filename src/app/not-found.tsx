@@ -11,7 +11,7 @@ export default function NotFound() {
           This page applied itself out of existence.
         </h1>
         <p className="mx-auto mt-4 max-w-md text-muted">
-          Whatever you were looking for isn&apos;t here — but the projects are one click away.
+          Whatever you were looking for isn&apos;t here, but the projects are one click away.
         </p>
         <Link
           href="/"

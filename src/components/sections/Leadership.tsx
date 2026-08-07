@@ -24,7 +24,7 @@ export function Leadership() {
                       >
                         <Image
                           src={img}
-                          alt={`${entry.org} — photo ${j + 1}`}
+                          alt={`${entry.org}, photo ${j + 1}`}
                           fill
                           sizes="(max-width: 1024px) 50vw, 25vw"
                           className="object-cover"

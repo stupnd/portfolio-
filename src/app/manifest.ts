@@ -3,7 +3,7 @@ import { site } from "@/content/site.config";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${site.name} — Portfolio`,
+    name: `${site.name} Portfolio`,
     short_name: site.name,
     description: site.subheadline,
     start_url: "/",

@@ -4,9 +4,9 @@ import { site } from "@/content/site.config";
 /**
  * Contact form handler.
  *
- * Set RESEND_API_KEY (https://resend.com — free tier is plenty) in your
+ * Set RESEND_API_KEY (https://resend.com, free tier is plenty) in your
  * Vercel project env to enable direct sending. Without it, this returns 501
- * and the form falls back to opening the visitor's mail client — the site
+ * and the form falls back to opening the visitor's mail client. The site
  * works either way.
  */
 export async function POST(req: Request) {
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       to: [site.email],
       reply_to: email,
       subject: `Portfolio contact from ${name}`,
-      text: `${message}\n\n— ${name} (${email})`,
+      text: `${message}\n\nFrom: ${name} (${email})`,
     }),
   });
 

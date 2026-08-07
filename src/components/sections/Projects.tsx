@@ -21,9 +21,9 @@ export function Projects() {
     <section id="projects" className="py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="04 · Projects"
+          eyebrow="02 · Projects"
           title="Selected work"
-          description="Four projects, four full case studies — the problem, the trade-offs, the proof."
+          description="Four projects, four full case studies: the problem, the trade-offs, the proof."
         />
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -33,7 +33,7 @@ export function Projects() {
                 href={`/projects/${project.slug}`}
                 className="card group flex h-full flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-1"
               >
-                {/* Visual header — gradient panel with the project's monogram */}
+                {/* Visual header: gradient panel with the project's monogram */}
                 <div
                   className={`relative flex h-44 items-end bg-gradient-to-br p-6 sm:h-52 ${
                     hues[project.slug] ?? "from-accent/20 to-accent-cyan/10"
@@ -82,7 +82,7 @@ export function Projects() {
           ))}
         </div>
 
-        {/* Smaller mentions — one line each, deliberately not expanded */}
+        {/* Smaller mentions: one line each, deliberately not expanded */}
         {site.miniProjects.length > 0 && (
           <ScrollReveal delay={0.1} className="mt-10">
             <div className="grid gap-4 sm:grid-cols-3">

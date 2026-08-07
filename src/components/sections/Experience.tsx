@@ -13,7 +13,7 @@ export function Experience() {
   return (
     <section id="experience" className="py-20 sm:py-28">
       <Container>
-        <SectionHeading eyebrow="03 · Experience" title="Where I've worked" />
+        <SectionHeading eyebrow="01 · Experience" title="Where I've worked" />
         <ol className="relative ml-3 space-y-8 border-l border-[var(--border)] pl-8 sm:ml-6">
           {site.experience.map((exp, i) => (
             <ExperienceCard key={exp.company} index={i} {...exp} />
@@ -49,7 +49,7 @@ function ExperienceCard({
       <div className="card group p-6 transition-transform duration-300 hover:-translate-y-0.5 sm:p-7">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="flex items-center gap-3.5">
-            {/* Logo placeholder — swap for a real logo image if desired */}
+            {/* Logo placeholder: swap for a real logo image if desired */}
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--card-hover)] text-muted">
               <Building2 size={18} />
             </div>

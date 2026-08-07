@@ -3,7 +3,7 @@ export type SkillTier = "Built" | "Used" | "Touched";
 export interface Skill {
   name: string;
   tier: SkillTier;
-  /** Where the skill was earned — shown on hover/detail */
+  /** Where the skill was earned, shown on hover/detail */
   evidence?: string;
 }
 
@@ -53,13 +53,13 @@ export interface Project {
   /** Path under /public, or undefined for gradient placeholder */
   image?: string;
   caseStudy?: {
-    /** Beat 1 — the problem, in one sentence a non-engineer gets */
+    /** Beat 1: the problem, in one sentence a non-engineer gets */
     problem: string;
-    /** Beat 2 — decisions with named alternatives and costs */
+    /** Beat 2: decisions with named alternatives and costs */
     decisions: Decision[];
-    /** Beat 3 — evidence it works */
+    /** Beat 3: evidence it works */
     evidence: string[];
-    /** Beat 4 — what I'd do differently */
+    /** Beat 4: what I'd do differently */
     retrospective: string;
     /** Optional extra narrative sections */
     sections?: CaseStudySection[];
@@ -120,13 +120,20 @@ export interface SiteConfig {
   name: string;
   firstName: string;
   initials: string;
-  /** Path under /public — swap this file to change the hero photo */
+  /** Path under /public. Swap this file to change the hero photo */
   headshot: string;
   headline: string;
   subheadline: string;
   location: string;
   availability: string;
   email: string;
+  /** Role targets shown in the recruiter summary card */
+  lookingFor: {
+    roles: string[];
+    startDate: string;
+    locations: string;
+    note: string;
+  };
   resumeUrl: string;
   siteUrl: string;
   socials: { label: string; url: string }[];

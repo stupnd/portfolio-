@@ -34,7 +34,7 @@ export function Contact() {
       // Fallback: open the visitor's mail client with the message pre-filled
       setStatus("error");
       const subject = encodeURIComponent(`Portfolio contact from ${data.name}`);
-      const body = encodeURIComponent(`${data.message}\n\n— ${data.name} (${data.email})`);
+      const body = encodeURIComponent(`${data.message}\n\nFrom: ${data.name} (${data.email})`);
       window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
     }
   }
@@ -150,11 +150,11 @@ export function Contact() {
                 className="flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-medium text-white transition-all hover:bg-accent-soft disabled:opacity-60"
               >
                 <Send size={15} />
-                {status === "sending" ? "Sending…" : status === "sent" ? "Sent — thank you!" : "Send message"}
+                {status === "sending" ? "Sending…" : status === "sent" ? "Sent. Thank you!" : "Send message"}
               </button>
               {status === "sent" && (
                 <p role="status" className="text-center text-xs text-emerald-400">
-                  Got it — I&apos;ll get back to you soon.
+                  Got it. I&apos;ll get back to you soon.
                 </p>
               )}
               {status === "error" && (

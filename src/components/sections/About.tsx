@@ -8,7 +8,7 @@ export function About() {
   return (
     <section id="about" className="py-20 sm:py-28">
       <Container>
-        <SectionHeading eyebrow="01 · About" title="Who I am" />
+        <SectionHeading eyebrow="04 · About" title="Who I am" />
         <div className="grid gap-10 lg:grid-cols-[2fr,1fr]">
           <div className="space-y-5">
             {site.about.map((para, i) => (

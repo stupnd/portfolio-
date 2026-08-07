@@ -74,7 +74,7 @@ export async function GithubActivity() {
         <SectionHeading
           eyebrow="Live"
           title="Recent commits"
-          description={`Pulled straight from github.com/${username} — this is what I actually pushed most recently.`}
+          description={`Pulled straight from github.com/${username}. This is what I actually pushed most recently.`}
         />
         <div className="card divide-y divide-[var(--border)] overflow-hidden">
           {commits.map((commit, i) => (
