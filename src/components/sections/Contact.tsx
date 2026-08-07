@@ -46,7 +46,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="07 · Contact"
           title="Let's talk"
-          description="I'm interviewing for new grad software engineering roles starting January 2027. If you're hiring — or just want to talk backend systems or LLM evals — my inbox is open."
+          description="Interviewing for new grad SWE roles starting January 2027. Hiring, or just want to talk backend systems? My inbox is open."
         />
 
         <div className="grid gap-10 lg:grid-cols-2">

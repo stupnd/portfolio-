@@ -78,7 +78,14 @@ export interface LeadershipEntry {
   role: string;
   period: string;
   bullets: string[];
-  image?: string;
+  /** First image is the card header; extras render as a thumbnail row */
+  images?: string[];
+}
+
+export interface Photo {
+  src: string;
+  alt: string;
+  caption?: string;
 }
 
 export interface Achievement {
@@ -124,6 +131,8 @@ export interface SiteConfig {
   siteUrl: string;
   socials: { label: string; url: string }[];
   about: string[];
+  /** Personal photo strip shown in the About section */
+  aboutPhotos: Photo[];
   stats: Stat[];
   skillCategories: SkillCategory[];
   experience: ExperienceEntry[];

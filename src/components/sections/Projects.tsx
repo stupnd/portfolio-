@@ -23,7 +23,7 @@ export function Projects() {
         <SectionHeading
           eyebrow="04 · Projects"
           title="Selected work"
-          description="Four projects, each with a full case study: the problem, the decisions and their alternatives, evidence it works, and what I'd do differently."
+          description="Four projects, four full case studies — the problem, the trade-offs, the proof."
         />
 
         <div className="grid gap-6 md:grid-cols-2">

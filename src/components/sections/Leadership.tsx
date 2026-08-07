@@ -15,15 +15,22 @@ export function Leadership() {
           {site.leadership.map((entry, i) => (
             <ScrollReveal key={entry.org} delay={i * 0.06}>
               <div className="card h-full overflow-hidden transition-transform duration-300 hover:-translate-y-0.5">
-                {entry.image && (
-                  <div className="relative h-52 w-full">
-                    <Image
-                      src={entry.image}
-                      alt={entry.org}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover"
-                    />
+                {entry.images && entry.images.length > 0 && (
+                  <div className="flex h-52 gap-1">
+                    {entry.images.slice(0, 3).map((img, j) => (
+                      <div
+                        key={img}
+                        className={`relative h-full ${j === 0 ? "flex-[2]" : "flex-1"}`}
+                      >
+                        <Image
+                          src={img}
+                          alt={`${entry.org} — photo ${j + 1}`}
+                          fill
+                          sizes="(max-width: 1024px) 50vw, 25vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    ))}
                   </div>
                 )}
                 <div className="p-6 sm:p-7">

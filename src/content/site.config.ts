@@ -19,7 +19,7 @@ export const site: SiteConfig = {
 
   headline: "I build backend systems that survive failure.",
   subheadline:
-    "Computer Engineering student at uOttawa and software developer intern at Trend Micro, working in Go, Java, and Kafka on container security and event-driven systems. Graduating December 2026 — available January 2027.",
+    "Computer Engineering student at uOttawa. Software developer intern at Trend Micro, working in Go, Java, and Kafka.",
 
   location: "Ottawa, Canada",
   availability: "Available January 2027 · New grad SWE (backend/infra) & AI application engineering",
@@ -35,10 +35,18 @@ export const site: SiteConfig = {
   ],
 
   about: [
-    "I'm a Computer Engineering student at the University of Ottawa with three internships behind me: currently on the container security team at Trend Micro (Go, Kubernetes, eBPF, AWS), previously debugging distributed event brokers at Solace, and before that three co-op terms at Natural Resources Canada.",
-    "The work I care about most sits at the unglamorous end of backend engineering: message ordering, failure recovery, observability, and proving a system works with tests instead of claims. My flagship project is an event-driven transaction ledger — Kafka, Spring Boot, PostgreSQL — with 31 tests including Testcontainers integration tests that prove ordering holds under redelivery.",
-    "On the AI side, I build the measurement infrastructure around LLM systems rather than more demos: my research agent ships with a 25-question eval harness and an LLM-as-judge scorer, and raised accuracy from 64% to 73% through per-component ablation.",
-    "Outside of coursework and internships I chair uOttawa's IEEE Women in Engineering chapter, where I launched WIEee Code, our first beginner hackathon, and I co-run Lil Bytes, a short-form tech education brand.",
+    "Three internships so far: container security at Trend Micro (Go, Kubernetes, eBPF), event brokers at Solace, and three co-op terms at Natural Resources Canada.",
+    "I like the unglamorous side of backend work — message ordering, failure recovery, observability. My flagship project is an event-driven transaction ledger with 31 tests proving ordering holds even when things crash.",
+    "On the AI side, I build the measurement around LLM systems, not just demos. My research agent ships with its own eval harness: 25 golden questions, an LLM judge, and accuracy raised 64% → 73% by ablation.",
+    "Off the clock, I chair uOttawa's IEEE Women in Engineering chapter and co-run Lil Bytes, a short-form tech education brand.",
+  ],
+
+  // Photo strip in the About section — swap files in public/photos to change
+  aboutPhotos: [
+    { src: "/photos/kayaks.jpg", alt: "Kayaks on a lake dock", caption: "off-grid" },
+    { src: "/photos/lil-bytes.jpg", alt: "Filming Lil Bytes at a hackathon", caption: "lil bytes" },
+    { src: "/photos/friends.jpg", alt: "Photobooth strip with friends", caption: "with friends" },
+    { src: "/photos/flamingos.jpg", alt: "Watching flamingos at the park", caption: "touching grass" },
   ],
 
   // Every number here is sourced — see the label lines.
@@ -127,15 +135,14 @@ export const site: SiteConfig = {
       location: "Ottawa",
       stack: ["Go", "TypeScript", "Kubernetes", "eBPF", "AWS"],
       highlights: [
-        "Independently traced an API Gateway cost spike across ~1.4B calls/month using CloudWatch; root-caused it to 55 orphaned CloudFormation stacks, identifying $6–9K/month in recoverable spend.",
-        "Extended the scan pipeline's CycloneDX SBOM schema to carry license metadata end to end — a client-requested change that crossed service boundaries.",
-        "Resolved 200+ CVEs and built automation that cut manual triage time by ~75%.",
+        "Traced an API Gateway cost spike across ~1.4B calls/month to 55 orphaned CloudFormation stacks — $6–9K/month recoverable. Fully independent investigation.",
+        "Extended the CycloneDX SBOM schema to carry license metadata end to end, a client-requested change across services.",
+        "Resolved 200+ CVEs; built automation cutting manual triage ~75%.",
       ],
       details: [
-        "Moved the managed rules list to cursor-based pagination and fixed a P2 CVSS API bug.",
-        "Worked with eBPF kernel-level syscall instrumentation for detecting malicious container behavior.",
-        "Built GitHub Actions CI/CD pipelines with unit and integration test gates; resolved a Helm chart misconfiguration.",
-        "Two-week Agile sprints with sprint refinement and code review.",
+        "Moved the managed rules list to cursor-based pagination; fixed a P2 CVSS API bug.",
+        "Worked with eBPF syscall instrumentation for detecting malicious container behavior.",
+        "Built GitHub Actions CI/CD with unit and integration test gates.",
       ],
     },
     {
@@ -146,11 +153,11 @@ export const site: SiteConfig = {
       stack: ["MQTT", "AMQP", "JMS", "REST", "WebSocket", "Kubernetes"],
       highlights: [
         "Reproduced event broker defects and partnered with R&D to validate and ship fixes.",
-        "Debugged distributed event-driven messaging and REST/WebSocket issues across hybrid cloud; authored postmortems tracing root causes across broker and client layers.",
+        "Debugged distributed messaging across hybrid cloud; wrote postmortems tracing root causes through broker and client layers.",
       ],
       details: [
-        "Supported enterprise customers on event-driven platforms and reduced repeat escalations.",
-        "The messaging-semantics depth from MQTT/AMQP/JMS is the same intuition behind the Kafka work in my ledger project.",
+        "Supported enterprise customers on event-driven platforms; reduced repeat escalations.",
+        "The MQTT/AMQP/JMS depth here is the same intuition behind my Kafka ledger project.",
       ],
     },
     {
@@ -160,8 +167,8 @@ export const site: SiteConfig = {
       location: "Ottawa",
       stack: ["Salesforce", "Apex", "C#", "Oracle SQL", "PowerShell"],
       highlights: [
-        "Optimized Oracle SQL queries and dashboards through join restructuring and indexed views — 30% faster.",
-        "Automated Salesforce sandbox refresh (Apex, CLI, PowerShell) and built a C# bulk import tool that automated field mapping and handled scientific-notation edge cases in legacy data.",
+        "Optimized Oracle SQL queries and dashboards — 30% faster via join restructuring and indexed views.",
+        "Built a C# bulk import tool and automated Salesforce sandbox refresh with Apex and PowerShell.",
       ],
       details: [
         "Migrated and cleaned legacy records ahead of a system upgrade.",
@@ -175,7 +182,7 @@ export const site: SiteConfig = {
       slug: "transaction-ledger",
       title: "Transaction Ledger Service",
       tagline:
-        "Event-driven financial ledger that keeps per-account ordering even when messages arrive out of order and the service crashes mid-write.",
+        "An event-driven ledger that never loses or double-applies a transaction — even when it crashes mid-write.",
       year: "2026",
       stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "Next.js", "Prometheus", "Grafana"],
       featured: true,
@@ -184,154 +191,154 @@ export const site: SiteConfig = {
       // dashboard isn't worth it. The README and this case study are the deliverable.
       caseStudy: {
         problem:
-          "Ledgers have to apply transactions in order, even when they arrive out of order and the service crashes mid-write. This service accepts writes over REST, returns 202 immediately, and applies balances asynchronously through Kafka — without ever double-applying a transaction or applying them out of sequence.",
+          "A ledger has to apply transactions in order — even when they arrive out of order and the service crashes mid-write. This one accepts writes over REST, returns 202 instantly, and applies balances asynchronously through Kafka. Nothing gets lost, nothing gets applied twice.",
         decisions: [
           {
             decision: "Partition Kafka by account ID",
-            alternative: "A global ordering key (single partition)",
+            alternative: "one global ordering key",
             tradeoff:
-              "Per-account ordering is all a ledger actually needs, and partitioning by account lets consumers scale horizontally. The cost: no global ordering across accounts, and a hot account can skew a partition. A single partition gives total order but caps throughput at one consumer.",
+              "Per-account ordering is all a ledger needs, and it lets consumers scale out. The cost: no global order, and a hot account can skew a partition.",
           },
           {
             decision: "Manual offset acknowledgement",
-            alternative: "Auto-commit",
+            alternative: "auto-commit",
             tradeoff:
-              "Offsets are committed only after the balance is durably applied, so a crash between consume and apply causes redelivery, not loss. The cost is at-least-once delivery — which is why the consumer is idempotent and the tests prove exactly-once effects under redelivery.",
+              "Offsets commit only after the balance is durably applied — so a crash means redelivery, not loss. The consumer is idempotent, and the tests prove exactly-once effects.",
           },
           {
-            decision: "Exponential backoff retries + dead-letter topic with an admin replay endpoint",
-            alternative: "Infinite retry or drop-on-failure",
+            decision: "Backoff retries + dead-letter topic with replay",
+            alternative: "infinite retry or drop-on-failure",
             tradeoff:
-              "Poison messages can't block a partition forever, and nothing is silently lost — failed transactions land in the DLT and can be replayed after the underlying issue is fixed. The cost is operational surface: the DLT is one more thing to monitor, which is what the Grafana dashboard is for.",
+              "Poison messages can't block a partition, and nothing silently disappears — failures land in the DLT and replay after a fix. The cost is one more thing to monitor.",
           },
           {
-            decision: "Integer money, Flyway in validate mode, optimistic locking via @Version",
-            alternative: "Floats, Hibernate auto-DDL, last-write-wins",
+            decision: "Integer money + optimistic locking",
+            alternative: "floats and last-write-wins",
             tradeoff:
-              "Cents-as-integers eliminates float rounding; validate mode means the schema is exactly what migrations say it is; optimistic locking turns concurrent balance updates into a retry instead of a silent overwrite.",
+              "Cents-as-integers kills float rounding. Optimistic locking turns concurrent balance updates into a retry instead of a silent overwrite.",
           },
         ],
         evidence: [
-          "31 tests, including Testcontainers integration tests running real Postgres and Kafka — proving ordering under redelivery, exactly-once application, and DLT recovery.",
-          "Correlation IDs propagate from the HTTP thread through Kafka headers to the consumer thread, so a single transaction is traceable end to end in the logs.",
-          "Micrometer → Prometheus → provisioned Grafana dashboard: throughput, p99 latency, rejection rate, consumer lag.",
-          "SSE endpoint streams status changes to a Next.js dashboard; demo controls include a failure simulator, DLT replay, and a 100-transaction burst generator.",
+          "31 tests, including Testcontainers integration tests on real Postgres and Kafka — proving ordering under redelivery, exactly-once application, and DLT recovery.",
+          "Correlation IDs trace every transaction end to end: HTTP thread → Kafka headers → consumer.",
+          "Grafana dashboard tracking throughput, p99 latency, rejection rate, and consumer lag.",
+          "Live SSE dashboard with a failure simulator, DLT replay, and a 100-transaction burst generator.",
         ],
         retrospective:
-          "I'd add the Kubernetes deployment earlier — Deployment plus StatefulSets for Postgres and Kafka with readiness probes on Actuator health — because the interesting question a ledger has to answer is what breaks during a rolling restart and how the consumer group rebalance is handled. That work is in progress; it's the difference between running the system and operating it.",
+          "I'd add the Kubernetes deployment earlier. The interesting question a ledger has to answer is what breaks during a rolling restart, and how the consumer group rebalance is handled — that's the difference between running a system and operating it. In progress now.",
       },
     },
     {
       slug: "traced-research-agent",
       title: "traced-research-agent",
       tagline:
-        "Multi-step RAG research agent with the part most agent demos skip: a 25-question eval harness that measures whether it actually works.",
+        "A RAG research agent with the part most demos skip: an eval harness that proves it works.",
       year: "2026",
       stack: ["Python", "LangGraph", "FastAPI", "Chroma", "sentence-transformers"],
       featured: true,
       caseStudy: {
         problem:
-          "Anyone can wire an LLM to a vector store and get plausible-sounding answers. The hard part is knowing whether the answers are right, and when they're wrong, whether retrieval or synthesis is to blame. This agent ships with the measurement infrastructure built in.",
+          "Anyone can wire an LLM to a vector store and get plausible-sounding answers. The hard part is knowing whether they're right — and when they're wrong, whether retrieval or synthesis is to blame.",
         decisions: [
           {
-            decision: "A golden set of 25 questions with an LLM-as-judge scorer",
-            alternative: "Eyeballing outputs, or exact-match scoring",
+            decision: "25 golden questions + an LLM-as-judge scorer",
+            alternative: "eyeballing or exact-match",
             tradeoff:
-              "Exact match fails on paraphrase; eyeballing doesn't scale and drifts. An LLM judge scores semantic correctness against golden answers — the cost is that the judge itself needs spot-checking, so the golden set stays small enough to audit by hand.",
+              "Exact match fails on paraphrase; eyeballing drifts. An LLM judge scores meaning — and the golden set stays small enough to audit by hand.",
           },
           {
-            decision: "Per-component ablation to attribute failures",
-            alternative: "Tuning the whole pipeline end to end",
+            decision: "Per-component ablation",
+            alternative: "tuning the whole pipeline at once",
             tradeoff:
-              "Swapping one stage at a time (retrieval depth, embedding model, synthesis prompt) shows which stage each failure comes from. Slower than vibes-driven tuning, but it's how accuracy went from 0.641 to 0.734 with evidence for every change.",
+              "Swapping one stage at a time shows exactly where each failure comes from. Slower than vibes-driven tuning, but every gain has evidence behind it.",
           },
           {
-            decision: "FastAPI with SSE streaming",
-            alternative: "Blocking request/response",
+            decision: "SSE streaming",
+            alternative: "blocking request/response",
             tradeoff:
-              "Multi-step agent runs take long enough that streaming intermediate steps is the difference between a usable tool and a spinner.",
+              "Agent runs are slow. Streaming intermediate steps is the difference between a usable tool and a spinner.",
           },
         ],
         evidence: [
-          "Accuracy 0.641 → 0.734 on the 25-question golden set, with each gain attributed to a specific pipeline change via ablation.",
-          "Every answer is traced through the LangGraph steps that produced it — retrieval, synthesis, and judgment are inspectable, not a black box.",
+          "Accuracy 0.641 → 0.734 on the golden set, every gain attributed to a specific change.",
+          "Every answer is traceable through the LangGraph steps that produced it — no black box.",
         ],
         retrospective:
-          "The lecture-slides corpus is a toy, and I'd swap it for a messier real-world corpus. I'm also extracting the eval harness into a standalone retrieval-evaluation tool — deterministic retrieval scorers (recall@k, MRR) plus LLM-as-judge faithfulness, with per-stage attribution of wrong answers and a GitHub Action that fails the build on regression. Evaluation is the part of AI engineering that's most requested and least supplied, and it deserves to be its own tool.",
+          "The lecture-slides corpus is a toy; I'd swap it for something messier. Next: extracting the harness into a standalone retrieval-eval tool — recall@k and MRR scoring, per-stage failure attribution, and a GitHub Action that fails builds on regression.",
       },
     },
     {
       slug: "tinted",
       title: "Tinted",
       tagline:
-        "Computer-vision skin tone analysis and makeup recommendation — built to work across the full Monk Skin Tone scale.",
+        "Computer vision that gets skin tone right across the full range — then recommends makeup that actually matches.",
       year: "2025–present",
       stack: ["MediaPipe", "CLIP", "Claude Haiku", "FastAPI", "Next.js"],
       featured: true,
       caseStudy: {
         problem:
-          "Most beauty tech gets skin tone wrong for anyone who isn't light-skinned, because camera white balance and lighting swamp the signal. Tinted classifies skin tone robustly across the full range and recommends genuinely matching shades.",
+          "Most beauty tech gets skin tone wrong for anyone who isn't light-skinned — camera white balance and lighting swamp the signal. Tinted corrects for that and classifies tone across the full Monk scale.",
         decisions: [
           {
-            decision: "Classical CV preprocessing: gray-world white balance, CLAHE, LAB color space",
-            alternative: "Feeding raw RGB frames to a model",
+            decision: "Classical CV preprocessing in LAB color space",
+            alternative: "raw RGB into a model",
             tradeoff:
-              "Lighting variation is the dominant error source, and correcting it deterministically beats hoping a model learns invariance. LAB separates lightness from chroma so tone classification works on the right axes. The cost is a pipeline with more stages to tune — which is what the test suite covers.",
+              "Lighting is the dominant error source — correcting it deterministically beats hoping a model learns invariance. LAB separates lightness from color so classification works on the right axes.",
           },
           {
-            decision: "Monk Skin Tone scale for classification",
-            alternative: "The older Fitzpatrick scale",
+            decision: "Monk Skin Tone scale",
+            alternative: "the older Fitzpatrick scale",
             tradeoff:
-              "Monk was designed for inclusive tech evaluation with better coverage of deeper skin tones — the exact failure mode this project exists to avoid.",
+              "Monk was built for inclusive tech, with real coverage of deeper skin tones — the exact failure mode this project exists to avoid.",
           },
           {
-            decision: "CLIP-based shade matching + Claude Haiku for recommendations",
-            alternative: "A hand-built rules engine over product metadata",
+            decision: "CLIP shade matching + LLM recommendations",
+            alternative: "a hand-built rules engine",
             tradeoff:
-              "CLIP embeddings match visual shade similarity without labeling thousands of products; the LLM turns matches into readable recommendations. The rules-engine alternative is more auditable but scales poorly across brands.",
+              "CLIP matches visual similarity without labeling thousands of products. A rules engine is more auditable but scales poorly across brands.",
           },
         ],
         evidence: [
-          "45-test suite across the preprocessing and classification pipeline.",
-          "End-to-end product: FastAPI backend, Next.js frontend, live camera capture through MediaPipe.",
+          "45-test suite across preprocessing and classification.",
+          "Full product: FastAPI backend, Next.js frontend, live camera via MediaPipe.",
         ],
         retrospective:
-          "Classical CV isn't what AI roles screen for in 2026 — if I were starting today I'd still build the same preprocessing (it's correct), but I'd add a labeled evaluation set of diverse faces with per-tone accuracy reporting, the same eval discipline I applied to the research agent.",
+          "I'd add a labeled eval set of diverse faces with per-tone accuracy reporting — the same eval discipline I applied to the research agent.",
       },
     },
     {
       slug: "bridge",
       title: "Bridge",
       tagline:
-        "ASL translation glove — flex sensors on an ESP32 streaming over BLE straight to the browser, no intermediary server.",
+        "An ASL translation glove — flex sensors on an ESP32, streaming straight to the browser over Bluetooth.",
       year: "2025–2026",
       stack: ["Arduino Nano ESP32", "BLE", "React Native", "Web Bluetooth"],
       featured: true,
       repoUrl: "https://github.com/stupnd/Bridge",
       caseStudy: {
         problem:
-          "Sign language users shouldn't need an interpreter for everyday interactions. Bridge is a capstone-team glove that reads hand poses through flex sensors and translates them in the browser in real time.",
+          "Sign language users shouldn't need an interpreter for everyday interactions. Bridge reads hand poses through flex sensors and translates them in the browser, in real time.",
         decisions: [
           {
-            decision: "Flex sensors as voltage dividers with a 5-sample rolling average",
-            alternative: "IMU-based gesture recognition",
+            decision: "Flex sensors as voltage dividers",
+            alternative: "IMU gesture recognition",
             tradeoff:
-              "Voltage dividers are cheap, readable, and per-finger — the rolling average kills sensor jitter without adding perceptible latency. IMUs capture motion better but cost more and demand a training pipeline the timeline didn't allow.",
+              "Cheap, readable, per-finger — with a rolling average to kill jitter. IMUs capture motion better but need a training pipeline the timeline didn't allow.",
           },
           {
-            decision: "BLE direct to the browser via Web Bluetooth",
-            alternative: "Phone app or intermediary server relaying sensor data",
+            decision: "BLE straight to the browser",
+            alternative: "a phone app or relay server",
             tradeoff:
-              "No install, no backend, no latency from a relay hop — the glove pairs straight to a web page. The cost is Web Bluetooth's browser support matrix, which is fine for a demo and would need rethinking for production iOS.",
+              "No install, no backend, no relay latency — the glove pairs directly to a web page. The cost is Web Bluetooth's spotty support on iOS.",
           },
         ],
         evidence: [
-          "Working end-to-end demo: glove → BLE characteristic mapping → live translation in the browser.",
-          "I designed the sensor calibration flow and the BLE characteristic mapping.",
+          "Working end-to-end demo: glove → BLE → live translation in the browser.",
+          "I designed the sensor calibration flow and BLE characteristic mapping.",
           "Built with Krisha Veera, Lana Othman, Sahil Shukla, and Salim Aissaoui.",
         ],
         retrospective:
-          "Calibration is per-user and manual; I'd replace the hand-tuned thresholds with a quick guided calibration routine that fits per-finger ranges automatically. And the 5-sample average is a crude filter — a small exponential moving average would respond faster for the same smoothing.",
+          "I'd replace the manual per-user calibration with a guided routine that fits finger ranges automatically, and swap the rolling average for an exponential one — faster response, same smoothing.",
       },
     },
   ],
@@ -339,20 +346,20 @@ export const site: SiteConfig = {
   miniProjects: [
     {
       title: "Cycling Community App",
-      description: "Native Android app for forming riding groups — deployed and used by a local riding community.",
+      description: "Android app for forming riding groups — deployed and used by a local riding community.",
       stack: ["Java", "Firebase", "Android"],
       repoUrl: "https://github.com/stupnd/cycling_app",
     },
     {
       title: "Continuity Copilot",
       description:
-        "Agentic pre-visit clinical briefing tool for primary care physicians — 2nd place, Hackers & Healers AI in Healthcare hackathon.",
+        "AI pre-visit briefings for family doctors. 2nd place, Hackers & Healers hackathon.",
       stack: ["LangGraph", "GPT-4o", "HAPI FHIR", "React"],
     },
     {
       title: "Aerial Image Segmentation",
       description:
-        "UNet trained from scratch for house segmentation on aerial imagery — IoU/Dice reporting, custom augmentation, CI/CD pushing Docker images.",
+        "UNet trained from scratch to spot houses in aerial photos — with CI/CD shipping Docker images.",
       stack: ["PyTorch", "Flask", "Docker", "GitHub Actions"],
       repoUrl: "https://github.com/stupnd/lab2-ml",
     },
@@ -363,22 +370,22 @@ export const site: SiteConfig = {
       org: "IEEE Women in Engineering, uOttawa",
       role: "Chair (2026–27) · previously Vice Chair, VP External",
       period: "Sept 2024 – Present",
-      image: "/photos/wie-team-stage.jpg",
+      images: ["/photos/wie-team-stage.jpg", "/photos/wie-gala.jpg", "/photos/wie-photobooth.jpg"],
       bullets: [
-        "Progressed VP External → Vice Chair → Chair across three years.",
-        "Launched WIEee Code, the chapter's first beginner hackathon, and built the starter template teams worked from (a GitHub template with 2 forks — teams actually used it).",
-        "Built a mentorship program pairing upper-year students with first- and second-years.",
-        "Organized a 100+ participant hackathon and workshops on Git, React, and Docker; ran WIPS 2026 including sponsor communications.",
+        "VP External → Vice Chair → Chair, across three years.",
+        "Launched WIEee Code, our first beginner hackathon — and built the starter template teams worked from.",
+        "Built a mentorship program pairing upper-years with first- and second-years.",
+        "Ran WIPS 2026 and a 100+ participant hackathon, plus workshops on Git, React, and Docker.",
       ],
     },
     {
       org: "Lil Bytes",
       role: "Co-creator",
       period: "2025 – Present",
-      image: "/photos/lil-bytes.jpg",
+      images: ["/photos/lil-bytes.jpg"],
       bullets: [
-        "Short-form tech education brand on Instagram and TikTok — explaining engineering and AI concepts to non-technical audiences.",
-        "Most engineers can build a tool; distribution is the rarer skill, and this is where I practice it.",
+        "Short-form tech education on Instagram and TikTok — engineering and AI, explained simply.",
+        "Anyone can build a tool. Getting people to use one is the rarer skill, and this is where I practice it.",
       ],
     },
   ],

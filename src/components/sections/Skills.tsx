@@ -11,7 +11,7 @@ export function Skills() {
         <SectionHeading
           eyebrow="02 · Skills"
           title="What I work with"
-          description="No percentage bars. Each skill carries its honest depth — Built means I designed and implemented it, Used means I worked in it regularly — and where that depth came from."
+          description="No percentage bars — each skill shows its honest depth and where it came from. Built = I designed and shipped it. Used = I work in it regularly."
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {site.skillCategories.map((cat, i) => (
