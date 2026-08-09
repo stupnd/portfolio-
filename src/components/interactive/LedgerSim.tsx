@@ -53,6 +53,7 @@ interface Snapshot {
   crashArmed: boolean;
 }
 
+const REPO = "https://github.com/stupnd/Transaction-Ingestion-Service";
 const ACCOUNTS: Account[] = ["ACC-1", "ACC-2"];
 const AMOUNTS = [250, 120, 75, 400];
 const TICK_MS = 900;
@@ -184,11 +185,30 @@ export function LedgerSim() {
   return (
     <div className="card overflow-hidden">
       <div className="border-b border-[var(--border)] px-6 py-4">
-        <h3 className="text-sm font-semibold">Try it: crash the consumer mid-write</h3>
-        <p className="mt-1 text-xs leading-relaxed text-muted">
+        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="text-sm font-semibold">Crash the consumer mid-write</h3>
+          <span className="rounded-full border border-[var(--border-strong)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-faint">
+            Browser model
+          </span>
+        </div>
+        <p className="mt-1.5 text-xs leading-relaxed text-muted">
           Kafka guarantees at-least-once delivery, so a crash means the message comes back.
           The ledger guarantees each transaction lands exactly once. Arm a crash and watch
           the redelivered message get skipped instead of double-applied.
+        </p>
+        <p className="mt-2 text-xs leading-relaxed text-faint">
+          This is a simplified model running in your browser, not the live service. It
+          reproduces the behaviour asserted by{" "}
+          <a
+            href={`${REPO}/blob/main/backend/src/test/java/dev/stuti/ledger/integration/TransactionPipelineIntegrationTest.java#L108`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-accent underline-offset-2 hover:underline"
+          >
+            redeliveredEvent_isAppliedExactlyOnce
+          </a>
+          , a real Testcontainers test that republishes the same event twice against
+          Postgres and Kafka and asserts the balance never moves.
         </p>
       </div>
 
@@ -304,9 +324,8 @@ export function LedgerSim() {
                 : "Balance drift detected"}
             </p>
             <p className="mt-1 text-[11px] leading-relaxed text-muted">
-              Sum of balances always equals the sum of committed writes. This is what the
-              31 tests assert, including the Testcontainers run against real Postgres and
-              Kafka.
+              Sum of balances always equals the sum of writes that reached the ledger, no
+              matter how many times a message is redelivered.
             </p>
           </div>
         </div>
