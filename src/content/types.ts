@@ -50,6 +50,8 @@ export interface Project {
   featured: boolean;
   repoUrl?: string;
   liveUrl?: string;
+  /** Key of an interactive demo component to embed in the case study */
+  demo?: "ledger-sim";
   /** Path under /public, or undefined for gradient placeholder */
   image?: string;
   caseStudy?: {

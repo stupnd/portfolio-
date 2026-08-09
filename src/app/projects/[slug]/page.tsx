@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Github } from "@/components/icons";
+import { LedgerSim } from "@/components/interactive/LedgerSim";
 import { site } from "@/content/site.config";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -88,6 +89,13 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <Beat number="01" title="The problem" />
           <p className="text-base leading-relaxed text-muted sm:text-lg">{cs.problem}</p>
         </ScrollReveal>
+
+        {/* Interactive demo, when the project has one */}
+        {project.demo === "ledger-sim" && (
+          <ScrollReveal className="mt-10">
+            <LedgerSim />
+          </ScrollReveal>
+        )}
 
         {/* Beat 2: decisions and their alternatives */}
         <ScrollReveal className="mt-16">

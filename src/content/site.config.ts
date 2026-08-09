@@ -196,8 +196,11 @@ export const site: SiteConfig = {
       stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "Next.js", "Prometheus", "Grafana"],
       featured: true,
       repoUrl: "https://github.com/stupnd/Transaction-Ingestion-Service",
-      // No live demo by design: hosting a broker + Postgres to show an empty
-      // dashboard isn't worth it. The README and this case study are the deliverable.
+      // No hosted demo by design: standing up a broker and Postgres to show an
+      // empty dashboard isn't worth it. Instead the case study embeds a
+      // client-side simulation of the exactly-once guarantee, which is the part
+      // worth seeing anyway.
+      demo: "ledger-sim",
       caseStudy: {
         problem:
           "A ledger has to apply transactions in order, even when they arrive out of order and the service crashes mid-write. This one accepts writes over REST, returns 202 instantly, and applies balances asynchronously through Kafka. Nothing gets lost, nothing gets applied twice.",

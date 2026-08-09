@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MousePointerClick } from "lucide-react";
 import { Github } from "@/components/icons";
 import { site } from "@/content/site.config";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { ProjectMotif } from "@/components/ui/ProjectMotif";
 
 /** Per-project accent hues for the card headers (keeps cards distinct without images). */
 const hues: Record<string, string> = {
@@ -33,19 +34,25 @@ export function Projects() {
                 href={`/projects/${project.slug}`}
                 className="card group flex h-full flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-1"
               >
-                {/* Visual header: gradient panel with the project's monogram */}
+                {/* Visual header: gradient panel carrying the project's system motif */}
                 <div
-                  className={`relative flex h-44 items-end bg-gradient-to-br p-6 sm:h-52 ${
+                  className={`relative flex h-44 items-end overflow-hidden bg-gradient-to-br p-6 sm:h-52 ${
                     hues[project.slug] ?? "from-accent/20 to-accent-cyan/10"
                   }`}
                 >
+                  <ProjectMotif slug={project.slug} />
                   <span
                     aria-hidden
                     className="absolute right-5 top-5 font-mono text-xs text-faint"
                   >
                     {project.year}
                   </span>
-                  <h3 className="text-display-md font-semibold">{project.title}</h3>
+                  {project.demo && (
+                    <span className="absolute left-6 top-5 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-emerald-400">
+                      <MousePointerClick size={10} /> Interactive demo
+                    </span>
+                  )}
+                  <h3 className="relative text-display-md font-semibold">{project.title}</h3>
                 </div>
 
                 <div className="flex flex-1 flex-col p-6">
