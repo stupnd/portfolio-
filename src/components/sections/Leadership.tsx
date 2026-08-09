@@ -7,9 +7,9 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function Leadership() {
   return (
-    <section id="leadership" className="py-20 sm:py-28">
+    <section id="leadership" className="py-14 sm:py-16">
       <Container>
-        <SectionHeading eyebrow="05 · Beyond the code" title="Leadership & achievements" />
+        <SectionHeading size="minor" eyebrow="05 · Beyond the code" title="Leadership & achievements" />
 
         <div className="grid gap-6 lg:grid-cols-2">
           {site.leadership.map((entry, i) => (

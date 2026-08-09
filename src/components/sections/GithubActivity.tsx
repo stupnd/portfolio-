@@ -69,9 +69,10 @@ export async function GithubActivity() {
   if (commits.length === 0) return null;
 
   return (
-    <section id="activity" className="py-20 sm:py-28">
+    <section id="activity" className="py-14 sm:py-16">
       <Container>
         <SectionHeading
+          size="minor"
           eyebrow="Live"
           title="Recent commits"
           description={`Pulled straight from github.com/${username}. This is what I actually pushed most recently.`}

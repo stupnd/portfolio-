@@ -6,9 +6,9 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function About() {
   return (
-    <section id="about" className="py-20 sm:py-28">
+    <section id="about" className="py-14 sm:py-16">
       <Container>
-        <SectionHeading eyebrow="04 · About" title="Who I am" />
+        <SectionHeading size="minor" eyebrow="04 · About" title="Who I am" />
         <div className="grid gap-10 lg:grid-cols-[2fr,1fr]">
           <div className="space-y-5">
             {site.about.map((para, i) => (
