@@ -20,7 +20,7 @@ export function Hero() {
   });
 
   return (
-    <section className="relative overflow-hidden pb-20 pt-36 sm:pb-28 sm:pt-44">
+    <section className="relative overflow-hidden pb-8 pt-36 sm:pb-10 sm:pt-44">
       {/* Ambient background */}
       <div aria-hidden className="glow-field absolute inset-0" />
       <div aria-hidden className="grid-lines absolute inset-0" />
@@ -90,7 +90,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 0.65, 0.35, 1] }}
-            className="relative mx-auto w-[15rem] shrink-0 sm:w-[19rem] lg:mx-0 lg:w-[21rem]"
+            className="relative mx-auto w-[17rem] shrink-0 sm:w-[22rem] lg:mx-0 lg:w-[25rem]"
           >
             <div
               aria-hidden
@@ -106,7 +106,7 @@ export function Hero() {
               width={887}
               height={1400}
               priority
-              sizes="(max-width: 640px) 240px, (max-width: 1024px) 304px, 336px"
+              sizes="(max-width: 640px) 272px, (max-width: 1024px) 352px, 400px"
               className="relative h-auto w-full object-contain [mask-image:linear-gradient(to_bottom,black_78%,transparent_99%)] [-webkit-mask-image:linear-gradient(to_bottom,black_78%,transparent_99%)]"
             />
           </motion.div>

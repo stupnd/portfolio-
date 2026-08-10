@@ -9,7 +9,7 @@ export function Education() {
   return (
     <section id="education" className="py-14 sm:py-16">
       <Container>
-        <SectionHeading size="minor" eyebrow="06 · Education" title="Where I studied" />
+        <SectionHeading size="minor" eyebrow="02 · Education" title="Where I studied" />
         <ScrollReveal>
           <div className="card p-7 sm:p-9">
             <div className="flex flex-wrap items-start justify-between gap-4">

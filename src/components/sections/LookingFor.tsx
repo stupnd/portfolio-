@@ -12,7 +12,7 @@ export function LookingFor() {
   const { roles, startDate, locations, note } = site.lookingFor;
 
   return (
-    <section id="looking-for" className="py-14 sm:py-16">
+    <section id="looking-for" className="pb-14 pt-2 sm:pb-16 sm:pt-4">
       <Container>
         <ScrollReveal>
           <div className="card overflow-hidden p-7 sm:p-9">

@@ -13,7 +13,7 @@ export function Experience() {
   return (
     <section id="experience" className="py-20 sm:py-28">
       <Container>
-        <SectionHeading eyebrow="02 · Experience" title="Where I've worked" />
+        <SectionHeading eyebrow="03 · Experience" title="Where I've worked" />
         <ol className="relative ml-3 space-y-8 border-l border-[var(--border)] pl-8 sm:ml-6">
           {site.experience.map((exp, i) => (
             <ExperienceCard key={exp.company} index={i} {...exp} />

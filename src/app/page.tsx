@@ -23,12 +23,12 @@ export default function Home() {
       <LookingFor />
       <Stats />
       <About />
+      <Education />
       <Experience />
       <Projects />
       <GithubActivity />
       <Skills />
       <Leadership />
-      <Education />
       {/* These render nothing until their config arrays have entries */}
       <Certifications />
       <Testimonials />

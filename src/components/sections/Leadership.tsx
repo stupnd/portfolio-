@@ -9,7 +9,7 @@ export function Leadership() {
   return (
     <section id="leadership" className="py-14 sm:py-16">
       <Container>
-        <SectionHeading size="minor" eyebrow="05 · Beyond the code" title="Leadership & achievements" />
+        <SectionHeading size="minor" eyebrow="06 · Beyond the code" title="Leadership & achievements" />
 
         {/* Single entry reads better full width than stranded in a half column */}
         <div

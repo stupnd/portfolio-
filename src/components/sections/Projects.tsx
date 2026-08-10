@@ -22,7 +22,7 @@ export function Projects() {
     <section id="projects" className="py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="03 · Projects"
+          eyebrow="04 · Projects"
           title="Selected work"
           description="Four projects, four full case studies: the problem, the trade-offs, the proof."
         />
