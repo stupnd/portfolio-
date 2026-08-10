@@ -11,7 +11,10 @@ export function Leadership() {
       <Container>
         <SectionHeading size="minor" eyebrow="05 · Beyond the code" title="Leadership & achievements" />
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        {/* Single entry reads better full width than stranded in a half column */}
+        <div
+          className={`grid gap-6 ${site.leadership.length > 1 ? "lg:grid-cols-2" : ""}`}
+        >
           {site.leadership.map((entry, i) => (
             <ScrollReveal key={entry.org} delay={i * 0.06}>
               <div className="card h-full overflow-hidden transition-transform duration-300 hover:-translate-y-0.5">

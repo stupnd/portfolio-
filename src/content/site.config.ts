@@ -33,7 +33,7 @@ export const site: SiteConfig = {
     roles: ["Backend Engineer", "Full-Stack Engineer", "Software Engineer, New Grad", "AI / ML Engineer"],
     startDate: "January 2027",
     locations: "Ottawa, Toronto, Waterloo, Vancouver, or remote in Canada",
-    note: "Graduating December 2026 with a BASc in Computer Engineering. Three internships completed, and legally able to work in Canada full time.",
+    note: "Graduating December 2026 with a BASc in Computer Engineering. Three software internships completed, and legally able to work in Canada full time.",
   },
   // REPLACE: drop your finalized resume at public/resume.pdf (this link 404s until you do)
   resumeUrl: "/resume.pdf",
@@ -42,27 +42,26 @@ export const site: SiteConfig = {
   socials: [
     { label: "GitHub", url: "https://github.com/stupnd" },
     { label: "LinkedIn", url: "https://linkedin.com/in/stuti-pandya-6a8bab258" },
-    { label: "Lil Bytes", url: "https://instagram.com/lilbytes.tech" },
   ],
 
   about: [
-    "Three internships so far: container security at Trend Micro (Go, Kubernetes, AWS), event brokers at Solace, and three co-op terms at Natural Resources Canada.",
+    "Three internships so far: container security at Trend Micro (Go, Kubernetes, AWS), event brokers at Solace, and two co-op terms at Natural Resources Canada.",
     "I like the unglamorous side of backend work: message ordering, failure recovery, observability. My flagship project is an event-driven transaction ledger with 31 tests proving ordering holds even when things crash.",
     "On the AI side, I build the measurement around LLM systems, not just demos. My research agent ships with its own eval harness: 25 golden questions, an LLM judge, and accuracy raised 64% → 73% by ablation.",
-    "Off the clock, I chair uOttawa's IEEE Women in Engineering chapter and co-run Lil Bytes, a short-form tech education brand.",
+    "Off the clock, I chair uOttawa's IEEE Women in Engineering chapter.",
   ],
 
   // Photo strip in the About section. Swap files in public/photos to change.
   aboutPhotos: [
     { src: "/photos/kayaks.jpg", alt: "Kayaks on a lake dock", caption: "off-grid" },
-    { src: "/photos/lil-bytes.jpg", alt: "Filming Lil Bytes at a hackathon", caption: "lil bytes" },
+    { src: "/photos/mountains.jpg", alt: "Mountains across a lake in Banff", caption: "banff" },
     { src: "/photos/friends.jpg", alt: "Photobooth strip with friends", caption: "with friends" },
     { src: "/photos/flamingos.jpg", alt: "Watching flamingos at the park", caption: "touching grass" },
   ],
 
   // Every number here is sourced. See the label lines.
   stats: [
-    { value: "3", label: "Internships", source: "Trend Micro · Solace · NRCan (3 co-op terms)" },
+    { value: "3", label: "Internships", source: "Trend Micro · Solace · NRCan (2 co-op terms)" },
     { value: "$6–9K/mo", label: "Cloud cost savings identified", source: "AWS cost investigation at Trend Micro" },
     { value: "1.4B+", label: "Monthly API calls traced", source: "Root-caused a cost spike to 55 orphaned stacks" },
     { value: "200+", label: "CVEs triaged & resolved", source: "With automation cutting manual triage ~75%" },
@@ -171,7 +170,7 @@ export const site: SiteConfig = {
     },
     {
       company: "Natural Resources Canada",
-      role: "Software Developer Intern, 3 co-op terms",
+      role: "Software Developer Intern, 2 co-op terms",
       period: "May 2024 – Aug 2025",
       location: "Ottawa",
       stack: ["Salesforce", "Apex", "C#", "Oracle SQL", "PowerShell"],
@@ -181,7 +180,7 @@ export const site: SiteConfig = {
       ],
       details: [
         "Migrated and cleaned legacy records ahead of a system upgrade.",
-        "Invited back for three consecutive co-op terms, 15 months total.",
+        "Invited back for a second co-op term.",
       ],
     },
   ],
@@ -388,16 +387,6 @@ export const site: SiteConfig = {
         "Launched WIEee Code, our first beginner hackathon, and built the starter template teams worked from.",
         "Built a mentorship program pairing upper-years with first- and second-years.",
         "Ran WIPS 2026 and a 100+ participant hackathon, plus workshops on Git, React, and Docker.",
-      ],
-    },
-    {
-      org: "Lil Bytes",
-      role: "Co-creator",
-      period: "2025 – Present",
-      images: ["/photos/lil-bytes.jpg"],
-      bullets: [
-        "Short-form tech education on Instagram and TikTok: engineering and AI, explained simply.",
-        "Anyone can build a tool. Getting people to use one is the rarer skill, and this is where I practice it.",
       ],
     },
   ],

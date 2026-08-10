@@ -40,7 +40,7 @@ export function LookingFor() {
                 <Fact
                   icon={<Briefcase size={16} />}
                   label="Experience"
-                  value="3 software internships, 20+ months"
+                  value="3 software internships"
                 />
                 <Button href={site.resumeUrl} variant="secondary" download className="mt-2 w-full">
                   <FileDown size={15} /> Download resume
