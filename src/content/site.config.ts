@@ -38,7 +38,7 @@ export const site: SiteConfig = {
   },
   // REPLACE: drop your finalized resume at public/resume.pdf (this link 404s until you do)
   resumeUrl: "/resume.pdf",
-  siteUrl: "https://stuti.tech",
+  siteUrl: "https://stutipnd.net",
 
   socials: [
     { label: "GitHub", url: "https://github.com/stupnd" },
@@ -54,9 +54,9 @@ export const site: SiteConfig = {
 
   // Photo strip in the About section. Swap files in public/photos to change.
   aboutPhotos: [
-    { src: "/photos/kayaks.jpg", alt: "Kayaks on a lake dock", caption: "off-grid" },
-    { src: "/photos/mountains.jpg", alt: "Mountains across a lake in Banff", caption: "banff" },
-    { src: "/photos/friends.jpg", alt: "Photobooth strip with friends", caption: "with friends" },
+    { src: "/photos/kayaks.jpg", alt: "Kayaks tied up at a lake dock", caption: "off-grid" },
+    { src: "/photos/moraine.jpg", alt: "Canoes on Moraine Lake in the Rockies", caption: "banff" },
+    { src: "/photos/ottawa-canal.jpg", alt: "Sunset over the Rideau Canal locks in Ottawa", caption: "home" },
     { src: "/photos/flamingos.jpg", alt: "Watching flamingos at the park", caption: "touching grass" },
   ],
 

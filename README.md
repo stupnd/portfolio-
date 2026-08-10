@@ -1,4 +1,4 @@
-# stuti.tech
+# stutipnd.net
 
 Personal portfolio for Stuti Pandya. Next.js 14 (App Router) · TypeScript · Tailwind CSS · Framer Motion.
 
@@ -16,7 +16,7 @@ Sections that are currently empty (`testimonials`, `certifications`, `blogPosts`
 - [ ] **Resume**: drop the finalized PDF at `public/resume.pdf` (the download buttons 404 until you do)
 - [ ] **Headshot**: current photo is `public/photos/headshot.jpg`, so swap the file to change it
 - [ ] **Ledger case study assets**: the README of the ledger repo is the deliverable per the master file. Once its architecture diagram or dashboard GIF exist, consider linking or embedding them in the case study (`sections` field supports extra content per project)
-- [ ] **Domain**: point `stuti.tech` at the Vercel deployment (Vercel → Project → Settings → Domains). The old `ports` project should be retired so only one portfolio is live
+- [ ] **Domain**: point `stutipnd.net` at the Vercel deployment (Vercel → Project → Settings → Domains). The old `ports` project should be retired so only one portfolio is live
 - [ ] **Contact form (optional)**: set `RESEND_API_KEY` in Vercel env vars to enable direct email sending. Without it the form gracefully falls back to opening the visitor's mail client
 
 ## Development
@@ -32,7 +32,7 @@ npm run lint
 
 1. Push this repo to GitHub (`stupnd/portfolio-`).
 2. [vercel.com/new](https://vercel.com/new) → import the repo → deploy (defaults are correct; no env vars required).
-3. Add the `stuti.tech` domain in project settings and update your DNS with the records Vercel shows.
+3. Add the `stutipnd.net` domain in project settings and update your DNS with the records Vercel shows.
 4. Optional: add `RESEND_API_KEY` for the contact form.
 
 ## Features

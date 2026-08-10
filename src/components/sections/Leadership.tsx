@@ -18,19 +18,18 @@ export function Leadership() {
           {site.leadership.map((entry, i) => (
             <ScrollReveal key={entry.org} delay={i * 0.06}>
               <div className="card h-full overflow-hidden transition-transform duration-300 hover:-translate-y-0.5">
+                {/* Equal landscape frames: the 2:1:1 split squeezed these group
+                    shots so hard it cut people's heads off. */}
                 {entry.images && entry.images.length > 0 && (
-                  <div className="flex h-52 gap-1">
+                  <div className="grid grid-cols-3 gap-1">
                     {entry.images.slice(0, 3).map((img, j) => (
-                      <div
-                        key={img}
-                        className={`relative h-full ${j === 0 ? "flex-[2]" : "flex-1"}`}
-                      >
+                      <div key={img} className="relative aspect-[4/3]">
                         <Image
                           src={img}
                           alt={`${entry.org}, photo ${j + 1}`}
                           fill
-                          sizes="(max-width: 1024px) 50vw, 25vw"
-                          className="object-cover"
+                          sizes="(max-width: 1024px) 33vw, 300px"
+                          className="object-cover object-top"
                         />
                       </div>
                     ))}
