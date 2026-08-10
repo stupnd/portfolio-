@@ -48,7 +48,7 @@ export const site: SiteConfig = {
   about: [
     "Three internships so far: container security at Trend Micro (Go, Kubernetes, AWS), event brokers at Solace, and two co-op terms at Natural Resources Canada.",
     "I work across the stack, but I like the unglamorous end of it: message ordering, failure recovery, observability. My flagship project is an event-driven transaction ledger with 31 tests proving ordering holds even when things crash, fronted by a Next.js dashboard that streams status live.",
-    "On the AI side, I build the measurement around LLM systems, not just demos. My research agent ships with its own eval harness: 25 golden questions, an LLM judge, and accuracy raised 64% → 73% by ablation.",
+    "On the AI side, I build the measurement around LLM systems, not just demos. My research agent ships with its own eval harness: 8 rubric-scored questions, an LLM judge, and nine recorded ablations that took mean score from 0.641 to 0.831.",
     "Off the clock, I chair uOttawa's Institute of Electrical and Electronics Engineers (IEEE) Women in Engineering chapter.",
   ],
 
@@ -66,7 +66,7 @@ export const site: SiteConfig = {
     { value: "$6–9K/mo", label: "Cloud cost savings identified", source: "AWS cost investigation at Trend Micro" },
     { value: "1.4B+", label: "Monthly API calls traced", source: "Root-caused a cost spike to 55 orphaned stacks" },
     { value: "200+", label: "CVEs triaged & resolved", source: "With automation cutting manual triage ~75%" },
-    { value: "64→73%", label: "RAG eval accuracy lift", source: "Per-component ablation, traced-research-agent" },
+    { value: "0.64→0.83", label: "RAG eval score lift", source: "Nine recorded ablations, traced-research-agent" },
     { value: "31", label: "Tests on the ledger", source: "Incl. Testcontainers integration tests" },
   ],
 
@@ -95,7 +95,8 @@ export const site: SiteConfig = {
         { name: "Kafka", tier: "Built", evidence: "Partitioning, manual offsets, DLT, retries" },
         { name: "FastAPI", tier: "Built", evidence: "traced-research-agent, Tinted" },
         { name: "Flask", tier: "Built", evidence: "DistilBERT REST API" },
-        { name: "REST / SSE", tier: "Built", evidence: "202-async APIs, SSE streaming dashboards" },
+        { name: "REST / SSE", tier: "Built", evidence: "202-async APIs, SSE with keepalive + reconnect" },
+        { name: "Rate limiting", tier: "Built", evidence: "Sliding window, Retry-After, spend caps" },
       ],
     },
     {
@@ -104,14 +105,15 @@ export const site: SiteConfig = {
         { name: "PostgreSQL", tier: "Used", evidence: "Flyway migrations, optimistic locking" },
         { name: "Oracle SQL", tier: "Used", evidence: "Join restructuring, indexed views: 30% faster" },
         { name: "Firebase", tier: "Used", evidence: "Real-time backend, Android cycling app" },
-        { name: "Supabase", tier: "Used", evidence: "Personal projects" },
+        { name: "Supabase", tier: "Used", evidence: "Auth and storage, Tinted" },
       ],
     },
     {
       label: "Cloud & DevOps",
       skills: [
         { name: "Kubernetes", tier: "Used", evidence: "Debugging production workloads at Trend Micro" },
-        { name: "Docker", tier: "Used", evidence: "Every recent project" },
+        { name: "Docker Compose", tier: "Built", evidence: "Postgres, Kafka KRaft, Prometheus, Grafana" },
+        { name: "Docker", tier: "Used", evidence: "Multi-stage, non-root images" },
         { name: "AWS CloudWatch", tier: "Used", evidence: "1.4B-call cost spike investigation" },
         { name: "GitHub Actions", tier: "Built", evidence: "CI/CD at Trend Micro + ledger service" },
         { name: "Helm", tier: "Touched", evidence: "Chart misconfiguration fix" },
@@ -123,13 +125,26 @@ export const site: SiteConfig = {
         { name: "LLM evaluation", tier: "Built", evidence: "LLM-as-judge, golden sets, ablation" },
         { name: "LangGraph", tier: "Built", evidence: "Multi-step research agent, Continuity Copilot" },
         { name: "PyTorch", tier: "Built", evidence: "UNet trained from scratch, IoU/Dice reporting" },
-        { name: "RAG pipelines", tier: "Built", evidence: "Chroma, sentence-transformer embeddings" },
+        { name: "Hybrid retrieval (RRF)", tier: "Built", evidence: "Dense + BM25 fused, 0.64 to 0.83 eval" },
+        { name: "Chroma + embeddings", tier: "Built", evidence: "all-MiniLM-L6-v2, per-slide chunking" },
+        { name: "CLIP", tier: "Built", evidence: "Precomputed shade embeddings, Tinted" },
+        { name: "MediaPipe / OpenCV", tier: "Built", evidence: "468-point mesh, CLAHE, Lab colour space" },
+      ],
+    },
+    {
+      label: "Tools",
+      skills: [
+        { name: "Claude Code", tier: "Used", evidence: "Daily driver for build and review" },
+        { name: "Git / GitHub Actions", tier: "Built", evidence: "Multi-job CI with test gates" },
+        { name: "Groq", tier: "Used", evidence: "llama-3.3-70b for agent and judge" },
       ],
     },
     {
       label: "Testing & Observability",
       skills: [
         { name: "Testcontainers", tier: "Built", evidence: "Real Postgres + Kafka in integration tests" },
+        { name: "Awaitility", tier: "Built", evidence: "Async assertions without sleeps" },
+        { name: "pytest", tier: "Built", evidence: "77-test Tinted suite" },
         { name: "JUnit 5 / Mockito", tier: "Built", evidence: "31-test ledger suite" },
         { name: "Prometheus", tier: "Built", evidence: "Micrometer instrumentation" },
         { name: "Grafana", tier: "Built", evidence: "Provisioned dashboards: p99, consumer lag" },
@@ -218,23 +233,44 @@ export const site: SiteConfig = {
               "Offsets commit only after the balance is durably applied, so a crash means redelivery, not loss. The consumer is idempotent, and the tests prove exactly-once effects.",
           },
           {
-            decision: "Backoff retries + dead-letter topic with replay",
+            decision: "Backoff retries (1s/2s/4s), then a dead-letter topic that preserves the partition, with an admin replay endpoint",
             alternative: "infinite retry or drop-on-failure",
             tradeoff:
-              "Poison messages can't block a partition, and nothing silently disappears. Failures land in the DLT and replay after a fix. The cost is one more thing to monitor.",
+              "Poison messages can't block a partition, and nothing silently disappears. Keeping the partition number on the DLT record means per-account grouping survives the detour, and replay runs under its own consumer group so committed offsets stop it redoing old work. The cost is one more thing to monitor.",
           },
           {
-            decision: "Integer money + optimistic locking",
+            decision: "ErrorHandlingDeserializer wrapping the JSON deserializer",
+            alternative: "letting deserialization throw",
+            tradeoff:
+              "A single malformed payload would otherwise crash-loop the listener forever, since the poison record is redelivered before it can ever be skipped. Wrapping it routes the bad message to the DLT and lets the partition keep moving.",
+          },
+          {
+            decision: "Insufficient funds returns a rejection instead of throwing",
+            alternative: "throwing on any failed transaction",
+            tradeoff:
+              "A business rejection is a valid outcome, not an incident. Throwing would burn three retries and about seven seconds of head-of-line blocking on that partition, then pollute the DLT with things that were never broken.",
+          },
+          {
+            decision: "Money as integer minor units, plus @Version optimistic locking on accounts",
             alternative: "floats and last-write-wins",
             tradeoff:
-              "Cents-as-integers kills float rounding. Optimistic locking turns concurrent balance updates into a retry instead of a silent overwrite.",
+              "Integers kill float rounding outright. Locking matters because a transfer credits the counterparty's row from a different partition's consumer thread, so per-account ordering alone does not prevent a lost update. Optimistic locking turns that race into a retry instead of a silent overwrite.",
+          },
+          {
+            decision: "Three independent idempotency layers",
+            alternative: "trusting one uniqueness check",
+            tradeoff:
+              "A unique idempotency key at submission, a processed-state guard at consumption, and an atomic status-plus-balance commit that makes the guard trustworthy. Any one alone has a gap; together at-least-once delivery becomes effectively-once processing. A duplicate key on a still-pending transaction even re-publishes the event, so a client retry doubles as crash recovery.",
           },
         ],
         evidence: [
-          "31 tests, including Testcontainers integration tests on real Postgres and Kafka, proving ordering under redelivery, exactly-once application, and DLT recovery.",
-          "Correlation IDs trace every transaction end to end: HTTP thread → Kafka headers → consumer.",
-          "Grafana dashboard tracking throughput, p99 latency, rejection rate, and consumer lag.",
-          "Live SSE dashboard with a failure simulator, DLT replay, and a 100-transaction burst generator.",
+          "31 tests across 8 classes, including 4 Testcontainers integration tests against real Postgres and real Kafka. Each one pins a specific design claim rather than covering lines: async round trip, submission-order application, exactly-once effect under redelivery, and DLT-to-replay recovery.",
+          "Async assertions use Awaitility rather than sleeps, so the suite is neither flaky nor artificially slow.",
+          "Four custom Micrometer meters feed Prometheus with histogram buckets, so p99 is computed properly rather than approximated, and consumer lag comes from Kafka's own client metrics instead of a hand-rolled estimate.",
+          "A 7-panel Grafana dashboard is provisioned from the repo: throughput by outcome, submit-to-posted latency, consumer lag by partition, rejection rate, and dead-letter rate.",
+          "Correlation IDs flow from the HTTP thread through the MDC into Kafka headers and out to the consumer thread, so one async request is traceable across threads in every log line.",
+          "Status changes broadcast over SSE only after the transaction commits, so the dashboard can never show a state that later rolls back.",
+          "One command brings up Postgres 16, Kafka 3.9.1 in KRaft mode, Prometheus, and Grafana with healthchecks; CI runs backend, frontend, and a gated Docker build.",
         ],
         retrospective:
           "I'd add the Kubernetes deployment earlier. The interesting question a ledger has to answer is what breaks during a rolling restart, and how the consumer group rebalance is handled. That's the difference between running a system and operating it. In progress now.",
@@ -246,23 +282,35 @@ export const site: SiteConfig = {
       tagline:
         "A RAG research agent with the part most demos skip: an eval harness that proves it works.",
       year: "2026",
-      stack: ["Python", "LangGraph", "FastAPI", "Chroma", "sentence-transformers"],
+      stack: ["Python", "LangGraph", "FastAPI", "Chroma", "BM25", "RRF", "Groq"],
       featured: true,
       caseStudy: {
         problem:
-          "Anyone can wire an LLM to a vector store and get plausible-sounding answers. The hard part is knowing whether they're right, and when they're wrong, whether retrieval or synthesis is to blame.",
+          "Anyone can wire an LLM to a vector store and get plausible-sounding answers. The hard part is knowing whether they're right, and when they're wrong, whether retrieval or synthesis is to blame. So I built the measurement first, then let it decide what shipped.",
         decisions: [
           {
-            decision: "25 golden questions + an LLM-as-judge scorer",
-            alternative: "eyeballing or exact-match",
+            decision: "Hybrid dense + BM25 retrieval fused with Reciprocal Rank Fusion",
+            alternative: "pure vector similarity",
             tradeoff:
-              "Exact match fails on paraphrase; eyeballing drifts. An LLM judge scores meaning, and the golden set stays small enough to audit by hand.",
+              "Embeddings miss exact terminology and BM25 misses paraphrase, so each covers the other's blind spot. RRF (k=60) merges both rankings without tuning a weight. This was the single biggest win of the whole project: 0.641 to 0.831.",
           },
           {
-            decision: "Per-component ablation",
+            decision: "An LLM self-critique node that scores each chunk 1 to 5 and drops anything under 3",
+            alternative: "passing everything retrieved straight to synthesis",
+            tradeoff:
+              "Precision beats recall once the synthesizer is the bottleneck, since irrelevant context actively degrades answers. Worth +0.09 on its own, at the cost of one extra LLM call per question.",
+          },
+          {
+            decision: "8 rubric-scored questions with an LLM-as-judge scorer",
+            alternative: "eyeballing or exact-match",
+            tradeoff:
+              "Exact match fails on paraphrase; eyeballing drifts. Each question carries explicit rubric points and a source slide, and two deterministic checks (did it cite a real chunk, did retrieval return anything) run alongside the model score so the judge is never the only signal. The set stays small enough to audit by hand.",
+          },
+          {
+            decision: "One change per run, nine runs, every trace persisted",
             alternative: "tuning the whole pipeline at once",
             tradeoff:
-              "Swapping one stage at a time shows exactly where each failure comes from. Slower than vibes-driven tuning, but every gain has evidence behind it.",
+              "Swapping one stage at a time shows exactly where each gain came from. Slower than vibes-driven tuning, but it is the only reason I could tell an improvement from a regression.",
           },
           {
             decision: "SSE streaming",
@@ -272,11 +320,13 @@ export const site: SiteConfig = {
           },
         ],
         evidence: [
-          "Accuracy 0.641 → 0.734 on the golden set, every gain attributed to a specific change.",
-          "Every answer is traceable through the LangGraph steps that produced it. No black box.",
+          "Mean score 0.641 to 0.831 across nine recorded ablations, each attributable to one specific change.",
+          "The harness rejected two of my own later ideas: hybrid-rrf-idf scored 0.740 and hybrid-rrf-v2 scored 0.699, both worse than the 0.831 they were meant to beat, so I kept the simpler implementation.",
+          "Every run persists per-question traces, citations, judge reasoning, and elapsed time to a named JSON file, so any two runs can be compared after the fact.",
+          "Five LangGraph nodes stream to the UI over SSE, so the agent's reasoning is visible while it runs rather than after.",
         ],
         retrospective:
-          "The lecture-slides corpus is a toy; I'd swap it for something messier. Next: extracting the harness into a standalone retrieval-eval tool with recall@k and MRR scoring, per-stage failure attribution, and a GitHub Action that fails builds on regression.",
+          "The confidence-check node is still a stub that always returns 1.0, so the conditional retry edge it was meant to trigger never fires. It is wired but inert, and I would rather say that than imply a feedback loop I have not finished. The lecture-slides corpus is also a toy and deserves something messier. Next: extracting the harness into a standalone retrieval-eval tool with recall@k and MRR, per-stage failure attribution, and a GitHub Action that fails builds on regression.",
       },
     },
     {
@@ -285,7 +335,7 @@ export const site: SiteConfig = {
       tagline:
         "Computer vision that gets skin tone right across the full range, then recommends makeup that actually matches.",
       year: "2025–present",
-      stack: ["MediaPipe", "CLIP", "Claude Haiku", "FastAPI", "Next.js"],
+      stack: ["MediaPipe", "OpenCV", "CLIP", "Claude Haiku", "FastAPI", "Next.js"],
       featured: true,
       caseStudy: {
         problem:
@@ -304,15 +354,36 @@ export const site: SiteConfig = {
               "Monk was built for inclusive tech, with real coverage of deeper skin tones. That's the exact failure mode this project exists to avoid.",
           },
           {
-            decision: "CLIP shade matching + LLM recommendations",
-            alternative: "a hand-built rules engine",
+            decision: "CLIP shade matching with embeddings precomputed at import",
+            alternative: "a hand-built rules engine, or embedding per request",
             tradeoff:
-              "CLIP matches visual similarity without labeling thousands of products. A rules engine is more auditable but scales poorly across brands.",
+              "CLIP matches visual similarity without labelling thousands of products, and precomputing the whole catalogue reduces per-request work to one matrix multiply. There's a Lab-distance fallback if the model fails to load, so the feature degrades instead of dying.",
+          },
+          {
+            decision: "A four-check quality gate that refuses the image",
+            alternative: "always returning an answer",
+            tradeoff:
+              "Blur, over/under-exposure, yaw and pitch are each checked with a specific, actionable error message. For a product whose whole purpose is getting tone right, a clear refusal beats a confidently wrong reading. The pitch estimator is still marked provisional in the code pending calibration across the eval set.",
+          },
+          {
+            decision: "Per-patch outlier rejection with a hard floor on survivors",
+            alternative: "averaging every sampled patch",
+            tradeoff:
+              "17 landmark patches are sampled on flat malar and forehead skin, then discarded if they read as an edge, a specular highlight, or deep shadow, with a 10 percent trimmed mean over what remains. If fewer than five patches survive, the request fails rather than guessing.",
+          },
+          {
+            decision: "Sliding-window rate limits plus a fail-closed daily spend cap",
+            alternative: "trusting upstream quotas",
+            tradeoff:
+              "Per-minute and per-day limits with correct Retry-After headers and bounded memory, on top of a cap that meters real token usage against model pricing and stops at a dollar ceiling. A public demo calling a paid API needs a hard spending floor, not good intentions.",
           },
         ],
         evidence: [
-          "45-test suite across preprocessing and classification.",
-          "Full product: FastAPI backend, Next.js frontend, live camera via MediaPipe.",
+          "77-test pytest suite across the preprocessing and classification pipeline.",
+          "Deployed end to end: FastAPI on Render, Next.js 16 and React 19 on Vercel, behind a typed API client.",
+          "The seven-stage pipeline streams over SSE from a worker thread, so the UI narrates each stage instead of showing a spinner.",
+          "Classification returns the distance to all ten Monk reference tones, not just the winner, so the UI can show a range with match scores and let the user override.",
+          "Interface colours are held to measured WCAG AA contrast, and the palette is deliberately near-neutral because a tinted background shifts perceived skin tone and would corrupt the exact judgement the product exists to make.",
         ],
         retrospective:
           "I'd add a labeled eval set of diverse faces with per-tone accuracy reporting, the same eval discipline I applied to the research agent.",
