@@ -22,11 +22,11 @@ export default function Home() {
       <Hero />
       <LookingFor />
       <Stats />
+      <About />
       <Experience />
       <Projects />
       <GithubActivity />
       <Skills />
-      <About />
       <Leadership />
       <Education />
       {/* These render nothing until their config arrays have entries */}

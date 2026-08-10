@@ -14,12 +14,13 @@ export const site: SiteConfig = {
   name: "Stuti Pandya",
   firstName: "Stuti",
   initials: "SP",
-  // REPLACE to change the photo: drop a new file at public/photos/headshot.jpg
-  headshot: "/photos/headshot.jpg",
+  // Background-removed portrait. To swap: drop a new cutout PNG here.
+  // public/photos/headshot.jpg keeps the original uncut version.
+  headshot: "/photos/headshot-cutout.png",
 
-  headline: "I build backend systems that survive failure.",
+  headline: "I build full-stack products, and the systems under them.",
   subheadline:
-    "Computer Engineering student at uOttawa. Software developer intern at Trend Micro, working in Go, Java, and Kafka.",
+    "Computer Engineering student at uOttawa. Software developer intern at Trend Micro, working across Go, Java, Kafka, and Next.js.",
 
   location: "Ottawa, Canada",
   availability: "Open to new grad roles starting January 2027",
@@ -46,7 +47,7 @@ export const site: SiteConfig = {
 
   about: [
     "Three internships so far: container security at Trend Micro (Go, Kubernetes, AWS), event brokers at Solace, and two co-op terms at Natural Resources Canada.",
-    "I like the unglamorous side of backend work: message ordering, failure recovery, observability. My flagship project is an event-driven transaction ledger with 31 tests proving ordering holds even when things crash.",
+    "I work across the stack, but I like the unglamorous end of it: message ordering, failure recovery, observability. My flagship project is an event-driven transaction ledger with 31 tests proving ordering holds even when things crash, fronted by a Next.js dashboard that streams status live.",
     "On the AI side, I build the measurement around LLM systems, not just demos. My research agent ships with its own eval harness: 25 golden questions, an LLM judge, and accuracy raised 64% → 73% by ablation.",
     "Off the clock, I chair uOttawa's IEEE Women in Engineering chapter.",
   ],

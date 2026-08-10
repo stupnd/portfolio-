@@ -15,7 +15,7 @@ export function Skills() {
       <Container>
         <SectionHeading
           size="minor"
-          eyebrow="03 · Skills"
+          eyebrow="04 · Skills"
           title="What I work with"
           description="Honest depth, not percentage bars. Built means I designed and shipped it; Used means I work in it regularly."
         />

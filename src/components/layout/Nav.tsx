@@ -8,12 +8,12 @@ import { site } from "@/content/site.config";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
-// Order mirrors the page: work first, personal later.
+// Order mirrors the page: a short intro, then the work, then how to reach her.
 const links = [
+  { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
-  { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ];
 

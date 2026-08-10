@@ -39,9 +39,15 @@ export function Hero() {
               {site.availability}
             </motion.p>
 
-            <motion.h1 {...fade(0.08)} className="text-display-xl font-semibold">
+            {/* Greeting is secondary; the claim is the headline, so it carries
+                the h1 and the size. */}
+            <motion.p
+              {...fade(0.06)}
+              className="mb-1 text-2xl font-medium text-muted sm:text-3xl"
+            >
               Hi, I&apos;m {site.firstName}.
-              <br />
+            </motion.p>
+            <motion.h1 {...fade(0.08)} className="text-display-lg font-semibold">
               <span className="text-gradient">{site.headline}</span>
             </motion.h1>
 
@@ -78,27 +84,31 @@ export function Hero() {
             </motion.p>
           </div>
 
-          {/* Headshot */}
+          {/* Cutout portrait: no frame, just a gradient bloom behind it and a
+              soft fade at the bottom so it sits in the page rather than on it */}
           <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.94 }}
+            initial={reduce ? false : { opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 0.65, 0.35, 1] }}
-            className="relative mx-auto lg:mx-0"
+            className="relative mx-auto w-[15rem] shrink-0 sm:w-[19rem] lg:mx-0 lg:w-[21rem]"
           >
             <div
               aria-hidden
-              className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-accent/25 via-transparent to-accent-cyan/20 blur-2xl"
+              className="absolute left-1/2 top-1/2 aspect-square w-[125%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(108,124,255,0.42) 0%, rgba(167,139,250,0.24) 38%, rgba(76,201,240,0.12) 58%, transparent 72%)",
+              }}
             />
-            <div className="glass relative h-56 w-56 overflow-hidden rounded-[1.75rem] sm:h-72 sm:w-72">
-              <Image
-                src={site.headshot}
-                alt={`Portrait of ${site.name}`}
-                fill
-                priority
-                sizes="(max-width: 640px) 224px, 288px"
-                className="object-cover object-top"
-              />
-            </div>
+            <Image
+              src={site.headshot}
+              alt={`Portrait of ${site.name}`}
+              width={887}
+              height={1400}
+              priority
+              sizes="(max-width: 640px) 240px, (max-width: 1024px) 304px, 336px"
+              className="relative h-auto w-full object-contain [mask-image:linear-gradient(to_bottom,black_78%,transparent_99%)] [-webkit-mask-image:linear-gradient(to_bottom,black_78%,transparent_99%)]"
+            />
           </motion.div>
         </div>
       </Container>
