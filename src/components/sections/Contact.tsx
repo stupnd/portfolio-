@@ -59,7 +59,7 @@ export function Contact() {
               <a
                 href={site.resumeUrl}
                 download
-                className="inline-flex min-h-11 items-center gap-2 rounded bg-white px-5 text-sm font-semibold text-[#1C3FE0] transition-colors hover:bg-white/90"
+                className="inline-flex min-h-11 items-center gap-2 rounded bg-white px-5 text-sm font-semibold text-paper transition-colors hover:bg-white/90"
               >
                 <FileDown size={16} aria-hidden /> Download resume
               </a>
@@ -108,7 +108,7 @@ export function Contact() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="inline-flex min-h-11 w-full items-center justify-center rounded border border-ink px-5 text-sm font-semibold transition-colors hover:bg-white hover:text-[#1C3FE0] disabled:opacity-60"
+              className="inline-flex min-h-11 w-full items-center justify-center rounded border border-ink px-5 text-sm font-semibold transition-colors hover:bg-white hover:text-paper disabled:opacity-60"
             >
               {status === "sending" ? "Sending…" : status === "sent" ? "Sent" : "Send message"}
             </button>

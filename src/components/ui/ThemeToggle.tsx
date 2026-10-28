@@ -14,7 +14,7 @@ export function ThemeToggle() {
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:text-[var(--fg)]"
+      className="flex h-9 w-9 items-center justify-center rounded text-muted transition-colors hover:text-[var(--fg)]"
     >
       {/* Render both until mounted to avoid hydration mismatch */}
       {mounted && resolvedTheme === "light" ? <Moon size={17} /> : <Sun size={17} />}
