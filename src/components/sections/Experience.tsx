@@ -35,7 +35,7 @@ function Entry({
     <li className="grid gap-x-8 gap-y-3 border-b border-rule py-8 first:pt-0 sm:grid-cols-[11rem,1fr]">
       <div>
         <p className="data text-xs text-ink-2">{period}</p>
-        <p className="data mt-1 text-[11px] text-ink-3">{location}</p>
+        <p className="mt-1 text-sm text-ink-3">{location}</p>
       </div>
 
       <div className="min-w-0">
