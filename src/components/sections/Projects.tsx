@@ -1,122 +1,79 @@
 import Link from "next/link";
-import { ArrowUpRight, MousePointerClick } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Github } from "@/components/icons";
 import { site } from "@/content/site.config";
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { ProjectMotif } from "@/components/ui/ProjectMotif";
+import { Section } from "@/components/ui/Section";
 
-/** Per-project accent hues for the card headers (keeps cards distinct without images). */
-const hues: Record<string, string> = {
-  "transaction-ledger": "from-accent/25 to-accent-cyan/10",
-  "traced-research-agent": "from-accent-violet/25 to-accent/10",
-  tinted: "from-rose-400/20 to-accent-violet/10",
-  bridge: "from-accent-cyan/20 to-emerald-400/10",
-};
-
+/**
+ * An index, not a card grid: each project is one ruled row a reviewer can scan
+ * in a line, and the whole row opens the case study.
+ */
 export function Projects() {
-  const featured = site.projects.filter((p) => p.featured);
+  const rest = site.projects.filter((p) => p.featured && p.demo !== "ledger-sim");
 
   return (
-    <section id="projects" className="py-20 sm:py-28">
-      <Container>
-        <SectionHeading
-          eyebrow="04 · Projects"
-          title="Selected work"
-          description="Four projects, four full case studies: the problem, the trade-offs, the proof."
-        />
+    <Section
+      id="projects"
+      title="More projects"
+      lede="Each one has a full case study: the problem, the trade-offs, the evidence, and what I'd change."
+    >
+      <ol>
+        {rest.map((project) => (
+          <li key={project.slug} className="border-b border-rule [&:first-child>a]:pt-0">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="group grid gap-x-8 gap-y-2 py-6 transition-colors duration-150 hover:bg-ink/[0.03] sm:grid-cols-[5rem,1fr,auto] sm:px-2"
+            >
+              <span className="data pt-1.5 text-xs text-ink-3">{project.year}</span>
+              <div className="min-w-0">
+                <h3 className="display text-2xl font-bold leading-tight group-hover:text-accent">
+                  {project.title}
+                </h3>
+                <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ink-2">{project.tagline}</p>
+                <p className="data mt-3 text-[11px] leading-relaxed text-ink-3">
+                  {project.stack.join(" / ")}
+                </p>
+              </div>
+              <span className="flex items-center gap-1.5 self-start pt-1.5 text-sm font-semibold text-accent">
+                Case study
+                <ArrowUpRight
+                  size={16}
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ol>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {featured.map((project, i) => (
-            <ScrollReveal key={project.slug} delay={i * 0.06}>
-              <Link
-                href={`/projects/${project.slug}`}
-                className="card group flex h-full flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-1"
-              >
-                {/* Visual header: gradient panel carrying the project's system motif */}
-                <div
-                  className={`relative flex h-44 items-end overflow-hidden bg-gradient-to-br p-6 sm:h-52 ${
-                    hues[project.slug] ?? "from-accent/20 to-accent-cyan/10"
-                  }`}
-                >
-                  <ProjectMotif slug={project.slug} />
-                  <span
-                    aria-hidden
-                    className="absolute right-5 top-5 font-mono text-xs text-faint"
-                  >
-                    {project.year}
-                  </span>
-                  {project.demo && (
-                    <span className="absolute left-6 top-5 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-emerald-400">
-                      <MousePointerClick size={10} /> Interactive demo
-                    </span>
+      {site.miniProjects.length > 0 && (
+        <div className="mt-12">
+          <h3 className="text-sm font-semibold">Also built</h3>
+          <ul className="mt-3 grid border-t border-rule sm:grid-cols-3 sm:gap-x-8">
+            {site.miniProjects.map((mini) => (
+              <li key={mini.title} className="border-b border-rule py-4">
+                <div className="flex items-baseline justify-between gap-3">
+                  <p className="font-semibold">{mini.title}</p>
+                  {mini.repoUrl && (
+                    <a
+                      href={mini.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${mini.title} on GitHub`}
+                      className="-m-2 p-2 text-ink-3 transition-colors hover:text-ink"
+                    >
+                      <Github size={15} />
+                    </a>
                   )}
-                  <h3 className="relative text-display-md font-semibold">{project.title}</h3>
                 </div>
-
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="flex-1 text-sm leading-relaxed text-muted">{project.tagline}</p>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full border border-[var(--border)] px-2.5 py-1 font-mono text-[11px] text-faint"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-5 flex items-center justify-between border-t border-[var(--border)] pt-4">
-                    <span className="flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-accent-soft">
-                      Read the case study
-                      <ArrowUpRight
-                        size={15}
-                        className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      />
-                    </span>
-                    {project.repoUrl && (
-                      <span className="flex items-center gap-1.5 font-mono text-xs text-faint">
-                        <Github size={13} /> Source
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{mini.description}</p>
+                <p className="data mt-2 text-[11px] text-ink-3">{mini.stack.join(" / ")}</p>
+              </li>
+            ))}
+          </ul>
         </div>
-
-        {/* Smaller mentions: one line each, deliberately not expanded */}
-        {site.miniProjects.length > 0 && (
-          <ScrollReveal delay={0.1} className="mt-10">
-            <div className="grid gap-4 sm:grid-cols-3">
-              {site.miniProjects.map((mini) => (
-                <div key={mini.title} className="card p-5">
-                  <div className="flex items-start justify-between gap-2">
-                    <h4 className="text-sm font-semibold">{mini.title}</h4>
-                    {mini.repoUrl && (
-                      <a
-                        href={mini.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${mini.title} on GitHub`}
-                        className="text-faint transition-colors hover:text-[var(--fg)]"
-                      >
-                        <Github size={15} />
-                      </a>
-                    )}
-                  </div>
-                  <p className="mt-2 text-xs leading-relaxed text-muted">{mini.description}</p>
-                  <p className="mt-3 font-mono text-[10px] text-faint">{mini.stack.join(" · ")}</p>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        )}
-      </Container>
-    </section>
+      )}
+    </Section>
   );
 }

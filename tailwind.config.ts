@@ -1,49 +1,49 @@
 import type { Config } from "tailwindcss";
 
+/** Every colour is a CSS variable (space-separated RGB) so the dark theme and
+ *  the ink band can re-scope them without touching component classes. */
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
   darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        // Core surfaces — near-black with a slight blue cast, never pure #000
-        base: {
-          950: "#07080c",
-          900: "#0b0d13",
-          850: "#10131c",
-          800: "#151926",
-          700: "#1e2436",
-        },
-        // Accent: electric indigo → cyan range
-        accent: {
-          DEFAULT: "#6c7cff",
-          soft: "#8b98ff",
-          cyan: "#4cc9f0",
-          violet: "#a78bfa",
-        },
+        paper: token("paper"),
+        raised: token("raised"),
         ink: {
-          DEFAULT: "#e8eaf2",
-          muted: "#9aa1b5",
-          faint: "#5c6377",
+          DEFAULT: token("ink"),
+          2: token("ink-2"),
+          3: token("ink-3"),
         },
+        rule: {
+          DEFAULT: token("rule"),
+          strong: token("rule-strong"),
+        },
+        // Cobalt: the one colour that owns regions (the record panel, actions)
+        accent: {
+          DEFAULT: token("accent"),
+          soft: token("accent-soft"),
+          ink: token("accent-ink"),
+          // Legacy aliases still used inside LedgerSim
+          cyan: token("ack"),
+          violet: token("accent"),
+        },
+        ack: token("ack"),
+        pending: token("pending"),
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        mono: ["var(--font-martian)", "ui-monospace", "monospace"],
       },
       fontSize: {
-        "display-xl": ["clamp(2.75rem, 7vw, 5.25rem)", { lineHeight: "1.04", letterSpacing: "-0.03em" }],
-        "display-lg": ["clamp(2rem, 4.5vw, 3.5rem)", { lineHeight: "1.08", letterSpacing: "-0.025em" }],
-        "display-md": ["clamp(1.5rem, 3vw, 2.25rem)", { lineHeight: "1.15", letterSpacing: "-0.02em" }],
+        "display-xl": ["clamp(3rem, 7.2vw, 6rem)", { lineHeight: "0.95", letterSpacing: "-0.035em" }],
+        "display-lg": ["clamp(2.25rem, 4.6vw, 3.75rem)", { lineHeight: "1.02", letterSpacing: "-0.03em" }],
+        "display-md": ["clamp(1.5rem, 2.6vw, 2.125rem)", { lineHeight: "1.12", letterSpacing: "-0.02em" }],
       },
-      animation: {
-        marquee: "marquee 32s linear infinite",
-      },
-      keyframes: {
-        marquee: {
-          from: { transform: "translateX(0)" },
-          to: { transform: "translateX(-50%)" },
-        },
+      borderRadius: {
+        DEFAULT: "4px",
       },
     },
   },

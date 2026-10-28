@@ -1,20 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { FileDown, Mail, Send } from "lucide-react";
-import { Github, Linkedin } from "@/components/icons";
+import { FileDown } from "lucide-react";
 import { site } from "@/content/site.config";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { Button } from "@/components/ui/Button";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+const field =
+  "w-full rounded border border-rule-strong bg-raised px-3.5 py-2.5 text-[15px] outline-none transition-colors placeholder:text-ink-3 focus:border-accent";
+
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
-  const github = site.socials.find((s) => s.label === "GitHub")?.url;
-  const linkedin = site.socials.find((s) => s.label === "LinkedIn")?.url;
+  const { startDate } = site.lookingFor;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -40,130 +38,86 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden py-20 sm:py-28">
-      <div aria-hidden className="glow-field absolute inset-0 rotate-180" />
-      <Container className="relative">
-        <SectionHeading
-          eyebrow="07 · Contact"
-          title="Let's talk"
-          description="Interviewing for new grad SWE roles starting January 2027. Hiring, or just want to talk backend systems? My inbox is open."
-        />
-
-        <div className="grid gap-10 lg:grid-cols-2">
-          <ScrollReveal>
-            <div className="space-y-6">
+    <section id="contact" className="band-cobalt py-20 sm:py-28">
+      <Container>
+        <div className="grid gap-x-12 gap-y-12 lg:grid-cols-12">
+          <div className="lg:col-span-6">
+            <h2 className="display text-display-lg font-extrabold">
+              Hiring for {startDate}?
+            </h2>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-2">
+              I&apos;m interviewing for new-grad backend, infrastructure, and full-stack roles. The
+              fastest way to reach me is email.
+            </p>
+            <a
+              href={`mailto:${site.email}`}
+              className="display mt-8 inline-block break-all text-2xl font-bold underline decoration-2 underline-offset-[6px] hover:decoration-4 sm:text-3xl"
+            >
+              {site.email}
+            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <a
-                href={`mailto:${site.email}`}
-                className="card group flex items-center gap-4 p-5 transition-transform duration-300 hover:-translate-y-0.5"
+                href={site.resumeUrl}
+                download
+                className="inline-flex min-h-11 items-center gap-2 rounded bg-white px-5 text-sm font-semibold text-[#1C3FE0] transition-colors hover:bg-white/90"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--card-hover)] text-accent">
-                  <Mail size={18} />
-                </span>
-                <div>
-                  <p className="text-sm font-semibold">Email</p>
-                  <p className="text-sm text-muted">{site.email}</p>
-                </div>
+                <FileDown size={16} aria-hidden /> Download resume
               </a>
-              {linkedin && (
+              {site.socials.map((s) => (
                 <a
-                  href={linkedin}
+                  key={s.label}
+                  href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="card group flex items-center gap-4 p-5 transition-transform duration-300 hover:-translate-y-0.5"
+                  className="text-sm font-semibold underline decoration-ink-3 hover:decoration-ink"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--card-hover)] text-accent">
-                    <Linkedin size={18} />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold">LinkedIn</p>
-                    <p className="text-sm text-muted">Connect with me</p>
-                  </div>
+                  {s.label}
                 </a>
-              )}
-              {github && (
-                <a
-                  href={github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card group flex items-center gap-4 p-5 transition-transform duration-300 hover:-translate-y-0.5"
-                >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--card-hover)] text-accent">
-                    <Github size={18} />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold">GitHub</p>
-                    <p className="text-sm text-muted">github.com/stupnd</p>
-                  </div>
-                </a>
-              )}
-              <Button href={site.resumeUrl} variant="secondary" download className="w-full">
-                <FileDown size={15} /> Download my resume
-              </Button>
+              ))}
             </div>
-          </ScrollReveal>
+          </div>
 
-          <ScrollReveal delay={0.08}>
-            <form onSubmit={handleSubmit} className="card space-y-4 p-6 sm:p-7">
-              <div>
-                <label htmlFor="name" className="mb-1.5 block text-sm font-medium">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  required
-                  autoComplete="name"
-                  className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-faint focus:border-accent"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-faint focus:border-accent"
-                  placeholder="you@company.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="mb-1.5 block text-sm font-medium">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  className="w-full resize-none rounded-xl border border-[var(--border)] bg-transparent px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-faint focus:border-accent"
-                  placeholder="What would you like to talk about?"
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-medium text-white transition-all hover:bg-accent-soft disabled:opacity-60"
-              >
-                <Send size={15} />
-                {status === "sending" ? "Sending…" : status === "sent" ? "Sent. Thank you!" : "Send message"}
-              </button>
-              {status === "sent" && (
-                <p role="status" className="text-center text-xs text-emerald-400">
-                  Got it. I&apos;ll get back to you soon.
-                </p>
-              )}
-              {status === "error" && (
-                <p role="status" className="text-center text-xs text-muted">
-                  Opening your email client instead…
-                </p>
-              )}
-            </form>
-          </ScrollReveal>
+          <form onSubmit={handleSubmit} className="space-y-4 lg:col-span-5 lg:col-start-8">
+            <p className="text-sm font-semibold">Or leave a message</p>
+            <div>
+              <label htmlFor="name" className="mb-1.5 block text-sm text-ink-2">
+                Name
+              </label>
+              <input id="name" name="name" required autoComplete="name" className={field} />
+            </div>
+            <div>
+              <label htmlFor="email" className="mb-1.5 block text-sm text-ink-2">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                className={field}
+                placeholder="you@company.com"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="mb-1.5 block text-sm text-ink-2">
+                Message
+              </label>
+              <textarea id="message" name="message" required rows={4} className={`${field} resize-none`} />
+            </div>
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="inline-flex min-h-11 w-full items-center justify-center rounded border border-ink px-5 text-sm font-semibold transition-colors hover:bg-white hover:text-[#1C3FE0] disabled:opacity-60"
+            >
+              {status === "sending" ? "Sending…" : status === "sent" ? "Sent" : "Send message"}
+            </button>
+            <p role="status" className="min-h-5 text-sm text-ink-2">
+              {status === "sent" && "Got it. I'll reply from my personal email."}
+              {status === "error" &&
+                "The form couldn't send, so your mail app is opening with the message filled in."}
+            </p>
+          </form>
         </div>
       </Container>
     </section>

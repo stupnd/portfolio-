@@ -12,6 +12,17 @@ export interface SkillCategory {
   skills: Skill[];
 }
 
+/** One row in the hero record stream. Every record is a resume fact. */
+export interface WorkRecord {
+  partition: "work" | "builds" | "community";
+  /** Short key shown beside the offset, e.g. the company or project */
+  key: string;
+  year: string;
+  text: string;
+  /** Where the evidence lives */
+  href: string;
+}
+
 export interface Stat {
   value: string;
   label: string;
@@ -134,6 +145,7 @@ export interface SiteConfig {
     roles: string[];
     startDate: string;
     locations: string;
+    authorization: string;
     note: string;
   };
   resumeUrl: string;
@@ -143,6 +155,7 @@ export interface SiteConfig {
   /** Personal photo strip shown in the About section */
   aboutPhotos: Photo[];
   stats: Stat[];
+  records: WorkRecord[];
   skillCategories: SkillCategory[];
   experience: ExperienceEntry[];
   projects: Project[];

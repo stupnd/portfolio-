@@ -2,11 +2,9 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const styles = {
-  primary:
-    "bg-accent text-white hover:bg-accent-soft shadow-[0_0_24px_rgba(108,124,255,0.35)] hover:shadow-[0_0_32px_rgba(108,124,255,0.5)]",
-  secondary:
-    "glass text-[var(--fg)] hover:border-[var(--border-strong)]",
-  ghost: "text-muted hover:text-[var(--fg)]",
+  primary: "min-h-11 rounded px-5 bg-accent text-accent-ink hover:bg-accent/90",
+  secondary: "min-h-11 rounded px-5 border border-ink/80 text-ink hover:bg-ink hover:text-paper",
+  ghost: "min-h-9 text-ink-2 underline decoration-rule-strong hover:text-ink hover:decoration-ink",
 } as const;
 
 export function Button({
@@ -25,7 +23,7 @@ export function Button({
   download?: boolean;
 }) {
   const cls = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 active:scale-[0.98]",
+    "inline-flex items-center justify-center gap-2 text-sm font-semibold transition-colors duration-150",
     styles[variant],
     className
   );

@@ -3,21 +3,20 @@ import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden">
-      <div aria-hidden className="glow-field absolute inset-0" />
-      <div className="relative px-5 text-center">
-        <p className="font-mono text-sm text-accent">404</p>
-        <h1 className="mt-4 text-display-lg font-semibold">
-          This page applied itself out of existence.
+    <section className="flex min-h-[80vh] items-center">
+      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+        <p className="data text-sm text-pending">offset not found</p>
+        <h1 className="display mt-4 max-w-3xl text-display-lg font-extrabold">
+          This page was never written to the log.
         </h1>
-        <p className="mx-auto mt-4 max-w-md text-muted">
-          Whatever you were looking for isn&apos;t here, but the projects are one click away.
+        <p className="mt-5 max-w-md text-lg text-ink-2">
+          The link may be old. The work, the resume, and the email are all on the homepage.
         </p>
         <Link
           href="/"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-soft"
+          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded bg-accent px-5 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent/90"
         >
-          <ArrowLeft size={15} /> Back home
+          <ArrowLeft size={16} aria-hidden /> Back to the homepage
         </Link>
       </div>
     </section>

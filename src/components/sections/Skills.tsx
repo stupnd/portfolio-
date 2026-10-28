@@ -1,47 +1,58 @@
+"use client";
+
+import { useState } from "react";
 import { site } from "@/content/site.config";
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { Section } from "@/components/ui/Section";
 import { TierChip } from "@/components/ui/TierChip";
 
+const COLLAPSED_PER_CATEGORY = 3;
+
 /**
- * Reference material, so it reads as a dense table rather than six more cards.
- * Evidence stays (it's the honest part) but sits inline instead of taking its
- * own paragraph under every skill.
+ * Reference material, so it reads as a dense ruled table. Collapsed, each
+ * category shows its first three entries (the config lists them strongest
+ * first); the rest are one click away for the reviewer who wants them.
  */
 export function Skills() {
+  const [all, setAll] = useState(false);
+  const total = site.skillCategories.reduce((n, c) => n + c.skills.length, 0);
+
   return (
-    <section id="skills" className="py-14 sm:py-16">
-      <Container>
-        <SectionHeading
-          size="minor"
-          eyebrow="05 · Skills"
-          title="What I work with"
-          description="Honest depth, not percentage bars. Built means I designed and shipped it; Used means I work in it regularly."
-        />
-        <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-          {site.skillCategories.map((cat, i) => (
-            <ScrollReveal key={cat.label} delay={i * 0.04}>
-              <h3 className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-faint">
-                {cat.label}
-              </h3>
-              <ul className="divide-y divide-[var(--border)] border-t border-[var(--border)]">
-                {cat.skills.map((skill) => (
-                  <li key={skill.name} className="py-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium leading-none">{skill.name}</span>
+    <Section
+      id="skills"
+      title="Skills"
+      lede="Depth, not percentage bars. Built: I designed and shipped it. Used: I work in it regularly."
+    >
+      <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
+        {site.skillCategories.map((cat) => {
+          const shown = all ? cat.skills : cat.skills.slice(0, COLLAPSED_PER_CATEGORY);
+          return (
+            <div key={cat.label}>
+              <h3 className="text-sm font-semibold">{cat.label}</h3>
+              <ul className="mt-2 border-t border-ink">
+                {shown.map((skill) => (
+                  <li key={skill.name} className="border-b border-rule py-2.5">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-[15px] font-medium">{skill.name}</span>
                       <TierChip tier={skill.tier} />
                     </div>
                     {skill.evidence && (
-                      <p className="mt-1 text-[11px] leading-snug text-faint">{skill.evidence}</p>
+                      <p className="mt-1 text-xs leading-snug text-ink-3">{skill.evidence}</p>
                     )}
                   </li>
                 ))}
               </ul>
-            </ScrollReveal>
-          ))}
-        </div>
-      </Container>
-    </section>
+            </div>
+          );
+        })}
+      </div>
+      <button
+        type="button"
+        onClick={() => setAll(!all)}
+        aria-expanded={all}
+        className="mt-8 inline-flex min-h-11 items-center rounded border border-ink/80 px-5 text-sm font-semibold transition-colors hover:bg-ink hover:text-paper"
+      >
+        {all ? "Show the short list" : `Show all ${total}`}
+      </button>
+    </Section>
   );
 }

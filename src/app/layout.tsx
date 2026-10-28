@@ -1,23 +1,27 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Archivo, Martian_Mono } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site.config";
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+// Archivo's width axis gives the display voice its wide stance; Martian Mono
+// is reserved for data: offsets, dates, stacks, numbers.
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const martian = Martian_Mono({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-martian",
+  display: "swap",
 });
 
-const title = `${site.name} | Software Engineer`;
+const title = `${site.name} | Backend & Infrastructure Engineer`;
 const description = site.subheadline;
 
 export const metadata: Metadata = {
@@ -34,7 +38,8 @@ export const metadata: Metadata = {
     "Kafka",
     "Spring Boot",
     "Go",
-    "LLM evaluation",
+    "distributed systems",
+    "Kubernetes",
     "Ottawa",
   ],
   authors: [{ name: site.name, url: site.siteUrl }],
@@ -73,15 +78,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${archivo.variable} ${martian.variable} font-sans antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>

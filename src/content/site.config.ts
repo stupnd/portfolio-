@@ -18,9 +18,9 @@ export const site: SiteConfig = {
   // public/photos/headshot.jpg keeps the original uncut version.
   headshot: "/photos/headshot-cutout.png",
 
-  headline: "I build full-stack products, and the systems under them.",
+  headline: "Backend & infrastructure engineer, with full-stack range.",
   subheadline:
-    "Computer Engineering student at uOttawa, graduating December 2026. Software developer intern at TrendAI (Trend Micro), shipping Go APIs, React UIs, and Kubernetes infrastructure on AWS.",
+    "Software developer intern at TrendAI (Trend Micro), shipping Go APIs, React UIs, and Kubernetes infrastructure on AWS. Finishing Computer Engineering at uOttawa in December 2026.",
 
   location: "Ottawa, Canada",
   availability: "Open to new grad roles starting January 2027",
@@ -34,6 +34,7 @@ export const site: SiteConfig = {
     roles: ["Backend / Infrastructure Engineer", "Full-Stack Engineer"],
     startDate: "January 2027",
     locations: "Ottawa, Toronto, Waterloo, Vancouver, or remote in Canada",
+    authorization: "Legally able to work in Canada full time",
     note: "Graduating December 2026 with a BASc in Computer Engineering. Three internships across four terms, and legally able to work in Canada full time.",
   },
   // Copy of Stuti_Pandya_Resume.pdf; `npm run build` fails if it's missing
@@ -68,6 +69,25 @@ export const site: SiteConfig = {
     { value: "81", label: "CVEs cleared", source: "Across four service images at TrendAI" },
     { value: "0.64→0.83", label: "RAG eval score lift", source: "Nine recorded ablations, traced-research-agent" },
     { value: "31", label: "Tests on the ledger", source: "Incl. Testcontainers integration tests" },
+  ],
+
+  /**
+   * The hero record stream, in offset order. Each record is a resume fact and
+   * links to its evidence. Keep it to twelve: the panel is sized for it.
+   */
+  records: [
+    { partition: "work", key: "nrcan", year: "2024", text: "Cut Oracle SQL report runtime 30% with restructured joins and indexed views", href: "/#experience" },
+    { partition: "community", key: "uottawa", year: "2024–25", text: "Dean's Honor List, twice", href: "/#background" },
+    { partition: "builds", key: "bridge", year: "2025", text: "ASL glove streaming flex-sensor readings to the browser over BLE", href: "/projects/bridge" },
+    { partition: "community", key: "ieee-wie", year: "2025", text: "Organized a hackathon for 100+ participants", href: "/#background" },
+    { partition: "work", key: "solace", year: "2025", text: "Reproduced event-broker defects with R&D and shipped validated fixes", href: "/#experience" },
+    { partition: "builds", key: "ledger", year: "2026", text: "Exactly-once balance effects under Kafka redelivery, proven by 31 tests", href: "/projects/transaction-ledger" },
+    { partition: "builds", key: "tinted", year: "2026", text: "7-stage vision pipeline streamed over SSE, covered by 146 tests", href: "/projects/tinted" },
+    { partition: "builds", key: "rag-agent", year: "2026", text: "Eval harness lifted mean score from 0.641 to 0.831 over nine ablations", href: "/projects/traced-research-agent" },
+    { partition: "work", key: "trendai", year: "2026", text: "Recovered $6–9K/month in AWS spend by tracing a 1.4B-call spike to 55 orphaned stacks", href: "/#experience" },
+    { partition: "work", key: "trendai", year: "2026", text: "Cleared 81 CVEs across four service images", href: "/#experience" },
+    { partition: "work", key: "trendai", year: "2026", text: "Shipped a package-license feature on a DuckDB-backed Go API and React UI", href: "/#experience" },
+    { partition: "community", key: "ieee-wie", year: "2026", text: "Chair of IEEE Women in Engineering, uOttawa, for 2026–27", href: "/#background" },
   ],
 
   /**

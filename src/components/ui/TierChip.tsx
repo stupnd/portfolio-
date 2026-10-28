@@ -2,9 +2,9 @@ import type { SkillTier } from "@/content/types";
 import { cn } from "@/lib/utils";
 
 const tierStyles: Record<SkillTier, string> = {
-  Built: "border-accent/40 bg-accent/10 text-accent-soft",
-  Used: "border-accent-cyan/30 bg-accent-cyan/5 text-accent-cyan",
-  Touched: "border-[var(--border)] bg-transparent text-faint",
+  Built: "bg-ink text-paper",
+  Used: "border border-ink-3 text-ink-2",
+  Touched: "border border-dashed border-ink-3 text-ink-3",
 };
 
 /**
@@ -15,7 +15,7 @@ export function TierChip({ tier, className }: { tier: SkillTier; className?: str
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider",
+        "data inline-flex items-center rounded-sm px-1.5 py-0.5 text-[10px] font-medium uppercase leading-none tracking-wide",
         tierStyles[tier],
         className
       )}

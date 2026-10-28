@@ -187,7 +187,7 @@ export function LedgerSim() {
       <div className="border-b border-[var(--border)] px-6 py-4">
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="text-sm font-semibold">Crash the consumer mid-write</h3>
-          <span className="rounded-full border border-[var(--border-strong)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-faint">
+          <span className="rounded border border-[var(--border-strong)] px-2 py-0.5 data text-[10px] uppercase tracking-wide text-faint">
             Browser model
           </span>
         </div>
@@ -219,14 +219,14 @@ export function LedgerSim() {
             return (
               <div key={account}>
                 <div className="mb-2 flex items-baseline justify-between">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-faint">
+                  <span className="data text-[11px] uppercase tracking-wide text-faint">
                     partition · {account.toLowerCase()}
                   </span>
                   <span className="font-mono text-sm tabular-nums text-[var(--fg)]">
                     ${snap.balances[account].toLocaleString()}
                   </span>
                 </div>
-                <div className="flex min-h-[46px] flex-wrap items-center gap-1.5 rounded-xl border border-[var(--border)] bg-[var(--card-hover)] p-2">
+                <div className="flex min-h-[46px] flex-wrap items-center gap-1.5 rounded border border-[var(--border)] bg-[var(--card-hover)] p-2">
                   <AnimatePresence mode="popLayout">
                     {queue.length === 0 && (
                       <span className="px-1 font-mono text-[11px] text-faint">empty</span>
@@ -237,7 +237,7 @@ export function LedgerSim() {
                         layout={!reduce}
                         initial={reduce ? false : { opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className={`rounded-lg border px-2 py-1 font-mono text-[10px] ${chipStyle(m)}`}
+                        className={`rounded border px-2 py-1 font-mono text-[10px] ${chipStyle(m)}`}
                         title={`${m.id}: $${m.amount}`}
                       >
                         {m.id.replace("txn-", "")}
@@ -255,7 +255,7 @@ export function LedgerSim() {
             <button
               type="button"
               onClick={send}
-              className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-2 text-xs font-medium text-white transition-colors hover:bg-accent-soft"
+              className="inline-flex items-center gap-1.5 rounded bg-accent min-h-10 px-4 text-sm font-semibold text-white transition-colors hover:bg-accent/90"
             >
               <Play size={12} /> Send 4 transactions
             </button>
@@ -263,14 +263,14 @@ export function LedgerSim() {
               type="button"
               onClick={armCrash}
               disabled={snap.crashArmed || pending === 0}
-              className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 px-3.5 py-2 text-xs font-medium text-amber-300 transition-colors hover:bg-amber-400/20 disabled:opacity-40"
+              className="inline-flex items-center gap-1.5 rounded border border-pending/40 bg-pending/10 min-h-10 px-4 text-sm font-semibold text-pending transition-colors hover:bg-pending/20 disabled:opacity-40"
             >
               <Zap size={12} /> {snap.crashArmed ? "Crash armed" : "Crash the consumer"}
             </button>
             <button
               type="button"
               onClick={reset}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-3.5 py-2 text-xs font-medium text-muted transition-colors hover:text-[var(--fg)]"
+              className="inline-flex items-center gap-1.5 rounded border border-[var(--border)] min-h-10 px-4 text-sm font-semibold text-muted transition-colors hover:text-[var(--fg)]"
             >
               <RotateCcw size={12} /> Reset
             </button>
@@ -281,7 +281,7 @@ export function LedgerSim() {
           <div
             ref={logRef}
             aria-live="polite"
-            className="h-[172px] overflow-y-auto rounded-xl border border-[var(--border)] bg-[var(--card-hover)] p-3 font-mono text-[11px] leading-relaxed"
+            className="h-[172px] overflow-y-auto rounded border border-[var(--border)] bg-[var(--card-hover)] p-3 font-mono text-[11px] leading-relaxed"
           >
             {snap.log.length === 0 ? (
               <p className="text-faint">Waiting for transactions...</p>
@@ -291,9 +291,9 @@ export function LedgerSim() {
                   key={l.id}
                   className={
                     l.tone === "warn"
-                      ? "text-amber-300"
+                      ? "text-pending"
                       : l.tone === "good"
-                        ? "text-emerald-400"
+                        ? "text-ack"
                         : "text-muted"
                   }
                 >
@@ -305,18 +305,18 @@ export function LedgerSim() {
           </div>
 
           <div
-            className={`rounded-xl border px-4 py-3 ${
+            className={`rounded border px-4 py-3 ${
               consistent
-                ? "border-emerald-400/30 bg-emerald-400/5"
+                ? "border-ack/30 bg-ack/5"
                 : "border-red-400/40 bg-red-400/10"
             }`}
           >
-            <p className="font-mono text-[10px] uppercase tracking-wider text-faint">
+            <p className="data text-[10px] uppercase tracking-wide text-faint">
               Invariant
             </p>
             <p
               className={`mt-1 text-sm font-medium ${
-                consistent ? "text-emerald-400" : "text-red-400"
+                consistent ? "text-ack" : "text-[#FF8A8A]"
               }`}
             >
               {consistent
@@ -337,12 +337,12 @@ export function LedgerSim() {
 function chipStyle(m: Msg) {
   switch (m.state) {
     case "applied":
-      return "border-emerald-400/30 bg-emerald-400/10 text-emerald-400";
+      return "border-ack/30 bg-ack/10 text-ack";
     case "skipped":
       return "border-accent/40 bg-accent/10 text-accent-soft";
     default:
       return m.redelivered
-        ? "border-amber-400/40 bg-amber-400/10 text-amber-300"
+        ? "border-pending/40 bg-pending/10 text-pending"
         : "border-[var(--border-strong)] text-muted";
   }
 }

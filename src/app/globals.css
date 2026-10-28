@@ -2,34 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Light is the default: recruiters read this in daytime office light.
+   Values are space-separated RGB so Tailwind can apply alpha. */
 :root {
-  --bg: #fafafc;
-  --bg-elevated: #ffffff;
-  --fg: #14161d;
-  --fg-muted: #555b6e;
-  --fg-faint: #8a90a3;
-  --border: rgba(20, 22, 29, 0.1);
-  --border-strong: rgba(20, 22, 29, 0.18);
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(20, 22, 29, 0.08);
-  --glow-a: rgba(108, 124, 255, 0.14);
-  --glow-b: rgba(76, 201, 240, 0.1);
-  --card-hover: rgba(20, 22, 29, 0.03);
+  --paper: 238 241 244;
+  --raised: 247 248 250;
+  --ink: 14 23 38;
+  --ink-2: 66 78 96;
+  --ink-3: 88 100 117;
+  --rule: 200 207 216;
+  --rule-strong: 150 160 174;
+  --accent: 28 63 224;
+  --accent-soft: 20 48 186;
+  --accent-ink: 255 255 255;
+  --ack: 11 122 82;
+  --pending: 166 77 6;
+
+  /* Legacy names some components still read */
+  --bg: rgb(var(--paper));
+  --bg-elevated: rgb(var(--raised));
+  --fg: rgb(var(--ink));
+  --fg-muted: rgb(var(--ink-2));
+  --fg-faint: rgb(var(--ink-3));
+  --border: rgb(var(--rule));
+  --border-strong: rgb(var(--rule-strong));
+  --card-hover: rgb(var(--ink) / 0.04);
+
+  color-scheme: light;
 }
 
 .dark {
-  --bg: #07080c;
-  --bg-elevated: #0e1119;
-  --fg: #e8eaf2;
-  --fg-muted: #9aa1b5;
-  --fg-faint: #5c6377;
-  --border: rgba(160, 170, 200, 0.1);
-  --border-strong: rgba(160, 170, 200, 0.2);
-  --glass-bg: rgba(16, 19, 28, 0.6);
-  --glass-border: rgba(160, 170, 200, 0.12);
-  --glow-a: rgba(108, 124, 255, 0.16);
-  --glow-b: rgba(76, 201, 240, 0.09);
-  --card-hover: rgba(160, 170, 200, 0.05);
+  --paper: 10 14 21;
+  --raised: 17 22 32;
+  --ink: 230 234 240;
+  --ink-2: 168 178 192;
+  --ink-3: 134 147 165;
+  --rule: 38 47 61;
+  --rule-strong: 70 82 100;
+  --accent: 56 88 240;
+  --accent-soft: 130 152 255;
+  --accent-ink: 255 255 255;
+  --ack: 61 220 151;
+  --pending: 245 176 74;
+  color-scheme: dark;
+}
+
+/* Inverted region: the flagship band and the record panel re-scope the tokens
+   so everything inside (LedgerSim included) reads on the dark ground. */
+.band-ink {
+  --paper: 14 23 38;
+  --raised: 22 33 52;
+  --ink: 236 240 246;
+  --ink-2: 176 188 206;
+  --ink-3: 140 155 178;
+  --rule: 44 58 82;
+  --rule-strong: 78 96 124;
+  --accent: 56 88 240;
+  --accent-soft: 132 154 255;
+  --ack: 74 222 160;
+  --pending: 252 186 92;
+  --bg: rgb(var(--paper));
+  --bg-elevated: rgb(var(--raised));
+  --fg: rgb(var(--ink));
+  --fg-muted: rgb(var(--ink-2));
+  --fg-faint: rgb(var(--ink-3));
+  --border: rgb(var(--rule));
+  --border-strong: rgb(var(--rule-strong));
+  --card-hover: rgb(var(--ink) / 0.05);
+  background: rgb(var(--paper));
+  color: rgb(var(--ink));
+}
+.dark .band-ink {
+  --paper: 20 30 64;
+  --raised: 28 40 82;
+  --rule: 52 68 112;
+}
+
+.band-cobalt {
+  --paper: 28 63 224;
+  --raised: 38 74 232;
+  --ink: 255 255 255;
+  --ink-2: 222 229 255;
+  --ink-3: 196 207 252;
+  --rule: 78 108 236;
+  --rule-strong: 128 152 244;
+  --ack: 140 245 196;
+  --pending: 255 210 130;
+  background: rgb(var(--paper));
+  color: rgb(var(--ink));
+}
+.dark .band-cobalt {
+  --paper: 30 52 170;
+  --raised: 38 62 186;
+  --rule: 62 88 200;
 }
 
 html {
@@ -51,77 +116,79 @@ html {
 }
 
 body {
-  color: var(--fg);
-  background: var(--bg);
-  font-feature-settings: "ss01", "cv11";
+  color: rgb(var(--ink));
+  background: rgb(var(--paper));
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgba(108, 124, 255, 0.35);
+  background: rgb(var(--accent));
+  color: rgb(var(--accent-ink));
 }
 
-/* Visible focus ring for keyboard users only */
 :focus-visible {
-  outline: 2px solid #6c7cff;
+  outline: 2px solid rgb(var(--accent));
   outline-offset: 3px;
-  border-radius: 2px;
+}
+.band-cobalt :focus-visible {
+  outline-color: rgb(var(--ink));
+}
+
+/* Scrollbars carry the palette too */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--rule-strong)) transparent;
+}
+
+a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
 }
 
 @layer components {
-  .glass {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-
+  /* Kept for the components (LedgerSim, palette) that frame a panel */
   .card {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
-  }
-  .card:hover {
-    border-color: var(--border-strong);
+    background: rgb(var(--raised));
+    border: 1px solid rgb(var(--rule));
+    border-radius: 4px;
   }
 
-  /* Headline gradient — subtle, not rainbow */
-  .text-gradient {
-    background: linear-gradient(120deg, var(--fg) 30%, #6c7cff 65%, #4cc9f0 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+  .glass {
+    background: rgb(var(--raised));
+    border: 1px solid rgb(var(--rule));
   }
 
-  /* Ambient background glow blobs */
-  .glow-field {
-    background:
-      radial-gradient(ellipse 55% 45% at 22% 12%, var(--glow-a), transparent 60%),
-      radial-gradient(ellipse 45% 40% at 80% 30%, var(--glow-b), transparent 65%);
+  /* Offsets, dates, numbers: aligned figures */
+  .data {
+    font-family: var(--font-martian), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-stretch: 87.5%;
   }
 
-  .grid-lines {
-    background-image:
-      linear-gradient(to right, var(--border) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 75%);
+  .display {
+    font-stretch: 112.5%;
   }
 }
 
 @layer utilities {
+  /* On dark grounds the cobalt fill stays deep enough for white labels, so
+     accent-coloured text switches to the lighter tint to keep 4.5:1. */
+  .dark .text-accent,
+  .band-ink .text-accent {
+    color: rgb(var(--accent-soft));
+  }
+
   .text-muted {
-    color: var(--fg-muted);
+    color: rgb(var(--ink-2));
   }
   .text-faint {
-    color: var(--fg-faint);
+    color: rgb(var(--ink-3));
   }
   .border-default {
-    border-color: var(--border);
+    border-color: rgb(var(--rule));
   }
   .bg-elevated {
-    background-color: var(--bg-elevated);
+    background-color: rgb(var(--raised));
   }
 }

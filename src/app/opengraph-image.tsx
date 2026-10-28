@@ -2,11 +2,13 @@ import { ImageResponse } from "next/og";
 import { site } from "@/content/site.config";
 
 export const runtime = "edge";
-export const alt = `${site.name} | Software Engineer`;
+export const alt = `${site.name} | Backend & Infrastructure Engineer`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Same world as the site: paper ground, ink type, a cobalt record panel.
 export default function OpenGraphImage() {
+  const rows = site.records.slice(-4);
   return new ImageResponse(
     (
       <div
@@ -14,36 +16,50 @@ export default function OpenGraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          background: "linear-gradient(135deg, #07080c 55%, #10131c 100%)",
-          color: "#e8eaf2",
+          background: "#EEF1F4",
+          color: "#0E1726",
           fontFamily: "sans-serif",
+          padding: 64,
+          gap: 48,
         }}
       >
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", width: 470 }}>
+          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 0.95, letterSpacing: -3 }}>
+            {site.name.split(" ")[0]}
+          </div>
+          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 0.95, letterSpacing: -3 }}>
+            {site.name.split(" ").slice(1).join(" ")}
+          </div>
+          <div style={{ fontSize: 30, fontWeight: 600, marginTop: 28, lineHeight: 1.25 }}>{site.headline}</div>
+        </div>
         <div
           style={{
-            position: "absolute",
-            top: -140,
-            right: -100,
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(108,124,255,0.35), transparent 65%)",
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            background: "#1C3FE0",
+            color: "#FFFFFF",
+            borderRadius: 6,
+            padding: "24px 28px",
+            justifyContent: "center",
           }}
-        />
-        <div style={{ fontSize: 28, color: "#6c7cff", letterSpacing: 4, textTransform: "uppercase" }}>
-          {site.location}
-        </div>
-        <div style={{ fontSize: 84, fontWeight: 700, marginTop: 16, letterSpacing: -2 }}>
-          {site.name}
-        </div>
-        <div style={{ fontSize: 36, color: "#9aa1b5", marginTop: 20, maxWidth: 900 }}>
-          {site.headline}
-        </div>
-        <div style={{ fontSize: 26, color: "#5c6377", marginTop: 40 }}>
-          Backend · Distributed Systems · LLM Evaluation
+        >
+          {rows.map((r, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                gap: 20,
+                padding: "16px 0",
+                borderBottom: "1px solid #4E6CEC",
+                fontSize: 24,
+                lineHeight: 1.3,
+              }}
+            >
+              <div style={{ color: "#C4CFFC", width: 70 }}>{String(site.records.length - 4 + i).padStart(4, "0")}</div>
+              <div style={{ flex: 1 }}>{r.text}</div>
+            </div>
+          ))}
         </div>
       </div>
     ),

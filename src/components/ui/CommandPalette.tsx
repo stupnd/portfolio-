@@ -45,13 +45,13 @@ export function CommandPalette() {
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-start justify-center bg-black/50 pt-[18vh] backdrop-blur-sm"
+      className="fixed inset-0 z-[70] flex items-start justify-center bg-ink/40 pt-[18vh]"
       onClick={() => setOpen(false)}
     >
       <div onClick={(e) => e.stopPropagation()} className="w-full max-w-lg px-4">
         <Command
           label="Command palette"
-          className="glass overflow-hidden rounded-2xl shadow-2xl"
+          className="overflow-hidden rounded border border-rule bg-raised shadow-[0_24px_48px_-12px_rgb(14_23_38/0.35)]"
         >
           <Command.Input
             autoFocus
@@ -137,7 +137,7 @@ function Item({
   return (
     <Command.Item
       onSelect={onSelect}
-      className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted data-[selected=true]:bg-[var(--card-hover)] data-[selected=true]:text-[var(--fg)]"
+      className="flex cursor-pointer items-center gap-3 rounded px-3 py-2.5 text-sm text-muted data-[selected=true]:bg-[var(--card-hover)] data-[selected=true]:text-[var(--fg)]"
     >
       <span className="text-faint">{icon}</span>
       {children}

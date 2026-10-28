@@ -1,37 +1,26 @@
 import { Hero } from "@/components/sections/Hero";
-import { LookingFor } from "@/components/sections/LookingFor";
-import { Stats } from "@/components/sections/Stats";
-import { Experience } from "@/components/sections/Experience";
+import { Flagship } from "@/components/sections/Flagship";
 import { Projects } from "@/components/sections/Projects";
-import { GithubActivity } from "@/components/sections/GithubActivity";
+import { Experience } from "@/components/sections/Experience";
 import { Skills } from "@/components/sections/Skills";
 import { About } from "@/components/sections/About";
-import { Leadership } from "@/components/sections/Leadership";
-import { Education } from "@/components/sections/Education";
-import { Certifications } from "@/components/sections/Certifications";
-import { Testimonials } from "@/components/sections/Testimonials";
+import { Background } from "@/components/sections/Background";
 import { Contact } from "@/components/sections/Contact";
 
 /**
- * Section order is deliberate: a recruiter gets roles, proof of work, and
- * skills before anything personal.
+ * Proof before personality: the record stream and the ledger a reviewer can
+ * crash come first, the person after, and the close hands over resume and email.
  */
 export default function Home() {
   return (
     <>
       <Hero />
-      <LookingFor />
-      <Stats />
-      <About />
-      <Education />
-      <Experience />
+      <Flagship />
       <Projects />
-      <GithubActivity />
+      <Experience />
       <Skills />
-      <Leadership />
-      {/* These render nothing until their config arrays have entries */}
-      <Certifications />
-      <Testimonials />
+      <About />
+      <Background />
       <Contact />
     </>
   );
