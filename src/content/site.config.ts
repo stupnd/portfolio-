@@ -20,7 +20,7 @@ export const site: SiteConfig = {
 
   headline: "I build full-stack products, and the systems under them.",
   subheadline:
-    "Computer Engineering student at uOttawa. Software developer intern at Trend Micro, working across Go, Java, Kafka, and Next.js.",
+    "Computer Engineering student at uOttawa, graduating December 2026. Software developer intern at TrendAI (Trend Micro), shipping Go APIs, React UIs, and Kubernetes infrastructure on AWS.",
 
   location: "Ottawa, Canada",
   availability: "Open to new grad roles starting January 2027",
@@ -31,12 +31,12 @@ export const site: SiteConfig = {
    * so keep it concrete: role titles they actually post, and a real start date.
    */
   lookingFor: {
-    roles: ["Backend Engineer", "Full-Stack Engineer", "Software Engineer, New Grad", "AI / ML Engineer"],
+    roles: ["Backend / Infrastructure Engineer", "Full-Stack Engineer"],
     startDate: "January 2027",
     locations: "Ottawa, Toronto, Waterloo, Vancouver, or remote in Canada",
-    note: "Graduating December 2026 with a BASc in Computer Engineering. Three software internships completed, and legally able to work in Canada full time.",
+    note: "Graduating December 2026 with a BASc in Computer Engineering. Three internships across four terms, and legally able to work in Canada full time.",
   },
-  // REPLACE: drop your finalized resume at public/resume.pdf (this link 404s until you do)
+  // Copy of Stuti_Pandya_Resume.pdf; `npm run build` fails if it's missing
   resumeUrl: "/resume.pdf",
   siteUrl: "https://stutipnd.net",
 
@@ -46,7 +46,7 @@ export const site: SiteConfig = {
   ],
 
   about: [
-    "Three internships so far: container security at Trend Micro (Go, Kubernetes, AWS), event brokers at Solace, and two co-op terms at Natural Resources Canada.",
+    "Three internships so far: AI and container security at TrendAI (Go, Kubernetes, AWS), event brokers at Solace, and two co-op terms at Natural Resources Canada.",
     "I work across the stack, but I like the unglamorous end of it: message ordering, failure recovery, observability. My flagship project is an event-driven transaction ledger with 31 tests proving ordering holds even when things crash, fronted by a Next.js dashboard that streams status live.",
     "On the AI side, I build the measurement around LLM systems, not just demos. My research agent ships with its own eval harness: 8 rubric-scored questions, an LLM judge, and nine recorded ablations that took mean score from 0.641 to 0.831.",
     "Off the clock, I chair uOttawa's Institute of Electrical and Electronics Engineers (IEEE) Women in Engineering chapter.",
@@ -63,9 +63,9 @@ export const site: SiteConfig = {
   // Every number here is sourced. See the label lines.
   stats: [
     { value: "3", label: "Internships", source: "Trend Micro · Solace · NRCan (2 co-op terms)" },
-    { value: "$6–9K/mo", label: "Cloud cost savings identified", source: "AWS cost investigation at Trend Micro" },
-    { value: "1.4B+", label: "Monthly API calls traced", source: "Root-caused a cost spike to 55 orphaned stacks" },
-    { value: "200+", label: "CVEs triaged & resolved", source: "With automation cutting manual triage ~75%" },
+    { value: "$6–9K/mo", label: "AWS spend recovered", source: "Cost investigation at TrendAI" },
+    { value: "1.4B", label: "API Gateway calls traced", source: "Root-caused the spike to 55 orphaned stacks" },
+    { value: "81", label: "CVEs cleared", source: "Across four service images at TrendAI" },
     { value: "0.64→0.83", label: "RAG eval score lift", source: "Nine recorded ablations, traced-research-agent" },
     { value: "31", label: "Tests on the ledger", source: "Incl. Testcontainers integration tests" },
   ],
@@ -74,7 +74,7 @@ export const site: SiteConfig = {
    * Tiers come straight from the skill depth ledger:
    *  Built:   designed and implemented it
    *  Used:    worked in it regularly
-   *  Touched: used a few times (only Helm earns a listing at this tier)
+   *  Touched: used a few times
    */
   skillCategories: [
     {
@@ -82,10 +82,11 @@ export const site: SiteConfig = {
       skills: [
         { name: "Java", tier: "Built", evidence: "Java 21 ledger service, coursework" },
         { name: "Python", tier: "Used", evidence: "traced-research-agent, Tinted" },
-        { name: "Go", tier: "Used", evidence: "Production backend services at Trend Micro" },
+        { name: "Go", tier: "Used", evidence: "DuckDB-backed REST API at TrendAI" },
         { name: "TypeScript", tier: "Used", evidence: "Trend Micro, personal projects" },
         { name: "C#", tier: "Used", evidence: "Bulk import tooling at NRCan" },
         { name: "SQL", tier: "Used", evidence: "PostgreSQL + Oracle query optimization" },
+        { name: "C++", tier: "Used", evidence: "Systems coursework" },
       ],
     },
     {
@@ -97,6 +98,14 @@ export const site: SiteConfig = {
         { name: "Flask", tier: "Built", evidence: "DistilBERT REST API" },
         { name: "REST / SSE", tier: "Built", evidence: "202-async APIs, SSE with keepalive + reconnect" },
         { name: "Rate limiting", tier: "Built", evidence: "Sliding window, Retry-After, spend caps" },
+        { name: "MQTT / AMQP / JMS", tier: "Used", evidence: "Event broker debugging at Solace" },
+      ],
+    },
+    {
+      label: "Frontend",
+      skills: [
+        { name: "React / Next.js", tier: "Built", evidence: "TrendAI inventory UI, ledger dashboard, Tinted" },
+        { name: "Tailwind", tier: "Built", evidence: "This site, Tinted" },
       ],
     },
     {
@@ -104,6 +113,7 @@ export const site: SiteConfig = {
       skills: [
         { name: "PostgreSQL", tier: "Used", evidence: "Flyway migrations, optimistic locking" },
         { name: "Oracle SQL", tier: "Used", evidence: "Join restructuring, indexed views: 30% faster" },
+        { name: "DuckDB", tier: "Used", evidence: "Embedded OLAP behind a Go API at TrendAI" },
         { name: "Firebase", tier: "Used", evidence: "Real-time backend, Android cycling app" },
         { name: "Supabase", tier: "Used", evidence: "Auth and storage, Tinted" },
       ],
@@ -111,12 +121,13 @@ export const site: SiteConfig = {
     {
       label: "Cloud & DevOps",
       skills: [
-        { name: "Kubernetes", tier: "Used", evidence: "Debugging production workloads at Trend Micro" },
+        { name: "Kubernetes / EKS", tier: "Used", evidence: "Resource limits for two operators at TrendAI" },
+        { name: "AWS", tier: "Used", evidence: "API Gateway, CloudFormation, EKS at TrendAI" },
         { name: "Docker Compose", tier: "Built", evidence: "Postgres, Kafka KRaft, Prometheus, Grafana" },
         { name: "Docker", tier: "Used", evidence: "Multi-stage, non-root images" },
         { name: "AWS CloudWatch", tier: "Used", evidence: "1.4B-call cost spike investigation" },
-        { name: "GitHub Actions", tier: "Built", evidence: "CI/CD at Trend Micro + ledger service" },
-        { name: "Helm", tier: "Touched", evidence: "Chart misconfiguration fix" },
+        { name: "GitHub Actions", tier: "Built", evidence: "Cosign image signing at TrendAI, ledger CI" },
+        { name: "Helm", tier: "Used", evidence: "CPU/memory limits deployed on EKS" },
       ],
     },
     {
@@ -144,7 +155,7 @@ export const site: SiteConfig = {
       skills: [
         { name: "Testcontainers", tier: "Built", evidence: "Real Postgres + Kafka in integration tests" },
         { name: "Awaitility", tier: "Built", evidence: "Async assertions without sleeps" },
-        { name: "pytest", tier: "Built", evidence: "77-test Tinted suite" },
+        { name: "pytest", tier: "Built", evidence: "146-test Tinted suite" },
         { name: "JUnit 5 / Mockito", tier: "Built", evidence: "31-test ledger suite" },
         { name: "Prometheus", tier: "Built", evidence: "Micrometer instrumentation" },
         { name: "Grafana", tier: "Built", evidence: "Provisioned dashboards: p99, consumer lag" },
@@ -154,19 +165,20 @@ export const site: SiteConfig = {
 
   experience: [
     {
-      company: "Trend Micro",
-      role: "Software Developer Intern, Container Security",
+      company: "TrendAI (Trend Micro)",
+      role: "Software Developer Intern, AI Security & Container Security",
       period: "May 2026 – Present",
       location: "Ottawa",
-      stack: ["Go", "TypeScript", "Kubernetes", "AWS", "Docker"],
+      stack: ["Go", "React", "DuckDB", "Kubernetes", "EKS", "Helm", "AWS", "GitHub Actions"],
       highlights: [
-        "Traced an API Gateway cost spike across ~1.4B calls/month to 55 orphaned CloudFormation stacks, with $6–9K/month recoverable. Fully independent investigation.",
-        "Extended the CycloneDX SBOM schema to carry license metadata end to end, a client-requested change across services.",
-        "Resolved 200+ CVEs; built automation cutting manual triage ~75%.",
+        "Recovered $6–9K/month in AWS spend by tracing a 1.4B-call API Gateway spike to 55 orphaned CloudFormation stacks.",
+        "Shipped a package-license feature across 2 public REST endpoints on a DuckDB-backed Go API and the React inventory UI.",
+        "Cleared 81 distinct CVEs across four service images by bumping Go stdlib, OpenSSL/libcrypto, and x/crypto.",
       ],
       details: [
-        "Moved the managed rules list to cursor-based pagination; fixed a P2 CVSS API bug.",
-        "Built GitHub Actions CI/CD with unit and integration test gates.",
+        "Built a firstDetected date-range filter on the vulnerability endpoints and React UI, resolving timezone and bound edge cases.",
+        "Deployed Helm manifests setting Kubernetes CPU/memory limits for the admission-controller and policy-operator on EKS.",
+        "Automated Cosign image signing in GitHub Actions CI/CD, hardening a forked action against path-traversal on image refs.",
       ],
     },
     {
@@ -180,7 +192,7 @@ export const site: SiteConfig = {
         "Debugged distributed messaging across hybrid cloud; wrote postmortems tracing root causes through broker and client layers.",
       ],
       details: [
-        "Supported enterprise customers on event-driven platforms; reduced repeat escalations.",
+        "Supported enterprise customers running event-driven platforms on AWS, Azure, GCP, and Kubernetes, reducing escalations.",
         "The MQTT/AMQP/JMS depth here is the same intuition behind my Kafka ledger project.",
       ],
     },
@@ -195,7 +207,7 @@ export const site: SiteConfig = {
         "Built a C# bulk import tool and automated Salesforce sandbox refresh with Apex and PowerShell.",
       ],
       details: [
-        "Migrated and cleaned legacy records ahead of a system upgrade.",
+        "Resolved scientific-notation edge cases in legacy data during the bulk import.",
         "Invited back for a second co-op term.",
       ],
     },
@@ -284,6 +296,7 @@ export const site: SiteConfig = {
       year: "2026",
       stack: ["Python", "LangGraph", "FastAPI", "Chroma", "BM25", "RRF", "Groq"],
       featured: true,
+      repoUrl: "https://github.com/stupnd/traced-research-agent",
       caseStudy: {
         problem:
           "Anyone can wire an LLM to a vector store and get plausible-sounding answers. The hard part is knowing whether they're right, and when they're wrong, whether retrieval or synthesis is to blame. So I built the measurement first, then let it decide what shipped.",
@@ -334,9 +347,10 @@ export const site: SiteConfig = {
       title: "Tinted",
       tagline:
         "Computer vision that gets skin tone right across the full range, then recommends makeup that actually matches.",
-      year: "2025–present",
-      stack: ["MediaPipe", "OpenCV", "CLIP", "Claude Haiku", "FastAPI", "Next.js"],
+      year: "2026",
+      stack: ["FastAPI", "React 19", "Next.js", "MediaPipe", "OpenCV", "CLIP", "Claude Haiku"],
       featured: true,
+      repoUrl: "https://github.com/stupnd/tinted",
       caseStudy: {
         problem:
           "Most beauty tech gets skin tone wrong for anyone who isn't light-skinned, because camera white balance and lighting swamp the signal. Tinted corrects for that and classifies tone across the full Monk scale.",
@@ -379,14 +393,14 @@ export const site: SiteConfig = {
           },
         ],
         evidence: [
-          "77-test pytest suite across the preprocessing and classification pipeline.",
-          "Deployed end to end: FastAPI on Render, Next.js 16 and React 19 on Vercel, behind a typed API client.",
+          "146-test pytest suite across the preprocessing and classification pipeline, plus an offline harness scoring accuracy across 3 lighting sets.",
+          "Deployed end to end: 8 FastAPI REST routes on Render, Next.js 16 and React 19 on Vercel, behind a typed API client.",
           "The seven-stage pipeline streams over SSE from a worker thread, so the UI narrates each stage instead of showing a spinner.",
           "Classification returns the distance to all ten Monk reference tones, not just the winner, so the UI can show a range with match scores and let the user override.",
           "Interface colours are held to measured WCAG AA contrast, and the palette is deliberately near-neutral because a tinted background shifts perceived skin tone and would corrupt the exact judgement the product exists to make.",
         ],
         retrospective:
-          "I'd add a labeled eval set of diverse faces with per-tone accuracy reporting, the same eval discipline I applied to the research agent.",
+          "The offline harness splits accuracy by lighting condition, not by tone. Next I'd extend it to a labeled set of diverse faces with per-Monk-tone accuracy, so a regression on deeper skin tones can't hide inside an average.",
       },
     },
     {
@@ -451,21 +465,20 @@ export const site: SiteConfig = {
   leadership: [
     {
       org: "Institute of Electrical and Electronics Engineers (IEEE) Women in Engineering, uOttawa",
-      role: "Chair (2026–27) · previously Vice Chair, VP External",
+      role: "Chair (2026–27) · previously Vice Chair (2025–26)",
       period: "Sept 2024 – Present",
       images: ["/photos/wie-team-stage.jpg", "/photos/wie-gala.jpg", "/photos/wie-photobooth.jpg"],
       bullets: [
-        "VP External → Vice Chair → Chair, across three years.",
         "Launched WIEee Code, our first beginner hackathon, and built the starter template teams worked from.",
         "Built a mentorship program pairing upper-years with first- and second-years.",
-        "Ran WIPS 2026 and a 100+ participant hackathon, plus workshops on Git, React, and Docker.",
+        "Organized a hackathon for 100+ participants and led technical workshops on Git, React, and Docker.",
       ],
     },
   ],
 
   achievements: [
     { title: "2nd place, Hackers & Healers AI in Healthcare hackathon", detail: "Continuity Copilot: agentic clinical briefing on FHIR data", year: "2026" },
-    { title: "Dean's Honour List ×2", detail: "University of Ottawa, Faculty of Engineering", year: "2024–2025" },
+    { title: "Dean's Honor List ×2", detail: "University of Ottawa, Faculty of Engineering", year: "2024–2025" },
     { title: "WIEee Code: founded the chapter's first beginner hackathon", detail: "Including the starter template teams built from", year: "2025" },
   ],
 
@@ -475,11 +488,11 @@ export const site: SiteConfig = {
     stream: "Engineering Management & Entrepreneurship stream",
     period: "Graduating December 2026",
     gpa: "CGPA 8.13/10.0",
-    honours: ["Dean's Honour List ×2"],
+    honours: ["Dean's Honor List ×2"],
     coursework: [
       {
         label: "Systems",
-        courses: ["Data Structures & Algorithms", "Operating Systems", "Distributed Systems", "Computer Architecture", "Real-Time Systems"],
+        courses: ["Data Structures & Algorithms", "Computer Networks", "Operating Systems", "Distributed Systems", "Computer Architecture", "Real-Time Systems"],
       },
       { label: "AI / ML", courses: ["Applied Machine Learning", "Artificial Intelligence"] },
     ],

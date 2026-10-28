@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node -e \"require('fs').accessSync('public/resume.pdf')\" || (echo 'public/resume.pdf is missing: copy Stuti_Pandya_Resume.pdf there' && exit 1)",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

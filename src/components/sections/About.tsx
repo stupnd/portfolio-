@@ -26,7 +26,7 @@ export function About() {
                 <li>🎓 {site.education.degree.replace("Bachelor of Applied Science, ", "BASc ")}</li>
                 <li>📍 {site.location}</li>
                 <li>🗓 {site.education.period}</li>
-                <li>💼 Currently @ Trend Micro (container security)</li>
+                <li>💼 Currently @ TrendAI (AI & container security)</li>
                 <li>🏛 Chair, IEEE WIE uOttawa</li>
               </ul>
             </div>
