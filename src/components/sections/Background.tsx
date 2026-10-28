@@ -20,7 +20,7 @@ export function Background() {
           <dl className="mt-5 grid max-w-3xl gap-y-2 text-[15px] sm:grid-cols-[7rem,1fr]">
             {edu.coursework.map((group) => (
               <div key={group.label} className="contents">
-                <dt className="data pt-0.5 text-[11px] uppercase tracking-wide text-ink-3">{group.label}</dt>
+                <dt className="text-sm font-semibold">{group.label}</dt>
                 <dd className="leading-relaxed">{group.courses.join(", ")}</dd>
               </div>
             ))}
@@ -62,7 +62,7 @@ export function Background() {
       ))}
 
       <div className="grid gap-x-8 gap-y-3 border-t border-rule pt-8 sm:grid-cols-[11rem,1fr]">
-        <p className="data text-xs text-ink-2">Recognition</p>
+        <p className="text-sm font-semibold">Recognition</p>
         <ul className="max-w-3xl">
           {site.achievements.map((a) => (
             <li key={a.title} className="grid gap-x-6 border-b border-rule py-3 first:pt-0 sm:grid-cols-[1fr,auto]">

@@ -65,7 +65,7 @@ export function Hero() {
 function Fact({ label, value }: { label: string; value: string }) {
   return (
     <>
-      <dt className="data border-b border-rule py-2.5 text-[11px] uppercase tracking-wide text-ink-3">
+      <dt className="border-b border-rule py-2.5 font-semibold text-ink">
         {label}
       </dt>
       <dd className="border-b border-rule py-2.5 text-ink-2">{value}</dd>

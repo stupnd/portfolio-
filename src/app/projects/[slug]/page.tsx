@@ -95,7 +95,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             {cs.decisions.map((d, i) => (
               <li key={i} className="border-b border-rule py-6">
                 <h3 className="text-lg font-semibold leading-snug">{d.decision}</h3>
-                <p className="data mt-1.5 text-[11px] text-ink-3">instead of {d.alternative}</p>
+                <p className="mt-1.5 text-sm text-ink-3">Instead of {d.alternative}</p>
                 <p className="mt-3 max-w-[68ch] text-[15px] leading-relaxed text-ink-2">{d.tradeoff}</p>
               </li>
             ))}
@@ -119,7 +119,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </Part>
 
         <Part title="What I'd do differently">
-          <p className="max-w-[68ch] rounded bg-raised p-6 text-[15px] leading-relaxed sm:text-base">
+          <p className="max-w-[68ch] border-y border-ink py-5 text-[15px] leading-relaxed sm:text-base">
             {cs.retrospective}
           </p>
         </Part>

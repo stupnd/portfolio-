@@ -41,7 +41,7 @@ export function About() {
                   />
                 </div>
                 {photo.caption && (
-                  <figcaption className="data mt-2 text-[11px] text-ink-3">{photo.caption}</figcaption>
+                  <figcaption className="mt-2 text-sm text-ink-2">{photo.caption}</figcaption>
                 )}
               </figure>
             </li>

@@ -66,26 +66,27 @@ export function RecordStream() {
             <li key={i} className="border-b border-rule/70">
               <Link
                 href={r.href}
-                className="group grid grid-cols-[2.75rem,1fr,auto] items-baseline gap-x-3 px-4 py-2.5 transition-colors duration-150 hover:bg-raised focus-visible:bg-raised sm:grid-cols-[3rem,8.25rem,1fr,auto] sm:px-5"
+                className="group grid grid-cols-[2.75rem,1fr,auto] items-baseline gap-x-3 px-4 py-2.5 transition-colors duration-150 hover:bg-raised focus-visible:bg-raised sm:grid-cols-[3rem,9.75rem,1fr,auto] sm:px-5"
               >
                 <span className="data text-[11px] text-ink-3">{String(i).padStart(4, "0")}</span>
                 <span className="data hidden truncate text-[11px] text-ink-2 sm:block">
+                  <span className="text-ink-3">p{partitions.indexOf(r.partition)} </span>
                   {r.key}
                   <span className="text-ink-3"> · {r.year}</span>
                 </span>
                 <span className="text-[13px] leading-snug text-ink sm:text-sm">
-                  <span className="data mb-0.5 block text-[10px] text-ink-2 sm:hidden">
-                    {r.key} · {r.year}
+                  <span className="data mb-0.5 block text-[11px] text-ink-2 sm:hidden">
+                    p{partitions.indexOf(r.partition)} · {r.key} · {r.year}
                   </span>
                   {r.text}
                 </span>
                 <span
                   className={cn(
-                    "data flex items-center gap-1 text-[10px] uppercase tracking-wide transition-colors duration-300",
+                    "data flex items-center gap-1 text-[11px] uppercase tracking-wide transition-colors duration-300",
                     isAcked ? "text-ack" : "text-pending"
                   )}
                 >
-                  <span aria-hidden className="hidden sm:inline">{isAcked ? "acked" : "pending"}</span>
+                  <span aria-hidden>{isAcked ? "ack" : "pending"}</span>
                   <span
                     aria-hidden
                     className={cn(
@@ -102,7 +103,7 @@ export function RecordStream() {
         <li>
           <Link
             href="/#contact"
-            className="grid grid-cols-[2.75rem,1fr,auto] items-baseline gap-x-3 px-4 py-3 transition-colors duration-150 hover:bg-raised focus-visible:bg-raised sm:grid-cols-[3rem,8.25rem,1fr,auto] sm:px-5"
+            className="grid grid-cols-[2.75rem,1fr,auto] items-baseline gap-x-3 px-4 py-3 transition-colors duration-150 hover:bg-raised focus-visible:bg-raised sm:grid-cols-[3rem,9.75rem,1fr,auto] sm:px-5"
           >
             <span className="data text-[11px] text-ink-3">{String(records.length).padStart(4, "0")}</span>
             <span className="data hidden text-[11px] text-ink-2 sm:block">
@@ -111,8 +112,8 @@ export function RecordStream() {
             <span className="text-sm font-semibold text-ink">
               New-grad software engineer, starting {site.lookingFor.startDate}
             </span>
-            <span className="data flex items-center gap-1 text-[10px] uppercase tracking-wide text-pending">
-              <span className="hidden sm:inline">your offer</span>
+            <span className="data flex items-center gap-1 text-[11px] uppercase tracking-wide text-pending">
+              <span>offer</span>
               <ArrowUpRight size={12} aria-hidden />
             </span>
           </Link>

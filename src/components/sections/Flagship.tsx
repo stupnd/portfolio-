@@ -19,18 +19,18 @@ export function Flagship() {
       <Container>
         <div className="grid gap-x-12 gap-y-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="data text-[11px] text-ink-3">
-              Flagship · {project.year} · {project.stack.slice(0, 4).join(" / ")}
-            </p>
-            <h2 className="display mt-3 text-display-lg font-extrabold">{project.title}</h2>
+            <h2 className="display text-display-lg font-extrabold">{project.title}</h2>
             <p className="mt-5 text-lg leading-relaxed text-ink-2">{project.tagline}</p>
+            <p className="data mt-4 text-[11px] leading-relaxed text-ink-3">
+              {project.year} · {project.stack.join(" / ")}
+            </p>
 
             <h3 className="mt-10 text-sm font-semibold">Decisions that carry it</h3>
             <ul className="mt-3 border-t border-rule">
               {decisions.map((d) => (
                 <li key={d.decision} className="border-b border-rule py-3">
                   <p className="text-sm font-medium leading-snug">{d.decision}</p>
-                  <p className="data mt-1 text-[11px] text-ink-3">instead of {d.alternative}</p>
+                  <p className="mt-1 text-[13px] text-ink-3">Instead of {d.alternative}</p>
                 </li>
               ))}
             </ul>
