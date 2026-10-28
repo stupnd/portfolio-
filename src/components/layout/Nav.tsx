@@ -31,25 +31,34 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Highlight whichever section holds the upper part of the viewport
+  // Highlight the last section whose top has passed 30% of the viewport, and
+  // nothing while the hero is in view. Derived from scroll position rather
+  // than intersection events, so scrolling back up can never leave a stale link.
   useEffect(() => {
-    if (!onHome) return;
-    const sections = links
-      .map((l) => document.getElementById(l.id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (sections.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    if (!onHome) {
+      setActive(null);
+      return;
+    }
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const line = window.innerHeight * 0.3;
+      let current: string | null = null;
+      for (const l of links) {
+        const el = document.getElementById(l.id);
+        if (el && el.getBoundingClientRect().top <= line) current = l.id;
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [onHome]);
 
   return (
