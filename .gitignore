@@ -34,3 +34,29 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local AI agent tooling (skills, hooks, settings)
+/.claude/
+/.agents/
+/.augment/
+/.codebuddy/
+/.codewhale/
+/.codex/
+/.continue/
+/.cursor/
+/.factory/
+/.gemini/
+/.github/agents/
+/.github/hooks/
+/.github/prompts/
+/.github/skills/
+/.kilocode/
+/.kiro/
+/.opencode/
+/.qoder/
+/.roo/
+/.trae/
+/.warp/
+/.windsurf/
+
+/.impeccable/
