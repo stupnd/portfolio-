@@ -11,6 +11,75 @@ import type { SiteConfig } from "./types";
  * ─────────────────────────────────────────────────────────────────
  */
 export const site: SiteConfig = {
+  /**
+   * The magazine frame. Page numbers are folios for the conceit, not claims.
+   * No em dashes anywhere in site copy.
+   */
+  issue: {
+    number: "01",
+    season: "Fall 2026",
+    coverLine: "I build AI that holds up.",
+    dek: "AI and backend engineer. Computer Engineering at uOttawa, graduating December 2026.",
+    cover: {
+      src: "/photos/cover-stairs.webp",
+      alt: "Stuti Pandya standing on a red staircase in a glass atrium, smiling at the camera",
+      caption: "On the cover: Stuti Pandya, editor and sole contributor to this issue.",
+      width: 1500,
+      height: 2000,
+    },
+    features: [
+      {
+        page: "04",
+        title: "The $9K/month mystery",
+        hook: "A 1.4-billion-call spike on TrendAI's API Gateway bill, traced to 55 orphaned CloudFormation stacks. Recovered: $6–9K a month.",
+        href: "#aws-spike",
+      },
+      {
+        page: "12",
+        title: "Teaching an agent to grade itself",
+        hook: "Traced's eval harness lifted mean score from 0.641 to 0.831 over nine ablations, and turned down two of my own ideas.",
+        href: "#eval-harness",
+      },
+      {
+        page: "20",
+        title: "Exactly once, even when it crashes",
+        hook: "A Kafka ledger that never applies a transaction twice. Fig. 1 lets you crash it yourself.",
+        href: "#ledger",
+      },
+      {
+        page: "28",
+        title: "Why my model scored 86% in testing and 15% on real faces",
+        hook: "Tinted reads skin tone across the full Monk scale. Getting there meant finding out what a tidy test set was hiding.",
+        href: "#tinted",
+      },
+      {
+        page: "34",
+        title: "A glove that talks",
+        hook: "Bridge: flex sensors on an ESP32, streaming ASL to the browser over Bluetooth.",
+        href: "#bridge",
+      },
+    ],
+    departments: [
+      {
+        page: "40",
+        title: "Contributors' notes",
+        hook: "TrendAI, Solace and Natural Resources Canada, newest first.",
+        href: "#notes",
+      },
+      {
+        page: "44",
+        title: "Off the page",
+        hook: "Chairing IEEE Women in Engineering, a 100-person hackathon, a mentorship program, and second place at an AI hackathon.",
+        href: "#off-the-page",
+      },
+      {
+        page: "48",
+        title: "Letters to the editor",
+        hook: "Email, resume, LinkedIn and GitHub.",
+        href: "#letters",
+      },
+    ],
+  },
   name: "Stuti Pandya",
   firstName: "Stuti",
   initials: "SP",
@@ -32,7 +101,7 @@ export const site: SiteConfig = {
    */
   lookingFor: {
     roles: ["Backend / Infrastructure Engineer", "Full-Stack Engineer"],
-    startDate: "January 2027",
+    available: "2027",
     locations: "Ottawa, Toronto, Waterloo, Vancouver, or remote in Canada",
     authorization: "Legally able to work in Canada full time",
     note: "Graduating December 2026 with a BASc in Computer Engineering. Three internships across four terms, and legally able to work in Canada full time.",

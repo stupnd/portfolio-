@@ -129,7 +129,27 @@ export interface BlogPost {
   body: string[];
 }
 
+/** One line on the contents page */
+export interface ContentsEntry {
+  page: string;
+  title: string;
+  hook: string;
+  href: string;
+}
+
+/** The magazine frame: cover and contents */
+export interface Issue {
+  number: string;
+  season: string;
+  coverLine: string;
+  dek: string;
+  cover: { src: string; alt: string; caption: string; width: number; height: number };
+  features: ContentsEntry[];
+  departments: ContentsEntry[];
+}
+
 export interface SiteConfig {
+  issue: Issue;
   name: string;
   firstName: string;
   initials: string;
@@ -143,7 +163,8 @@ export interface SiteConfig {
   /** Role targets shown in the recruiter summary card */
   lookingFor: {
     roles: string[];
-    startDate: string;
+    /** Shown in the cover colophon as "Available" */
+    available: string;
     locations: string;
     authorization: string;
     note: string;

@@ -2,124 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light is the default: recruiters read this in daytime office light.
+/* Day edition: uncoated warm stock, near-black ink, one spot colour.
    Values are space-separated RGB so Tailwind can apply alpha. */
 :root {
-  --paper: 238 241 244;
-  --raised: 247 248 250;
-  --ink: 14 23 38;
-  --ink-2: 66 78 96;
-  --ink-3: 88 100 117;
-  --rule: 200 207 216;
-  --rule-strong: 150 160 174;
-  --accent: 28 63 224;
-  --accent-soft: 20 48 186;
-  --accent-ink: 255 255 255;
-  --ack: 11 122 82;
-  --pending: 166 77 6;
-
-  /* Legacy names some components still read */
-  --bg: rgb(var(--paper));
-  --bg-elevated: rgb(var(--raised));
-  --fg: rgb(var(--ink));
-  --fg-muted: rgb(var(--ink-2));
-  --fg-faint: rgb(var(--ink-3));
-  --border: rgb(var(--rule));
-  --border-strong: rgb(var(--rule-strong));
-  --card-hover: rgb(var(--ink) / 0.04);
-
+  --paper: 245 240 230;
+  --paper-2: 238 231 218;
+  --ink: 27 24 20;
+  --ink-2: 84 76 66;
+  --ink-3: 108 99 87;
+  --rule: 214 204 187;
+  --rule-strong: 27 24 20;
+  /* Spot colour, oxblood plate */
+  --accent: 122 30 43;
+  --accent-ink: 245 240 230;
+  /* Live states inside figures */
+  --ack: 30 104 64;
+  --pending: 150 82 10;
   color-scheme: light;
 }
 
+/* Ink-blue plate, the alternate spot colour */
+:root[data-accent="blue"] {
+  --accent: 30 58 110;
+}
+
+/* Night edition: warm black stock, cream ink, the plate lifted for contrast */
 .dark {
-  --paper: 10 14 21;
-  --raised: 17 22 32;
-  --ink: 230 234 240;
-  --ink-2: 168 178 192;
-  --ink-3: 134 147 165;
-  --rule: 38 47 61;
-  --rule-strong: 70 82 100;
-  --accent: 56 88 240;
-  --accent-soft: 130 152 255;
-  --accent-ink: 255 255 255;
-  --ack: 61 220 151;
-  --pending: 245 176 74;
+  --paper: 21 19 15;
+  --paper-2: 30 27 22;
+  --ink: 237 229 211;
+  --ink-2: 189 179 160;
+  --ink-3: 156 146 128;
+  --rule: 62 56 46;
+  --rule-strong: 237 229 211;
+  --accent: 228 128 114;
+  --accent-ink: 21 19 15;
+  --ack: 120 200 150;
+  --pending: 236 176 96;
   color-scheme: dark;
 }
-
-/* Inverted region: the flagship band and the record panel re-scope the tokens
-   so everything inside (LedgerSim included) reads on the dark ground. */
-.band-ink {
-  --paper: 14 23 38;
-  --raised: 22 33 52;
-  --ink: 236 240 246;
-  --ink-2: 176 188 206;
-  --ink-3: 140 155 178;
-  --rule: 44 58 82;
-  --rule-strong: 78 96 124;
-  --accent: 56 88 240;
-  --accent-soft: 132 154 255;
-  --ack: 74 222 160;
-  --pending: 252 186 92;
-  --bg: rgb(var(--paper));
-  --bg-elevated: rgb(var(--raised));
-  --fg: rgb(var(--ink));
-  --fg-muted: rgb(var(--ink-2));
-  --fg-faint: rgb(var(--ink-3));
-  --border: rgb(var(--rule));
-  --border-strong: rgb(var(--rule-strong));
-  --card-hover: rgb(var(--ink) / 0.05);
-  background: rgb(var(--paper));
-  color: rgb(var(--ink));
-}
-.dark .band-ink {
-  --paper: 20 30 64;
-  --raised: 28 40 82;
-  --rule: 52 68 112;
-}
-
-.band-cobalt {
-  --paper: 28 63 224;
-  --raised: 38 74 232;
-  --ink: 255 255 255;
-  --ink-2: 222 229 255;
-  --ink-3: 196 207 252;
-  --rule: 78 108 236;
-  --rule-strong: 128 152 244;
-  --ack: 140 245 196;
-  --pending: 255 210 130;
-  background: rgb(var(--paper));
-  color: rgb(var(--ink));
-}
-.dark .band-cobalt {
-  --paper: 30 52 170;
-  --raised: 38 62 186;
-  --rule: 62 88 200;
+.dark[data-accent="blue"] {
+  --accent: 146 172 230;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  scroll-padding-top: 4.5rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   color: rgb(var(--ink));
   background: rgb(var(--paper));
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga", "onum";
 }
 
 ::selection {
@@ -131,64 +71,88 @@ body {
   outline: 2px solid rgb(var(--accent));
   outline-offset: 3px;
 }
-.band-cobalt :focus-visible {
-  outline-color: rgb(var(--ink));
+/* Rings are for keyboard focus only. Sections that receive focus from an
+   in-page link (tabindex="-1") never draw one. */
+:focus:not(:focus-visible),
+[tabindex="-1"]:focus {
+  outline: none;
 }
 
-/* Scrollbars carry the palette too */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(var(--rule-strong)) transparent;
+  scrollbar-color: rgb(var(--ink-3)) transparent;
 }
 
 a {
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
 }
 
 @layer components {
-  /* Kept for the components (LedgerSim, palette) that frame a panel */
-  .card {
-    background: rgb(var(--raised));
-    border: 1px solid rgb(var(--rule));
-    border-radius: 4px;
-  }
-
-  .glass {
-    background: rgb(var(--raised));
-    border: 1px solid rgb(var(--rule));
-  }
-
-  /* Offsets, dates, numbers: aligned figures */
+  /* Folios, figure labels, data: lining tabular figures */
   .data {
-    font-family: var(--font-martian), ui-monospace, monospace;
-    font-variant-numeric: tabular-nums;
-    font-stretch: 87.5%;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum", "lnum";
+    letter-spacing: 0;
   }
 
-  .display {
-    font-stretch: 112.5%;
+  /* Spaced small caps, the nameplate and department voice */
+  .caps {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-feature-settings: "kern", "lnum";
+  }
+
+  /* The heavy-over-hairline rule under the nameplate */
+  .rule-double {
+    height: 5px;
+    border-top: 2px solid rgb(var(--rule-strong));
+    border-bottom: 1px solid rgb(var(--rule-strong));
   }
 }
 
-@layer utilities {
-  /* On dark grounds the cobalt fill stays deep enough for white labels, so
-     accent-coloured text switches to the lighter tint to keep 4.5:1. */
-  .dark .text-accent,
-  .band-ink .text-accent {
-    color: rgb(var(--accent-soft));
+/* Printed as you arrive: rules draw in, the cover sets, figures rise into frame */
+@media (prefers-reduced-motion: no-preference) {
+  .print-rule {
+    transform-origin: left center;
+    animation: print-rule 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+  .print-set {
+    animation: print-set 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .print-fig {
+    animation: print-fig 1200ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+  }
+}
 
-  .text-muted {
-    color: rgb(var(--ink-2));
+@keyframes print-rule {
+  from {
+    transform: scaleX(0);
   }
-  .text-faint {
-    color: rgb(var(--ink-3));
+  to {
+    transform: scaleX(1);
   }
-  .border-default {
-    border-color: rgb(var(--rule));
+}
+@keyframes print-set {
+  from {
+    opacity: 0;
+    transform: translateY(0.25em);
   }
-  .bg-elevated {
-    background-color: rgb(var(--raised));
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes print-fig {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: saturate(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }

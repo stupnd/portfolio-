@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
-/** Every colour is a CSS variable (space-separated RGB) so the dark theme and
- *  the ink band can re-scope them without touching component classes. */
+/** Every colour is a CSS variable (space-separated RGB) so the night edition
+ *  and the alternate plate re-scope them without touching component classes. */
 const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
 
 const config: Config = {
@@ -10,8 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: token("paper"),
-        raised: token("raised"),
+        paper: { DEFAULT: token("paper"), 2: token("paper-2") },
         ink: {
           DEFAULT: token("ink"),
           2: token("ink-2"),
@@ -21,29 +20,27 @@ const config: Config = {
           DEFAULT: token("rule"),
           strong: token("rule-strong"),
         },
-        // Cobalt: the one colour that owns regions (the record panel, actions)
         accent: {
           DEFAULT: token("accent"),
-          soft: token("accent-soft"),
           ink: token("accent-ink"),
-          // Legacy aliases still used inside LedgerSim
-          cyan: token("ack"),
-          violet: token("accent"),
         },
         ack: token("ack"),
         pending: token("pending"),
       },
       fontFamily: {
-        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
-        mono: ["var(--font-martian)", "ui-monospace", "monospace"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        serif: ["var(--font-text)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
-        "display-xl": ["clamp(3rem, 7.2vw, 6rem)", { lineHeight: "0.95", letterSpacing: "-0.035em" }],
-        "display-lg": ["clamp(2.25rem, 4.6vw, 3.75rem)", { lineHeight: "1.02", letterSpacing: "-0.03em" }],
-        "display-md": ["clamp(1.5rem, 2.6vw, 2.125rem)", { lineHeight: "1.12", letterSpacing: "-0.02em" }],
+        cover: ["clamp(3rem, 7vw, 6.5rem)", { lineHeight: "0.92", letterSpacing: "-0.015em" }],
+        headline: ["clamp(2.5rem, 5vw, 4.75rem)", { lineHeight: "0.98", letterSpacing: "-0.012em" }],
+      },
+      maxWidth: {
+        issue: "84rem",
       },
       borderRadius: {
-        DEFAULT: "4px",
+        DEFAULT: "0",
       },
     },
   },

@@ -1,14 +1,29 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site.config";
 
-export const runtime = "edge";
-export const alt = `${site.name} | Backend & Infrastructure Engineer`;
+export const alt = `${site.name}: ${site.issue.coverLine}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Same world as the site: paper ground, ink type, a cobalt record panel.
-export default function OpenGraphImage() {
-  const rows = site.records.slice(-4);
+const PAPER = "#F5F0E6";
+const INK = "#1B1814";
+const INK_2 = "#544C42";
+const OXBLOOD = "#7A1E2B";
+
+// The cover, reprinted at card size: nameplate over the double rule, the cover
+// line and dek in Instrument Serif, and the cover photograph framed.
+// Rendered at build time on the Node runtime from files in the repo.
+export default async function OpenGraphImage() {
+  const dir = join(process.cwd(), "src/assets/og");
+  const [regular, photo] = await Promise.all([
+    readFile(join(dir, "InstrumentSerif-Regular.ttf")),
+    readFile(join(dir, "cover.jpg")),
+  ]);
+  const photoSrc = `data:image/jpeg;base64,${photo.toString("base64")}`;
+  const { number, season, coverLine } = site.issue;
+
   return new ImageResponse(
     (
       <div
@@ -16,53 +31,41 @@ export default function OpenGraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#EEF1F4",
-          color: "#0E1726",
-          fontFamily: "sans-serif",
-          padding: 64,
-          gap: 48,
+          flexDirection: "column",
+          background: PAPER,
+          color: INK,
+          fontFamily: "Instrument Serif",
+          padding: "40px 64px 48px",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", width: 470 }}>
-          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 0.95, letterSpacing: -3 }}>
-            {site.name.split(" ")[0]}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 22 }}>
+          <div style={{ display: "flex", color: INK_2, width: 260 }}>
+            Issue {number} · {season}
           </div>
-          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 0.95, letterSpacing: -3 }}>
-            {site.name.split(" ").slice(1).join(" ")}
-          </div>
-          <div style={{ fontSize: 30, fontWeight: 600, marginTop: 28, lineHeight: 1.25 }}>{site.headline}</div>
+          <div style={{ display: "flex", letterSpacing: 9, fontSize: 24 }}>{site.name.toUpperCase()}</div>
+          <div style={{ display: "flex", color: OXBLOOD, width: 260, justifyContent: "flex-end" }}>stutipnd.net</div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-            background: "#1C3FE0",
-            color: "#FFFFFF",
-            borderRadius: 6,
-            padding: "24px 28px",
-            justifyContent: "center",
-          }}
-        >
-          {rows.map((r, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                gap: 20,
-                padding: "16px 0",
-                borderBottom: "1px solid #4E6CEC",
-                fontSize: 24,
-                lineHeight: 1.3,
-              }}
-            >
-              <div style={{ color: "#C4CFFC", width: 70 }}>{String(site.records.length - 4 + i).padStart(4, "0")}</div>
-              <div style={{ flex: 1 }}>{r.text}</div>
+        <div style={{ display: "flex", marginTop: 16, borderTop: `3px solid ${INK}`, height: 7, borderBottom: `1.5px solid ${INK}` }} />
+
+        <div style={{ display: "flex", flex: 1, marginTop: 36, gap: 48 }}>
+          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+            <div style={{ display: "flex", fontSize: 128, lineHeight: 0.92, letterSpacing: -2 }}>{coverLine}</div>
+            <div style={{ display: "flex", marginTop: 30, fontSize: 34, lineHeight: 1.25, color: INK_2 }}>
+              AI and backend engineer. Computer Engineering at uOttawa, December 2026.
             </div>
-          ))}
+          </div>
+          <div style={{ display: "flex", border: `1.5px solid ${INK}`, padding: 8, height: 418 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={photoSrc} alt="" width={300} height={400} style={{ objectFit: "cover", objectPosition: "50% 30%" }} />
+          </div>
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [
+        { name: "Instrument Serif", data: regular, style: "normal", weight: 400 },
+      ],
+    }
   );
 }
