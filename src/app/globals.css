@@ -21,11 +21,6 @@
   color-scheme: light;
 }
 
-/* Ink-blue plate, the alternate spot colour */
-:root[data-accent="blue"] {
-  --accent: 30 58 110;
-}
-
 /* Night edition: warm black stock, cream ink, the plate lifted for contrast */
 .dark {
   --paper: 21 19 15;
@@ -40,9 +35,6 @@
   --ack: 120 200 150;
   --pending: 236 176 96;
   color-scheme: dark;
-}
-.dark[data-accent="blue"] {
-  --accent: 146 172 230;
 }
 
 html {
@@ -102,6 +94,16 @@ a {
     text-transform: uppercase;
     letter-spacing: 0.22em;
     font-feature-settings: "kern", "lnum";
+  }
+
+  /* Three-line drop cap on a feature's opening paragraph */
+  .dropcap::first-letter {
+    float: left;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 4.35em;
+    line-height: 0.8;
+    padding: 0.06em 0.09em 0 0;
+    color: rgb(var(--accent));
   }
 
   /* The heavy-over-hairline rule under the nameplate */
