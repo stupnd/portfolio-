@@ -42,6 +42,8 @@ export function BehindTheByline() {
     <section
       id="behind-the-byline"
       aria-labelledby="byline-title"
+      data-folio="46"
+      data-folio-title="Behind the byline"
       className="mx-auto max-w-issue px-4 py-16 sm:px-8 lg:py-24"
     >
       <div className="border-t-2 border-rule-strong pt-6">

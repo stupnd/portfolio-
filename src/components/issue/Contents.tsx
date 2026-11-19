@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { site } from "@/content/site.config";
 import type { ContentsEntry } from "@/content/types";
+import { features as featureData } from "@/content/features";
+
+const plateFor = (href: string) => featureData.find((f) => `#${f.id}` === href)?.plate;
 
 /**
  * The contents page: five features at full weight, three departments set
@@ -10,7 +13,7 @@ export function Contents() {
   const { features, departments } = site.issue;
 
   return (
-    <section id="contents" aria-labelledby="contents-title" className="mx-auto max-w-issue px-4 pb-20 pt-10 sm:px-8 lg:pb-28 lg:pt-8">
+    <section id="contents" aria-labelledby="contents-title" data-folio="" data-folio-title="In this issue" className="mx-auto max-w-issue px-4 pb-20 pt-10 sm:px-8 lg:pb-28 lg:pt-8">
       <div className="border-t-2 border-rule-strong pt-6">
         <div className="grid gap-x-10 gap-y-8 lg:grid-cols-12">
           <div className="lg:col-span-3">
@@ -44,8 +47,9 @@ export function Contents() {
 
 function Row({ entry, size }: { entry: ContentsEntry; size: "feature" | "department" }) {
   const feature = size === "feature";
+  const plate = plateFor(entry.href);
   return (
-    <li className="border-b border-rule">
+    <li className={`border-b border-rule ${plate ? `plate-${plate}` : ""}`}>
       <Link
         href={entry.href}
         className="group grid grid-cols-[3rem,1fr] items-baseline gap-x-4 py-5 sm:grid-cols-[1fr,auto] sm:gap-x-6"

@@ -67,7 +67,7 @@ export function ShortTakes() {
 export function ContributorsNotes() {
   const { education } = site;
   return (
-    <section id="notes" aria-labelledby="notes-title" className="mx-auto max-w-issue px-4 py-16 sm:px-8 lg:py-24">
+    <section id="notes" aria-labelledby="notes-title" data-folio="40" data-folio-title="Contributors’ notes" className="mx-auto max-w-issue px-4 py-16 sm:px-8 lg:py-24">
       <DeptHeader
         id="notes"
         title="Contributors’ notes"
@@ -123,7 +123,7 @@ export function ContributorsNotes() {
 export function OffThePage() {
   const wie = site.leadership[0];
   return (
-    <section id="off-the-page" aria-labelledby="off-the-page-title" className="mx-auto max-w-issue px-4 py-16 sm:px-8 lg:py-24">
+    <section id="off-the-page" aria-labelledby="off-the-page-title" data-folio="44" data-folio-title="Off the page" className="mx-auto max-w-issue px-4 py-16 sm:px-8 lg:py-24">
       <DeptHeader id="off-the-page" title="Off the page" page="44" lede="Away from the keyboard: a chapter to run, hackathons to host, and the people in them." />
 
       <div className="mt-10 grid gap-x-10 gap-y-10 lg:grid-cols-12">
@@ -193,7 +193,7 @@ export function Letters() {
   ];
 
   return (
-    <section id="letters" aria-labelledby="letters-title" className="mx-auto max-w-issue px-4 pb-10 pt-16 sm:px-8 lg:pt-24">
+    <section id="letters" aria-labelledby="letters-title" data-folio="48" data-folio-title="Letters to the editor" className="mx-auto max-w-issue px-4 pb-10 pt-16 sm:px-8 lg:pt-24">
       <DeptHeader
         id="letters"
         title="Letters to the editor"

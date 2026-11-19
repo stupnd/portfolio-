@@ -4,6 +4,7 @@
  * No em dashes in any of this copy.
  */
 export type FigureKey = "trace" | "ablation" | "ledger" | "tinted" | "glove";
+export type Plate = "oxblood" | "cobalt" | "forest" | "ochre" | "plum";
 
 export interface Feature {
   id: string;
@@ -13,6 +14,12 @@ export interface Feature {
   dek: string;
   /** Year and stack, set in the byline row */
   meta: string;
+  /** The feature's spot colour */
+  plate: Plate;
+  /** The 30-second version: three lines a skimmer reads instead of the body */
+  brief: string[];
+  /** Three numbers set large beside the brief */
+  stats: { value: string; label: string }[];
   /** First paragraph gets the drop cap */
   body: string[];
   pull: { figure: string; label: string; quote: string };
@@ -39,6 +46,13 @@ export const features: Feature[] = [
     ],
     pull: { figure: "55", label: "orphaned stacks", quote: "Infrastructure nobody owns still costs money." },
     figure: "trace",
+    plate: "ochre",
+    brief: [
+      "API Gateway showed a spike of 1.4 billion calls, with a bill to match.",
+      "I traced it back through CloudWatch to 55 orphaned CloudFormation stacks.",
+      "Cleaning them up recovered $6–9K a month.",
+    ],
+    stats: [{ value: "1.4B", label: "API Gateway calls" }, { value: "55", label: "orphaned stacks" }, { value: "$6–9K", label: "a month, recovered" }],
   },
   {
     // Repo: stupnd/traced-research-agent, eval/results/*.json (nine runs, mean_score).
@@ -56,6 +70,13 @@ export const features: Feature[] = [
     ],
     pull: { figure: "0.831", label: "mean score, from 0.641", quote: "The harness turned down two of my own ideas, and it was right both times." },
     figure: "ablation",
+    plate: "cobalt",
+    brief: [
+      "I built the eval harness before tuning the agent: eight rubric-scored questions and an LLM judge.",
+      "Nine runs, one change each. Hybrid retrieval with RRF took the mean from 0.641 to 0.831.",
+      "Two later ideas of mine scored worse, so they didn’t ship. Tap any run in the chart.",
+    ],
+    stats: [{ value: "0.831", label: "mean score, from 0.641" }, { value: "9", label: "recorded runs" }, { value: "2", label: "of my ideas rejected" }],
     caseStudy: "traced-research-agent",
     repo: "https://github.com/stupnd/traced-research-agent",
   },
@@ -75,6 +96,13 @@ export const features: Feature[] = [
     ],
     pull: { figure: "31", label: "tests, 4 against real Kafka", quote: "At-least-once delivery, exactly-once effects." },
     figure: "ledger",
+    plate: "oxblood",
+    brief: [
+      "Kafka delivers at least once, so a crash brings a message back.",
+      "Three idempotency layers make sure the balance moves exactly once anyway.",
+      "31 tests prove it. Below, you can crash it yourself, and switch the guard off.",
+    ],
+    stats: [{ value: "31", label: "tests" }, { value: "4", label: "against real Kafka" }, { value: "3", label: "idempotency layers" }],
     caseStudy: "transaction-ledger",
     repo: "https://github.com/stupnd/Transaction-Ingestion-Service",
   },
@@ -95,6 +123,13 @@ export const features: Feature[] = [
     ],
     pull: { figure: "15%", label: "within one level, on real faces", quote: "My simulated camera exposed every face perfectly. Real phones don’t." },
     figure: "tinted",
+    plate: "plum",
+    brief: [
+      "Tinted classifies skin tone on the ten-point Monk scale.",
+      "In simulation it landed within one level 84% of the time. On 1,356 real photos, 15%.",
+      "The simulated camera exposed every face perfectly. Real phones don’t. Flip the chart to see where it broke.",
+    ],
+    stats: [{ value: "84%", label: "in simulation" }, { value: "15%", label: "on real photos" }, { value: "1,356", label: "photos tested" }],
     caseStudy: "tinted",
     repo: "https://github.com/stupnd/tinted",
   },
@@ -114,6 +149,13 @@ export const features: Feature[] = [
     ],
     pull: { figure: "0", label: "servers between glove and page", quote: "The glove pairs directly to a web page." },
     figure: "glove",
+    plate: "forest",
+    brief: [
+      "A glove with a flex sensor on each finger reads hand poses.",
+      "An ESP32 streams them over Bluetooth Low Energy straight to a web page.",
+      "The browser translates ASL live. No app, no server.",
+    ],
+    stats: [{ value: "5", label: "flex sensors" }, { value: "0", label: "servers" }, { value: "1", label: "web page" }],
     caseStudy: "bridge",
     repo: "https://github.com/stupnd/Bridge",
   },
@@ -130,12 +172,4 @@ export const ablationRuns: { run: string; score: number; note?: string; kind?: "
   { run: "hybrid-rrf", score: 0.831, note: "Dense + BM25, fused with RRF. Shipped", kind: "shipped" },
   { run: "hybrid-rrf-idf", score: 0.74, note: "My idea. Rejected", kind: "rejected" },
   { run: "hybrid-rrf-v2", score: 0.699, note: "My idea. Rejected", kind: "rejected" },
-];
-
-/** Tinted accuracy, from the repo’s published reports (share of all images). */
-export const tintedBars: { label: string; value: number; detail: string; real?: boolean }[] = [
-  { label: "Simulated, daylight", value: 86, detail: "exact level, 300 synthetic portraits" },
-  { label: "Simulated, all four lights", value: 84, detail: "within one level, 1,200 synthetic portraits" },
-  { label: "Real photos, accepted", value: 31, detail: "within one level, 670 photos past the quality gate", real: true },
-  { label: "Real photos, all", value: 15, detail: "within one level, 1,356 MST-E photos of 19 people", real: true },
 ];

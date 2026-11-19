@@ -62,7 +62,7 @@ export const site: SiteConfig = {
     departments: [
       {
         page: "40",
-        title: "Contributors' notes",
+        title: "Contributors’ notes",
         hook: "TrendAI, Solace and Natural Resources Canada, newest first.",
         href: "#notes",
       },

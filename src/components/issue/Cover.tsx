@@ -11,7 +11,7 @@ export function Cover() {
   const { available, locations, authorization } = site.lookingFor;
 
   return (
-    <section aria-labelledby="cover-line" className="mx-auto max-w-issue px-4 pb-10 pt-8 sm:px-8 lg:pb-8 lg:pt-9">
+    <section aria-labelledby="cover-line" data-folio="" data-folio-title="" className="mx-auto max-w-issue px-4 pb-10 pt-8 sm:px-8 lg:pb-8 lg:pt-9">
       <div className="grid gap-x-10 gap-y-10 lg:grid-cols-12">
         <div className="lg:col-span-8">
           {/* Capped in em so the line always sets as two balanced lines */}

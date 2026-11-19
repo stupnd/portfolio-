@@ -26,14 +26,24 @@ export function Masthead() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const edition = mounted && resolvedTheme === "dark" ? " · Night edition" : "";
+  const { folio, progress } = useFolio();
 
   return (
     <>
       <header className="sticky top-0 z-50 bg-paper">
         <div className="mx-auto grid h-16 max-w-issue grid-cols-[1fr,auto] items-center gap-4 px-4 sm:px-8 lg:grid-cols-[1fr,auto,1fr]">
-          <p className="data hidden text-[12px] text-ink-2 lg:block">
-            Issue {number} · {season}
-            {edition}
+          <p className="data hidden min-w-0 truncate text-[12px] text-ink-2 lg:block" aria-live="off">
+            {folio && folio.title ? (
+              <>
+                {folio.page && <span className="text-accent">p. {folio.page} · </span>}
+                {folio.title}
+              </>
+            ) : (
+              <>
+                Issue {number} · {season}
+                {edition}
+              </>
+            )}
           </p>
 
           <Link
@@ -66,8 +76,12 @@ export function Masthead() {
             </button>
           </div>
         </div>
-        <div className="mx-auto max-w-issue px-4 sm:px-8">
+        <div className="relative mx-auto max-w-issue px-4 sm:px-8">
           <div className="rule-double print-rule" />
+          {/* How far through the issue: drawn in the current section's colour */}
+          <div aria-hidden className={`absolute inset-x-4 top-0 h-[2px] sm:inset-x-8 ${folio?.plate ? `plate-${folio.plate}` : ""}`}>
+            <div className="h-full origin-left bg-accent" style={{ transform: `scaleX(${progress})` }} />
+          </div>
         </div>
 
         {open && (
@@ -111,4 +125,37 @@ export function Masthead() {
       </div>
     </>
   );
+}
+
+/** Which page of the issue is under the masthead, and how far through it the reader is. */
+function useFolio() {
+  const [folio, setFolio] = useState<{ page: string; title: string; plate?: string } | null>(null);
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const doc = document.documentElement;
+      setProgress(Math.min(1, Math.max(0, window.scrollY / Math.max(1, doc.scrollHeight - window.innerHeight))));
+      const line = window.innerHeight * 0.35;
+      let current: HTMLElement | null = null;
+      document.querySelectorAll<HTMLElement>("[data-folio]").forEach((el) => {
+        if (el.getBoundingClientRect().top <= line) current = el;
+      });
+      const el = current as HTMLElement | null;
+      setFolio(el ? { page: el.dataset.folio ?? "", title: el.dataset.folioTitle ?? "", plate: el.dataset.plate } : null);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+  return { folio, progress };
 }

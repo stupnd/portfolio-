@@ -37,6 +37,19 @@
   color-scheme: dark;
 }
 
+/* Section plates: each feature prints in its own spot colour. All pass AA
+   on both papers (day 5.7 to 9.0:1, night 6.7 to 9.3:1). */
+.plate-oxblood { --accent: 122 30 43; }
+.plate-cobalt { --accent: 32 64 150; }
+.plate-forest { --accent: 28 94 64; }
+.plate-ochre { --accent: 150 72 8; }
+.plate-plum { --accent: 104 40 120; }
+.dark .plate-oxblood { --accent: 228 128 114; }
+.dark .plate-cobalt { --accent: 140 170 240; }
+.dark .plate-forest { --accent: 120 200 150; }
+.dark .plate-ochre { --accent: 236 170 90; }
+.dark .plate-plum { --accent: 206 150 226; }
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;
@@ -128,6 +141,39 @@ a {
   }
   .print-fig {
     animation: print-fig 1200ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+  }
+}
+
+/* Scroll reveals. Only blocks that mounted below the fold get
+   data-inview="false", so nothing on screen at load ever hides. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-inview] .rv {
+    transition:
+      opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 110ms);
+  }
+  [data-inview="false"] .rv {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  [data-inview] .rv-bar {
+    transform-origin: left center;
+    transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+  [data-inview="false"] .rv-bar {
+    transform: scaleX(0);
+  }
+  [data-inview] .rv-col {
+    transform-origin: center bottom;
+    transition:
+      transform 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+      height 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 60ms);
+  }
+  [data-inview="false"] .rv-col {
+    transform: scaleY(0);
   }
 }
 
