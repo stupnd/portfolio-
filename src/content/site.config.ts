@@ -73,6 +73,12 @@ export const site: SiteConfig = {
         href: "#off-the-page",
       },
       {
+        page: "46",
+        title: "Behind the byline",
+        hook: "The editor, off deadline: home, a few lakes, and one uncooperative flock of flamingos.",
+        href: "#behind-the-byline",
+      },
+      {
         page: "48",
         title: "Letters to the editor",
         hook: "Email, resume, LinkedIn and GitHub.",
