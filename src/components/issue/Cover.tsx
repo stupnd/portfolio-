@@ -15,7 +15,7 @@ export function Cover() {
       <div className="grid gap-x-10 gap-y-10 lg:grid-cols-12">
         <div className="lg:col-span-8">
           {/* Capped in em so the line always sets as two balanced lines */}
-          <h1 id="cover-line" className="print-set max-w-[6.5em] text-balance font-display text-cover text-ink">
+          <h1 id="cover-line" className="print-lift max-w-[6.5em] text-balance font-display text-cover text-ink">
             {coverLine}
           </h1>
 
