@@ -3,20 +3,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
-import {
-  FileDown,
-  FolderGit2,
-  Home,
-  Mail,
-  Moon,
-  Sun,
-  User,
-} from "lucide-react";
-import { Github, Linkedin } from "@/components/icons";
 import { useTheme } from "next-themes";
 import { site } from "@/content/site.config";
+import { features } from "@/content/features";
 
-/** ⌘K / Ctrl+K command palette for keyboard-first navigation. */
+/**
+ * ⌘K / Ctrl+K: the issue's index. Built on cmdk's Dialog (Radix underneath),
+ * so it is a real modal: focus moves in, is trapped, Escape closes it, and
+ * focus returns to whatever opened it.
+ */
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -24,7 +19,7 @@ export function CommandPalette() {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      if (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((o) => !o);
       }
@@ -37,110 +32,86 @@ export function CommandPalette() {
     setOpen(false);
     fn();
   }, []);
-
-  const github = site.socials.find((s) => s.label === "GitHub")?.url;
-  const linkedin = site.socials.find((s) => s.label === "LinkedIn")?.url;
-
-  if (!open) return null;
+  const go = (href: string) => run(() => router.push(href));
+  const openTab = (href: string) => run(() => window.open(href, "_blank", "noopener,noreferrer"));
 
   return (
-    <div
-      className="fixed inset-0 z-[70] flex items-start justify-center bg-ink/40 pt-[18vh]"
-      onClick={() => setOpen(false)}
+    <Command.Dialog
+      open={open}
+      onOpenChange={setOpen}
+      label="Find anything in this issue"
+      overlayClassName="fixed inset-0 z-[70] bg-ink/45"
+      contentClassName="fixed left-1/2 top-[14vh] z-[71] w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 border border-rule-strong bg-paper shadow-[0_24px_60px_-20px_rgb(0_0_0/0.45)]"
     >
-      <div onClick={(e) => e.stopPropagation()} className="w-full max-w-lg px-4">
-        <Command
-          label="Command palette"
-          className="overflow-hidden rounded border border-rule bg-raised shadow-[0_24px_48px_-12px_rgb(14_23_38/0.35)]"
-        >
-          <Command.Input
-            autoFocus
-            placeholder="Type a command or search…"
-            className="w-full border-b border-[var(--border)] bg-transparent px-5 py-4 text-sm outline-none placeholder:text-faint"
-          />
-          <Command.List className="max-h-72 overflow-y-auto p-2">
-            <Command.Empty className="px-4 py-6 text-center text-sm text-faint">
-              No results.
-            </Command.Empty>
-            <Command.Group>
-              <Item icon={<Home size={15} />} onSelect={() => run(() => router.push("/"))}>
-                Home
+      <Command.Input
+        placeholder="Find a feature, a department, or a link"
+        className="w-full border-b border-rule-strong bg-transparent px-5 py-4 text-[17px] text-ink outline-none placeholder:italic placeholder:text-ink-3"
+      />
+      <Command.List className="max-h-[min(60vh,26rem)] overflow-y-auto p-2">
+        <Command.Empty className="px-4 py-6 text-center text-[16px] italic text-ink-3">Nothing by that name in this issue.</Command.Empty>
+
+        <Group heading="Features">
+          {features.map((f) => (
+            <Item key={f.id} folio={f.page} onSelect={() => go(`/#${f.id}`)}>
+              {f.headline}
+            </Item>
+          ))}
+        </Group>
+
+        <Group heading="Departments">
+          {site.issue.departments.map((d) => (
+            <Item key={d.href} folio={d.page} onSelect={() => go(`/${d.href}`)}>
+              {d.title}
+            </Item>
+          ))}
+        </Group>
+
+        <Group heading="Case studies">
+          {site.projects
+            .filter((p) => p.caseStudy)
+            .map((p) => (
+              <Item key={p.slug} onSelect={() => go(`/projects/${p.slug}`)}>
+                {p.title}
               </Item>
-              <Item icon={<User size={15} />} onSelect={() => run(() => router.push("/#about"))}>
-                About
-              </Item>
-              <Item
-                icon={<FolderGit2 size={15} />}
-                onSelect={() => run(() => router.push("/#projects"))}
-              >
-                Projects
-              </Item>
-              {site.projects.map((p) => (
-                <Item
-                  key={p.slug}
-                  icon={<FolderGit2 size={15} />}
-                  onSelect={() => run(() => router.push(`/projects/${p.slug}`))}
-                >
-                  {p.title}
-                </Item>
-              ))}
-              <Item icon={<Mail size={15} />} onSelect={() => run(() => router.push("/#contact"))}>
-                Contact
-              </Item>
-              <Item
-                icon={<FileDown size={15} />}
-                onSelect={() => run(() => window.open(site.resumeUrl, "_blank"))}
-              >
-                Download resume
-              </Item>
-              {github && (
-                <Item
-                  icon={<Github size={15} />}
-                  onSelect={() => run(() => window.open(github, "_blank"))}
-                >
-                  GitHub
-                </Item>
-              )}
-              {linkedin && (
-                <Item
-                  icon={<Linkedin size={15} />}
-                  onSelect={() => run(() => window.open(linkedin, "_blank"))}
-                >
-                  LinkedIn
-                </Item>
-              )}
-              <Item
-                icon={resolvedTheme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
-                onSelect={() =>
-                  run(() => setTheme(resolvedTheme === "dark" ? "light" : "dark"))
-                }
-              >
-                Toggle theme
-              </Item>
-            </Command.Group>
-          </Command.List>
-        </Command>
-      </div>
-    </div>
+            ))}
+        </Group>
+
+        <Group heading="Elsewhere">
+          <Item onSelect={() => openTab(site.resumeUrl)}>Resume (PDF)</Item>
+          <Item onSelect={() => run(() => (window.location.href = `mailto:${site.email}`))}>Email {site.firstName}</Item>
+          {site.socials.map((s) => (
+            <Item key={s.label} onSelect={() => openTab(s.url)}>
+              {s.label}
+            </Item>
+          ))}
+          <Item onSelect={() => run(() => setTheme(resolvedTheme === "dark" ? "light" : "dark"))}>
+            Switch to the {resolvedTheme === "dark" ? "day" : "night"} edition
+          </Item>
+        </Group>
+      </Command.List>
+    </Command.Dialog>
   );
 }
 
-function Item({
-  children,
-  icon,
-  onSelect,
-}: {
-  children: React.ReactNode;
-  icon: React.ReactNode;
-  onSelect: () => void;
-}) {
+function Group({ heading, children }: { heading: string; children: React.ReactNode }) {
+  return (
+    <Command.Group
+      heading={heading}
+      className="[&_[cmdk-group-heading]]:caps [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:text-[12px] [&_[cmdk-group-heading]]:text-ink-3"
+    >
+      {children}
+    </Command.Group>
+  );
+}
+
+function Item({ children, folio, onSelect }: { children: React.ReactNode; folio?: string; onSelect: () => void }) {
   return (
     <Command.Item
       onSelect={onSelect}
-      className="flex cursor-pointer items-center gap-3 rounded px-3 py-2.5 text-sm text-muted data-[selected=true]:bg-[var(--card-hover)] data-[selected=true]:text-[var(--fg)]"
+      className="flex min-h-11 cursor-pointer items-baseline justify-between gap-4 px-3 py-2 text-[17px] text-ink-2 data-[selected=true]:bg-paper-2 data-[selected=true]:text-accent"
     >
-      <span className="text-faint">{icon}</span>
-      {children}
+      <span className="font-display text-[1.25rem] leading-tight">{children}</span>
+      {folio && <span className="data shrink-0 text-[12px] text-ink-3">p. {folio}</span>}
     </Command.Item>
   );
 }

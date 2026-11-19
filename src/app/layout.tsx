@@ -90,12 +90,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${text.variable} ${mono.variable} font-serif antialiased`}>
-        {/* Mockup only: ?plate=blue previews the ink-blue spot colour. Removed once a plate is chosen. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `if(new URLSearchParams(location.search).get("plate")==="blue")document.documentElement.dataset.accent="blue"`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

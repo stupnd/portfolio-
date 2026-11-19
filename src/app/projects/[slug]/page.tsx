@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { Github } from "@/components/icons";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { LedgerSim } from "@/components/interactive/LedgerSim";
 import { site } from "@/content/site.config";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { features } from "@/content/features";
 
 export function generateStaticParams() {
   return site.projects.filter((p) => p.caseStudy).map((p) => ({ slug: p.slug }));
@@ -22,10 +20,15 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
+/**
+ * The long read behind a feature: problem, the decisions with what each one
+ * cost, the evidence, and the retrospective, set as a single-column article.
+ */
 export default function ProjectPage({ params }: { params: { slug: string } }) {
   const project = site.projects.find((p) => p.slug === params.slug);
   if (!project || !project.caseStudy) notFound();
   const cs = project.caseStudy;
+  const feature = features.find((f) => f.caseStudy === project.slug);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -37,149 +40,131 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   };
 
   return (
-    <article className="pb-24 pt-24 sm:pt-28">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <article className="mx-auto max-w-issue px-4 pb-10 pt-8 sm:px-8 lg:pt-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <Container>
-        <Link
-          href="/#projects"
-          className="inline-flex min-h-9 items-center gap-1.5 text-sm text-ink-2 transition-colors hover:text-ink"
-        >
-          <ArrowLeft size={15} aria-hidden /> All projects
-        </Link>
+      <Link
+        href={feature ? `/#${feature.id}` : "/#contents"}
+        className="inline-flex min-h-11 items-center gap-1.5 text-[15px] text-ink-2 transition-colors hover:text-ink"
+      >
+        <ArrowLeft size={15} strokeWidth={1.75} aria-hidden /> Back to the issue
+      </Link>
 
-        <header className="mt-6 border-b border-ink pb-10">
-          <h1 className="display max-w-4xl text-display-xl font-extrabold">{project.title}</h1>
-          <p className="mt-6 max-w-2xl text-xl leading-relaxed text-ink-2">{project.tagline}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-            {project.repoUrl && (
-              <Button href={project.repoUrl} external>
-                <Github size={16} aria-hidden /> View source
-              </Button>
-            )}
-            {project.liveUrl && (
-              <Button href={project.liveUrl} variant="secondary" external>
-                Live demo
-              </Button>
-            )}
-            <p className="data text-[11px] leading-relaxed text-ink-3">
-              {project.year} · {project.stack.join(" / ")}
+      <header className="mt-4 border-t-2 border-rule-strong pt-4">
+        <div className="flex items-baseline justify-between gap-4 border-b border-rule pb-3">
+          <p className="caps text-[12px] text-accent">Case study{feature ? ` · ${feature.kicker}` : ""}</p>
+          {feature && (
+            <p className="data text-[12px] text-ink-3">
+              Continued from <span className="sr-only">page </span>p. {feature.page}
             </p>
-          </div>
-        </header>
+          )}
+        </div>
+        <h1 className="print-set mt-10 max-w-[16em] text-balance font-display text-headline text-ink">{project.title}</h1>
+        <p className="mt-5 max-w-[34em] text-pretty text-[19px] leading-[1.45] text-ink-2 sm:text-[21px]">{project.tagline}</p>
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+          <p className="data text-[12px] leading-relaxed text-ink-3">
+            By Stuti Pandya · {project.year.replace("–", " to ")} · {project.stack.join(", ")}
+          </p>
+          {project.repoUrl && (
+            <a
+              href={project.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-1 text-[15px] text-accent underline decoration-accent/40 underline-offset-[5px] hover:decoration-accent"
+            >
+              Source on GitHub <ArrowUpRight size={15} strokeWidth={1.75} aria-hidden />
+            </a>
+          )}
+        </div>
+      </header>
 
-        <Part title="The problem">
-          <p className="max-w-[68ch] text-lg leading-relaxed">{cs.problem}</p>
-        </Part>
-      </Container>
+      <Part title="The problem">
+        <p className="dropcap max-w-[36em] text-[18px] leading-[1.65] text-ink sm:text-[19px]">{cs.problem}</p>
+      </Part>
 
       {project.demo === "ledger-sim" && (
-        <div className="band-ink py-12 sm:py-16">
-          <Container>
-            <div className="lg:ml-[17rem] lg:max-w-3xl">
-              <LedgerSim />
-            </div>
-          </Container>
-        </div>
+        <section aria-labelledby="fig-title" className="mt-14">
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-rule-strong pt-3">
+            <p className="data text-[12px] text-accent">Fig. 1, interactive</p>
+            <h2 id="fig-title" className="font-display text-[1.5rem] leading-tight text-ink">
+              Crash the consumer mid-write
+            </h2>
+          </div>
+          <div className="mt-4">
+            <LedgerSim />
+          </div>
+        </section>
       )}
 
-      <Container>
-        <Part
-          title="Decisions, and what they cost"
-          lede="The trade-offs I made, the alternatives I rejected, and why."
-        >
-          <ol className="border-t border-ink">
-            {cs.decisions.map((d, i) => (
-              <li key={i} className="border-b border-rule py-6">
-                <h3 className="text-lg font-semibold leading-snug">{d.decision}</h3>
-                <p className="mt-1.5 text-sm text-ink-3">Instead of {d.alternative}</p>
-                <p className="mt-3 max-w-[68ch] text-[15px] leading-relaxed text-ink-2">{d.tradeoff}</p>
-              </li>
-            ))}
-          </ol>
-        </Part>
+      <Part title="Decisions, and what they cost" lede="The trade-offs I made, the alternatives I turned down, and why.">
+        <ol>
+          {cs.decisions.map((d, i) => (
+            <li key={i} className="grid grid-cols-[2.75rem,1fr] border-b border-rule py-6 first:pt-0 last:border-b-0">
+              <span className="font-display text-[2rem] leading-none text-accent">{i + 1}</span>
+              <div className="max-w-[38em]">
+                <h3 className="font-display text-[1.625rem] leading-[1.15] text-ink">{d.decision}</h3>
+                <p className="mt-1.5 text-[16px] italic text-ink-2">Instead of {d.alternative}</p>
+                <p className="mt-3 text-[17px] leading-relaxed text-ink">{d.tradeoff}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Part>
 
-        <Part title="Evidence it works">
-          <ul className="space-y-4">
-            {cs.evidence.map((item, i) => (
-              <li key={i} className="grid max-w-[72ch] grid-cols-[1.75rem,1fr]">
-                <span
-                  aria-hidden
-                  className="mt-1 flex h-4 w-4 items-center justify-center rounded-sm bg-ack text-paper"
-                >
-                  <Check size={11} strokeWidth={3} />
-                </span>
-                <p className="text-[15px] leading-relaxed sm:text-base">{item}</p>
-              </li>
-            ))}
-          </ul>
-        </Part>
+      <Part title="Evidence it works">
+        <ul className="max-w-[38em] space-y-3.5 text-[17px] leading-relaxed text-ink">
+          {cs.evidence.map((item, i) => (
+            <li key={i} className="grid grid-cols-[1.25rem,1fr]">
+              <span aria-hidden className="text-accent">
+                ·
+              </span>
+              <span>{item.replace(/→/g, "to")}</span>
+            </li>
+          ))}
+        </ul>
+      </Part>
 
-        <Part title="What I'd do differently">
-          <p className="max-w-[68ch] border-y border-ink py-5 text-[15px] leading-relaxed sm:text-base">
-            {cs.retrospective}
-          </p>
-        </Part>
+      <Part title="What I’d do differently">
+        <blockquote className="max-w-[34em] border-y border-rule-strong py-6 font-display text-[1.625rem] leading-[1.25] text-ink sm:text-[1.875rem]">
+          <p>{cs.retrospective}</p>
+        </blockquote>
+      </Part>
 
-        {cs.sections?.map((section) => (
-          <Part key={section.heading} title={section.heading}>
-            {section.body.map((para, i) => (
-              <p key={i} className="mb-4 max-w-[68ch] text-[15px] leading-relaxed text-ink-2 sm:text-base">
-                {para}
-              </p>
-            ))}
-          </Part>
-        ))}
-
-        <NextProject currentSlug={project.slug} />
-      </Container>
+      <NextProject currentSlug={project.slug} />
     </article>
   );
 }
 
-function Part({
-  title,
-  lede,
-  children,
-}: {
-  title: string;
-  lede?: string;
-  children: React.ReactNode;
-}) {
+function Part({ title, lede, children }: { title: string; lede?: string; children: React.ReactNode }) {
   return (
-    <section className="grid gap-x-12 gap-y-5 border-b border-rule py-12 lg:grid-cols-[14rem,1fr]">
-      <div>
-        <h2 className="display text-xl font-bold leading-tight sm:text-2xl">{title}</h2>
-        {lede && <p className="mt-2 text-sm leading-relaxed text-ink-2">{lede}</p>}
+    <section className="mt-14 grid gap-x-10 gap-y-6 border-t border-rule-strong pt-6 lg:grid-cols-12">
+      <div className="lg:col-span-3">
+        <h2 className="font-display text-[1.75rem] leading-tight text-ink">{title}</h2>
+        {lede && <p className="mt-2 max-w-[22em] text-[16px] italic leading-snug text-ink-2">{lede}</p>}
       </div>
-      <div className="min-w-0">{children}</div>
+      <div className="min-w-0 lg:col-span-9">{children}</div>
     </section>
   );
 }
 
 function NextProject({ currentSlug }: { currentSlug: string }) {
-  const featured = site.projects.filter((p) => p.caseStudy);
-  const idx = featured.findIndex((p) => p.slug === currentSlug);
-  const next = featured[(idx + 1) % featured.length];
+  const studies = site.projects.filter((p) => p.caseStudy);
+  const idx = studies.findIndex((p) => p.slug === currentSlug);
+  const next = studies[(idx + 1) % studies.length];
   if (!next || next.slug === currentSlug) return null;
   return (
-    <Link
-      href={`/projects/${next.slug}`}
-      className="group mt-12 flex items-end justify-between gap-6 border-t border-ink pt-6"
-    >
-      <div>
-        <p className="text-sm text-ink-2">Next case study</p>
-        <p className="display mt-1 text-display-md font-bold transition-colors group-hover:text-accent">
+    <Link href={`/projects/${next.slug}`} className="group mt-20 flex items-end justify-between gap-6 border-t-2 border-rule-strong pt-5">
+      <span>
+        <span className="caps block text-[12px] text-ink-2">Next case study</span>
+        <span className="mt-2 block font-display text-[2.25rem] leading-tight text-ink transition-colors group-hover:text-accent sm:text-[3rem]">
           {next.title}
-        </p>
-      </div>
+        </span>
+      </span>
       <ArrowRight
         size={28}
+        strokeWidth={1.5}
         aria-hidden
-        className="shrink-0 text-ink-2 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-accent"
+        className="mb-2 shrink-0 text-ink-2 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-accent"
       />
     </Link>
   );

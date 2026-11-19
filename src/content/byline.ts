@@ -9,7 +9,7 @@ import flamingos from "../../public/photos/flamingos.jpg";
 /**
  * "Behind the byline": the personal spread. Static imports give next/image
  * the intrinsic size (no layout shift) and a generated blur placeholder.
- * Captions are in the magazine's voice and must not invent facts.
+ * Captions are in the magazine’s voice and must not invent facts.
  */
 export interface BylinePhoto {
   id: string;

@@ -1,34 +1,3 @@
-export type SkillTier = "Built" | "Used" | "Touched";
-
-export interface Skill {
-  name: string;
-  tier: SkillTier;
-  /** Where the skill was earned, shown on hover/detail */
-  evidence?: string;
-}
-
-export interface SkillCategory {
-  label: string;
-  skills: Skill[];
-}
-
-/** One row in the hero record stream. Every record is a resume fact. */
-export interface WorkRecord {
-  partition: "work" | "builds" | "community";
-  /** Short key shown beside the offset, e.g. the company or project */
-  key: string;
-  year: string;
-  text: string;
-  /** Where the evidence lives */
-  href: string;
-}
-
-export interface Stat {
-  value: string;
-  label: string;
-  source: string;
-}
-
 export interface ExperienceEntry {
   company: string;
   role: string;
@@ -95,38 +64,10 @@ export interface LeadershipEntry {
   images?: string[];
 }
 
-export interface Photo {
-  src: string;
-  alt: string;
-  caption?: string;
-}
-
 export interface Achievement {
   title: string;
   detail: string;
   year: string;
-}
-
-export interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-  image?: string;
-}
-
-export interface Certification {
-  title: string;
-  provider: string;
-  date: string;
-  credentialUrl?: string;
-}
-
-export interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  summary: string;
-  body: string[];
 }
 
 /** One line on the contents page */
@@ -153,12 +94,7 @@ export interface SiteConfig {
   name: string;
   firstName: string;
   initials: string;
-  /** Path under /public. Swap this file to change the hero photo */
-  headshot: string;
-  headline: string;
-  subheadline: string;
   location: string;
-  availability: string;
   email: string;
   /** Role targets shown in the recruiter summary card */
   lookingFor: {
@@ -172,12 +108,6 @@ export interface SiteConfig {
   resumeUrl: string;
   siteUrl: string;
   socials: { label: string; url: string }[];
-  about: string[];
-  /** Personal photo strip shown in the About section */
-  aboutPhotos: Photo[];
-  stats: Stat[];
-  records: WorkRecord[];
-  skillCategories: SkillCategory[];
   experience: ExperienceEntry[];
   projects: Project[];
   miniProjects: MiniProject[];
@@ -192,8 +122,4 @@ export interface SiteConfig {
     honours: string[];
     coursework: { label: string; courses: string[] }[];
   };
-  /** Empty arrays hide these sections entirely */
-  testimonials: Testimonial[];
-  certifications: Certification[];
-  blogPosts: BlogPost[];
 }

@@ -18,7 +18,7 @@ export function Contents() {
               In this issue
             </h2>
             <p className="mt-4 max-w-[26ch] text-[17px] leading-relaxed text-ink-2">
-              Five features, each with a figure you can read or play, and three departments.
+              Five features, each with a figure you can read or play, and four departments.
             </p>
           </div>
 

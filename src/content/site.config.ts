@@ -6,7 +6,7 @@ import type { SiteConfig } from "./types";
  *  Edit this file only; every page and section updates automatically.
  *
  *  Content rule (from the resume master file): nothing goes here
- *  that isn't in the master file at "Used" depth or above. Keep it
+ *  that isn’t in the master file at "Used" depth or above. Keep it
  *  defensible. Every number on this site has a source.
  * ─────────────────────────────────────────────────────────────────
  */
@@ -31,13 +31,13 @@ export const site: SiteConfig = {
       {
         page: "04",
         title: "The $9K/month mystery",
-        hook: "A 1.4-billion-call spike on TrendAI's API Gateway bill, traced to 55 orphaned CloudFormation stacks. Recovered: $6–9K a month.",
+        hook: "A 1.4-billion-call spike on TrendAI’s API Gateway bill, traced to 55 orphaned CloudFormation stacks. Recovered: $6–9K a month.",
         href: "#aws-spike",
       },
       {
         page: "12",
         title: "Teaching an agent to grade itself",
-        hook: "Traced's eval harness lifted mean score from 0.641 to 0.831 over nine ablations, and turned down two of my own ideas.",
+        hook: "Traced’s eval harness lifted mean score from 0.641 to 0.831 over nine ablations, and turned down two of my own ideas.",
         href: "#eval-harness",
       },
       {
@@ -89,16 +89,7 @@ export const site: SiteConfig = {
   name: "Stuti Pandya",
   firstName: "Stuti",
   initials: "SP",
-  // Background-removed portrait. To swap: drop a new cutout PNG here.
-  // public/photos/headshot.jpg keeps the original uncut version.
-  headshot: "/photos/headshot-cutout.png",
-
-  headline: "Backend & infrastructure engineer, with full-stack range.",
-  subheadline:
-    "Software developer intern at TrendAI (Trend Micro), shipping Go APIs, React UIs, and Kubernetes infrastructure on AWS. Finishing Computer Engineering at uOttawa in December 2026.",
-
   location: "Ottawa, Canada",
-  availability: "Open to new grad roles starting January 2027",
   email: "stuti.pandya0@gmail.com",
 
   /**
@@ -106,156 +97,19 @@ export const site: SiteConfig = {
    * so keep it concrete: role titles they actually post, and a real start date.
    */
   lookingFor: {
-    roles: ["Backend / Infrastructure Engineer", "Full-Stack Engineer"],
+    roles: ["Applied AI Engineer", "Backend Engineer"],
     available: "2027",
     locations: "Ottawa, Toronto, Waterloo, Vancouver, or remote in Canada",
     authorization: "Legally able to work in Canada full time",
     note: "Graduating December 2026 with a BASc in Computer Engineering. Three internships across four terms, and legally able to work in Canada full time.",
   },
-  // Copy of Stuti_Pandya_Resume.pdf; `npm run build` fails if it's missing
+  // Copy of Stuti_Pandya_Resume.pdf; `npm run build` fails if it’s missing
   resumeUrl: "/resume.pdf",
   siteUrl: "https://stutipnd.net",
 
   socials: [
     { label: "GitHub", url: "https://github.com/stupnd" },
     { label: "LinkedIn", url: "https://linkedin.com/in/stuti-pandya-6a8bab258" },
-  ],
-
-  about: [
-    "Three internships so far: AI and container security at TrendAI (Go, Kubernetes, AWS), event brokers at Solace, and two co-op terms at Natural Resources Canada.",
-    "I work across the stack, but I like the unglamorous end of it: message ordering, failure recovery, observability. My flagship project is an event-driven transaction ledger with 31 tests proving ordering holds even when things crash, fronted by a Next.js dashboard that streams status live.",
-    "On the AI side, I build the measurement around LLM systems, not just demos. My research agent ships with its own eval harness: 8 rubric-scored questions, an LLM judge, and nine recorded ablations that took mean score from 0.641 to 0.831.",
-    "Off the clock, I chair uOttawa's Institute of Electrical and Electronics Engineers (IEEE) Women in Engineering chapter.",
-  ],
-
-  // Photo strip in the About section. Swap files in public/photos to change.
-  aboutPhotos: [
-    { src: "/photos/kayaks.jpg", alt: "Kayaks tied up at a lake dock", caption: "off-grid" },
-    { src: "/photos/moraine.jpg", alt: "Canoes on Moraine Lake in the Rockies", caption: "banff" },
-    { src: "/photos/ottawa-canal.jpg", alt: "Sunset over the Rideau Canal locks in Ottawa", caption: "home" },
-    { src: "/photos/flamingos.jpg", alt: "Watching flamingos at the park", caption: "touching grass" },
-  ],
-
-  // Every number here is sourced. See the label lines.
-  stats: [
-    { value: "3", label: "Internships", source: "Trend Micro · Solace · NRCan (2 co-op terms)" },
-    { value: "$6–9K/mo", label: "AWS spend recovered", source: "Cost investigation at TrendAI" },
-    { value: "1.4B", label: "API Gateway calls traced", source: "Root-caused the spike to 55 orphaned stacks" },
-    { value: "81", label: "CVEs cleared", source: "Across four service images at TrendAI" },
-    { value: "0.64→0.83", label: "RAG eval score lift", source: "Nine recorded ablations, traced-research-agent" },
-    { value: "31", label: "Tests on the ledger", source: "Incl. Testcontainers integration tests" },
-  ],
-
-  /**
-   * The hero record stream, in offset order. Each record is a resume fact and
-   * links to its evidence. Keep it to twelve: the panel is sized for it.
-   */
-  records: [
-    { partition: "work", key: "nrcan", year: "2024", text: "Cut Oracle SQL report runtime 30% with restructured joins and indexed views", href: "/#experience" },
-    { partition: "community", key: "uottawa", year: "2024–25", text: "Dean's Honor List, twice", href: "/#background" },
-    { partition: "builds", key: "bridge", year: "2025", text: "ASL glove streaming flex-sensor readings to the browser over BLE", href: "/projects/bridge" },
-    { partition: "community", key: "ieee-wie", year: "2025", text: "Organized a hackathon for 100+ participants", href: "/#background" },
-    { partition: "work", key: "solace", year: "2025", text: "Reproduced event-broker defects with R&D and shipped validated fixes", href: "/#experience" },
-    { partition: "builds", key: "ledger", year: "2026", text: "Exactly-once balance effects under Kafka redelivery, proven by 31 tests", href: "/projects/transaction-ledger" },
-    { partition: "builds", key: "tinted", year: "2026", text: "7-stage vision pipeline streamed over SSE, covered by 146 tests", href: "/projects/tinted" },
-    { partition: "builds", key: "rag-agent", year: "2026", text: "Eval harness lifted mean score from 0.641 to 0.831 over nine ablations", href: "/projects/traced-research-agent" },
-    { partition: "work", key: "trendai", year: "2026", text: "Recovered $6–9K/month in AWS spend by tracing a 1.4B-call spike to 55 orphaned stacks", href: "/#experience" },
-    { partition: "work", key: "trendai", year: "2026", text: "Cleared 81 CVEs across four service images", href: "/#experience" },
-    { partition: "work", key: "trendai", year: "2026", text: "Shipped a package-license feature on a DuckDB-backed Go API and React UI", href: "/#experience" },
-    { partition: "community", key: "ieee-wie", year: "2026", text: "Chair of IEEE Women in Engineering, uOttawa, for 2026–27", href: "/#background" },
-  ],
-
-  /**
-   * Tiers come straight from the skill depth ledger:
-   *  Built:   designed and implemented it
-   *  Used:    worked in it regularly
-   *  Touched: used a few times
-   */
-  skillCategories: [
-    {
-      label: "Languages",
-      skills: [
-        { name: "Java", tier: "Built", evidence: "Java 21 ledger service, coursework" },
-        { name: "Python", tier: "Used", evidence: "traced-research-agent, Tinted" },
-        { name: "Go", tier: "Used", evidence: "DuckDB-backed REST API at TrendAI" },
-        { name: "TypeScript", tier: "Used", evidence: "Trend Micro, personal projects" },
-        { name: "C#", tier: "Used", evidence: "Bulk import tooling at NRCan" },
-        { name: "SQL", tier: "Used", evidence: "PostgreSQL + Oracle query optimization" },
-        { name: "C++", tier: "Used", evidence: "Systems coursework" },
-      ],
-    },
-    {
-      label: "Backend & Streaming",
-      skills: [
-        { name: "Spring Boot", tier: "Built", evidence: "Ledger service: Data JPA, Kafka, Actuator" },
-        { name: "Kafka", tier: "Built", evidence: "Partitioning, manual offsets, DLT, retries" },
-        { name: "FastAPI", tier: "Built", evidence: "traced-research-agent, Tinted" },
-        { name: "Flask", tier: "Built", evidence: "DistilBERT REST API" },
-        { name: "REST / SSE", tier: "Built", evidence: "202-async APIs, SSE with keepalive + reconnect" },
-        { name: "Rate limiting", tier: "Built", evidence: "Sliding window, Retry-After, spend caps" },
-        { name: "MQTT / AMQP / JMS", tier: "Used", evidence: "Event broker debugging at Solace" },
-      ],
-    },
-    {
-      label: "Frontend",
-      skills: [
-        { name: "React / Next.js", tier: "Built", evidence: "TrendAI inventory UI, ledger dashboard, Tinted" },
-        { name: "Tailwind", tier: "Built", evidence: "This site, Tinted" },
-      ],
-    },
-    {
-      label: "Data",
-      skills: [
-        { name: "PostgreSQL", tier: "Used", evidence: "Flyway migrations, optimistic locking" },
-        { name: "Oracle SQL", tier: "Used", evidence: "Join restructuring, indexed views: 30% faster" },
-        { name: "DuckDB", tier: "Used", evidence: "Embedded OLAP behind a Go API at TrendAI" },
-        { name: "Firebase", tier: "Used", evidence: "Real-time backend, Android cycling app" },
-        { name: "Supabase", tier: "Used", evidence: "Auth and storage, Tinted" },
-      ],
-    },
-    {
-      label: "Cloud & DevOps",
-      skills: [
-        { name: "Kubernetes / EKS", tier: "Used", evidence: "Resource limits for two operators at TrendAI" },
-        { name: "AWS", tier: "Used", evidence: "API Gateway, CloudFormation, EKS at TrendAI" },
-        { name: "Docker Compose", tier: "Built", evidence: "Postgres, Kafka KRaft, Prometheus, Grafana" },
-        { name: "Docker", tier: "Used", evidence: "Multi-stage, non-root images" },
-        { name: "AWS CloudWatch", tier: "Used", evidence: "1.4B-call cost spike investigation" },
-        { name: "GitHub Actions", tier: "Built", evidence: "Cosign image signing at TrendAI, ledger CI" },
-        { name: "Helm", tier: "Used", evidence: "CPU/memory limits deployed on EKS" },
-      ],
-    },
-    {
-      label: "AI & ML",
-      skills: [
-        { name: "LLM evaluation", tier: "Built", evidence: "LLM-as-judge, golden sets, ablation" },
-        { name: "LangGraph", tier: "Built", evidence: "Multi-step research agent, Continuity Copilot" },
-        { name: "PyTorch", tier: "Built", evidence: "UNet trained from scratch, IoU/Dice reporting" },
-        { name: "Hybrid retrieval (RRF)", tier: "Built", evidence: "Dense + BM25 fused, 0.64 to 0.83 eval" },
-        { name: "Chroma + embeddings", tier: "Built", evidence: "all-MiniLM-L6-v2, per-slide chunking" },
-        { name: "CLIP", tier: "Built", evidence: "Precomputed shade embeddings, Tinted" },
-        { name: "MediaPipe / OpenCV", tier: "Built", evidence: "468-point mesh, CLAHE, Lab colour space" },
-      ],
-    },
-    {
-      label: "Tools",
-      skills: [
-        { name: "Claude Code", tier: "Used", evidence: "Daily driver for build and review" },
-        { name: "Git / GitHub Actions", tier: "Built", evidence: "Multi-job CI with test gates" },
-        { name: "Groq", tier: "Used", evidence: "llama-3.3-70b for agent and judge" },
-      ],
-    },
-    {
-      label: "Testing & Observability",
-      skills: [
-        { name: "Testcontainers", tier: "Built", evidence: "Real Postgres + Kafka in integration tests" },
-        { name: "Awaitility", tier: "Built", evidence: "Async assertions without sleeps" },
-        { name: "pytest", tier: "Built", evidence: "146-test Tinted suite" },
-        { name: "JUnit 5 / Mockito", tier: "Built", evidence: "31-test ledger suite" },
-        { name: "Prometheus", tier: "Built", evidence: "Micrometer instrumentation" },
-        { name: "Grafana", tier: "Built", evidence: "Provisioned dashboards: p99, consumer lag" },
-      ],
-    },
   ],
 
   experience: [
@@ -319,7 +173,7 @@ export const site: SiteConfig = {
       featured: true,
       repoUrl: "https://github.com/stupnd/Transaction-Ingestion-Service",
       // No hosted demo by design: standing up a broker and Postgres to show an
-      // empty dashboard isn't worth it. Instead the case study embeds a
+      // empty dashboard isn’t worth it. Instead the case study embeds a
       // client-side simulation of the exactly-once guarantee, which is the part
       // worth seeing anyway.
       demo: "ledger-sim",
@@ -343,7 +197,7 @@ export const site: SiteConfig = {
             decision: "Backoff retries (1s/2s/4s), then a dead-letter topic that preserves the partition, with an admin replay endpoint",
             alternative: "infinite retry or drop-on-failure",
             tradeoff:
-              "Poison messages can't block a partition, and nothing silently disappears. Keeping the partition number on the DLT record means per-account grouping survives the detour, and replay runs under its own consumer group so committed offsets stop it redoing old work. The cost is one more thing to monitor.",
+              "Poison messages can’t block a partition, and nothing silently disappears. Keeping the partition number on the DLT record means per-account grouping survives the detour, and replay runs under its own consumer group so committed offsets stop it redoing old work. The cost is one more thing to monitor.",
           },
           {
             decision: "ErrorHandlingDeserializer wrapping the JSON deserializer",
@@ -361,7 +215,7 @@ export const site: SiteConfig = {
             decision: "Money as integer minor units, plus @Version optimistic locking on accounts",
             alternative: "floats and last-write-wins",
             tradeoff:
-              "Integers kill float rounding outright. Locking matters because a transfer credits the counterparty's row from a different partition's consumer thread, so per-account ordering alone does not prevent a lost update. Optimistic locking turns that race into a retry instead of a silent overwrite.",
+              "Integers kill float rounding outright. Locking matters because a transfer credits the counterparty’s row from a different partition’s consumer thread, so per-account ordering alone does not prevent a lost update. Optimistic locking turns that race into a retry instead of a silent overwrite.",
           },
           {
             decision: "Three independent idempotency layers",
@@ -373,14 +227,14 @@ export const site: SiteConfig = {
         evidence: [
           "31 tests across 8 classes, including 4 Testcontainers integration tests against real Postgres and real Kafka. Each one pins a specific design claim rather than covering lines: async round trip, submission-order application, exactly-once effect under redelivery, and DLT-to-replay recovery.",
           "Async assertions use Awaitility rather than sleeps, so the suite is neither flaky nor artificially slow.",
-          "Four custom Micrometer meters feed Prometheus with histogram buckets, so p99 is computed properly rather than approximated, and consumer lag comes from Kafka's own client metrics instead of a hand-rolled estimate.",
+          "Four custom Micrometer meters feed Prometheus with histogram buckets, so p99 is computed properly rather than approximated, and consumer lag comes from Kafka’s own client metrics instead of a hand-rolled estimate.",
           "A 7-panel Grafana dashboard is provisioned from the repo: throughput by outcome, submit-to-posted latency, consumer lag by partition, rejection rate, and dead-letter rate.",
           "Correlation IDs flow from the HTTP thread through the MDC into Kafka headers and out to the consumer thread, so one async request is traceable across threads in every log line.",
           "Status changes broadcast over SSE only after the transaction commits, so the dashboard can never show a state that later rolls back.",
           "One command brings up Postgres 16, Kafka 3.9.1 in KRaft mode, Prometheus, and Grafana with healthchecks; CI runs backend, frontend, and a gated Docker build.",
         ],
         retrospective:
-          "I'd add the Kubernetes deployment earlier. The interesting question a ledger has to answer is what breaks during a rolling restart, and how the consumer group rebalance is handled. That's the difference between running a system and operating it. In progress now.",
+          "I’d add the Kubernetes deployment earlier. The interesting question a ledger has to answer is what breaks during a rolling restart, and how the consumer group rebalance is handled. That’s the difference between running a system and operating it. In progress now.",
       },
     },
     {
@@ -394,13 +248,13 @@ export const site: SiteConfig = {
       repoUrl: "https://github.com/stupnd/traced-research-agent",
       caseStudy: {
         problem:
-          "Anyone can wire an LLM to a vector store and get plausible-sounding answers. The hard part is knowing whether they're right, and when they're wrong, whether retrieval or synthesis is to blame. So I built the measurement first, then let it decide what shipped.",
+          "Anyone can wire an LLM to a vector store and get plausible-sounding answers. The hard part is knowing whether they’re right, and when they’re wrong, whether retrieval or synthesis is to blame. So I built the measurement first, then let it decide what shipped.",
         decisions: [
           {
             decision: "Hybrid dense + BM25 retrieval fused with Reciprocal Rank Fusion",
             alternative: "pure vector similarity",
             tradeoff:
-              "Embeddings miss exact terminology and BM25 misses paraphrase, so each covers the other's blind spot. RRF (k=60) merges both rankings without tuning a weight. This was the single biggest win of the whole project: 0.641 to 0.831.",
+              "Embeddings miss exact terminology and BM25 misses paraphrase, so each covers the other’s blind spot. RRF (k=60) merges both rankings without tuning a weight. This was the single biggest win of the whole project: 0.641 to 0.831.",
           },
           {
             decision: "An LLM self-critique node that scores each chunk 1 to 5 and drops anything under 3",
@@ -431,7 +285,7 @@ export const site: SiteConfig = {
           "Mean score 0.641 to 0.831 across nine recorded ablations, each attributable to one specific change.",
           "The harness rejected two of my own later ideas: hybrid-rrf-idf scored 0.740 and hybrid-rrf-v2 scored 0.699, both worse than the 0.831 they were meant to beat, so I kept the simpler implementation.",
           "Every run persists per-question traces, citations, judge reasoning, and elapsed time to a named JSON file, so any two runs can be compared after the fact.",
-          "Five LangGraph nodes stream to the UI over SSE, so the agent's reasoning is visible while it runs rather than after.",
+          "Five LangGraph nodes stream to the UI over SSE, so the agent’s reasoning is visible while it runs rather than after.",
         ],
         retrospective:
           "The confidence-check node is still a stub that always returns 1.0, so the conditional retry edge it was meant to trigger never fires. It is wired but inert, and I would rather say that than imply a feedback loop I have not finished. The lecture-slides corpus is also a toy and deserves something messier. Next: extracting the harness into a standalone retrieval-eval tool with recall@k and MRR, per-stage failure attribution, and a GitHub Action that fails builds on regression.",
@@ -448,7 +302,7 @@ export const site: SiteConfig = {
       repoUrl: "https://github.com/stupnd/tinted",
       caseStudy: {
         problem:
-          "Most beauty tech gets skin tone wrong for anyone who isn't light-skinned, because camera white balance and lighting swamp the signal. Tinted corrects for that and classifies tone across the full Monk scale.",
+          "Most beauty tech gets skin tone wrong for anyone who isn’t light-skinned, because camera white balance and lighting swamp the signal. Tinted corrects for that and classifies tone across the full Monk scale.",
         decisions: [
           {
             decision: "Classical CV preprocessing in LAB color space",
@@ -460,13 +314,13 @@ export const site: SiteConfig = {
             decision: "Monk Skin Tone scale",
             alternative: "the older Fitzpatrick scale",
             tradeoff:
-              "Monk was built for inclusive tech, with real coverage of deeper skin tones. That's the exact failure mode this project exists to avoid.",
+              "Monk was built for inclusive tech, with real coverage of deeper skin tones. That’s the exact failure mode this project exists to avoid.",
           },
           {
             decision: "CLIP shade matching with embeddings precomputed at import",
             alternative: "a hand-built rules engine, or embedding per request",
             tradeoff:
-              "CLIP matches visual similarity without labelling thousands of products, and precomputing the whole catalogue reduces per-request work to one matrix multiply. There's a Lab-distance fallback if the model fails to load, so the feature degrades instead of dying.",
+              "CLIP matches visual similarity without labelling thousands of products, and precomputing the whole catalogue reduces per-request work to one matrix multiply. There’s a Lab-distance fallback if the model fails to load, so the feature degrades instead of dying.",
           },
           {
             decision: "A four-check quality gate that refuses the image",
@@ -495,7 +349,7 @@ export const site: SiteConfig = {
           "Interface colours are held to measured WCAG AA contrast, and the palette is deliberately near-neutral because a tinted background shifts perceived skin tone and would corrupt the exact judgement the product exists to make.",
         ],
         retrospective:
-          "The offline harness splits accuracy by lighting condition, not by tone. Next I'd extend it to a labeled set of diverse faces with per-Monk-tone accuracy, so a regression on deeper skin tones can't hide inside an average.",
+          "The offline harness splits accuracy by lighting condition, not by tone. Next I’d extend it to a labeled set of diverse faces with per-Monk-tone accuracy, so a regression on deeper skin tones can’t hide inside an average.",
       },
     },
     {
@@ -509,19 +363,19 @@ export const site: SiteConfig = {
       repoUrl: "https://github.com/stupnd/Bridge",
       caseStudy: {
         problem:
-          "Sign language users shouldn't need an interpreter for everyday interactions. Bridge reads hand poses through flex sensors and translates them in the browser, in real time.",
+          "Sign language users shouldn’t need an interpreter for everyday interactions. Bridge reads hand poses through flex sensors and translates them in the browser, in real time.",
         decisions: [
           {
             decision: "Flex sensors as voltage dividers",
             alternative: "IMU gesture recognition",
             tradeoff:
-              "Cheap, readable, per-finger, with a rolling average to kill jitter. IMUs capture motion better but need a training pipeline the timeline didn't allow.",
+              "Cheap, readable, per-finger, with a rolling average to kill jitter. IMUs capture motion better but need a training pipeline the timeline didn’t allow.",
           },
           {
             decision: "BLE straight to the browser",
             alternative: "a phone app or relay server",
             tradeoff:
-              "No install, no backend, no relay latency. The glove pairs directly to a web page. The cost is Web Bluetooth's spotty support on iOS.",
+              "No install, no backend, no relay latency. The glove pairs directly to a web page. The cost is Web Bluetooth’s spotty support on iOS.",
           },
         ],
         evidence: [
@@ -530,7 +384,7 @@ export const site: SiteConfig = {
           "Built with Krisha Veera, Lana Othman, Sahil Shukla, and Salim Aissaoui.",
         ],
         retrospective:
-          "I'd replace the manual per-user calibration with a guided routine that fits finger ranges automatically, and swap the rolling average for an exponential one for faster response at the same smoothing.",
+          "I’d replace the manual per-user calibration with a guided routine that fits finger ranges automatically, and swap the rolling average for an exponential one for faster response at the same smoothing.",
       },
     },
   ],
@@ -573,8 +427,8 @@ export const site: SiteConfig = {
 
   achievements: [
     { title: "2nd place, Hackers & Healers AI in Healthcare hackathon", detail: "Continuity Copilot: agentic clinical briefing on FHIR data", year: "2026" },
-    { title: "Dean's Honor List ×2", detail: "University of Ottawa, Faculty of Engineering", year: "2024–2025" },
-    { title: "WIEee Code: founded the chapter's first beginner hackathon", detail: "Including the starter template teams built from", year: "2025" },
+    { title: "Dean’s Honor List ×2", detail: "University of Ottawa, Faculty of Engineering", year: "2024–2025" },
+    { title: "WIEee Code: founded the chapter’s first beginner hackathon", detail: "Including the starter template teams built from", year: "2025" },
   ],
 
   education: {
@@ -583,7 +437,7 @@ export const site: SiteConfig = {
     stream: "Engineering Management & Entrepreneurship stream",
     period: "Graduating December 2026",
     gpa: "CGPA 8.13/10.0",
-    honours: ["Dean's Honor List ×2"],
+    honours: ["Dean’s Honor List ×2"],
     coursework: [
       {
         label: "Systems",
@@ -593,8 +447,4 @@ export const site: SiteConfig = {
     ],
   },
 
-  // These sections are hidden until the arrays have entries.
-  testimonials: [],
-  certifications: [],
-  blogPosts: [],
 };
