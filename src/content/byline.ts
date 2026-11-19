@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 import outtake from "../../public/photos/byline-outtake.webp";
-import headshot from "../../public/photos/headshot.jpg";
+import friends from "../../public/photos/byline-friends.webp";
+import photobooth from "../../public/photos/wie-photobooth.jpg";
 import canal from "../../public/photos/ottawa-canal.jpg";
 import kayaks from "../../public/photos/kayaks.jpg";
 import moraine from "../../public/photos/moraine.jpg";
@@ -33,11 +34,11 @@ export const bylineHero: BylinePhoto = {
 
 export const bylinePhotos: BylinePhoto[] = [
   {
-    id: "headshot",
-    src: headshot,
-    alt: "Portrait of Stuti in a plaid blazer and an IEEE name badge, hands folded",
-    caption: "And on deadline. Same editor, plaid blazer.",
-    focus: "50% 22%",
+    id: "friends",
+    src: friends,
+    alt: "Stuti, centre, with two friends posing on the same red staircase from the cover",
+    caption: "Same staircase, better company.",
+    focus: "50% 55%",
   },
   {
     id: "canal",
@@ -66,5 +67,12 @@ export const bylinePhotos: BylinePhoto[] = [
     alt: "Stuti, seen from behind, reaching toward a flock of flamingos at a park",
     caption: "Interviewing sources. They declined to comment.",
     focus: "60% 60%",
+  },
+  {
+    id: "photobooth",
+    src: photobooth,
+    alt: "Three friends posing in front of a gold sequin curtain beside a photobooth",
+    caption: "After hours. The gold curtain was not optional.",
+    focus: "65% 45%",
   },
 ];

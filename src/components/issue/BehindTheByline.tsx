@@ -10,13 +10,13 @@ import { bylineHero, bylineLede, bylinePhotos, type BylinePhoto } from "@/conten
 
 // Placement on the 12-column desktop grid, per photo
 const place: Record<string, { cell: string; aspect: string; sizes: string }> = {
-  headshot: {
+  friends: {
     cell: "lg:col-start-8 lg:col-span-5 lg:row-start-1",
-    aspect: "aspect-[5/4]",
+    aspect: "aspect-[4/5]",
     sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 510px",
   },
   canal: {
-    cell: "lg:col-start-9 lg:col-span-4 lg:row-start-2 lg:mt-2",
+    cell: "lg:col-start-9 lg:col-span-4 lg:row-start-2",
     aspect: "aspect-square",
     sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px",
   },
@@ -34,6 +34,11 @@ const place: Record<string, { cell: string; aspect: string; sizes: string }> = {
     cell: "lg:col-start-9 lg:col-span-4 lg:row-start-3 lg:mt-12",
     aspect: "aspect-[4/5]",
     sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px",
+  },
+  photobooth: {
+    cell: "sm:col-span-2 lg:col-start-3 lg:col-span-7 lg:row-start-4 lg:mt-6",
+    aspect: "aspect-[16/10]",
+    sizes: "(max-width: 1024px) 100vw, 730px",
   },
 };
 

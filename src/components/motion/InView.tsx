@@ -57,7 +57,20 @@ export function useInViewState(ref: React.RefObject<HTMLElement>, threshold = 0.
  * Counts every number inside a string up from zero when it scrolls into view,
  * keeping its decimals and surrounding text: "$6–9K", "0.831", "1,356".
  */
-export function CountUp({ value, className, duration = 1400 }: { value: string; className?: string; duration?: number }) {
+export function CountUp({
+  value,
+  className,
+  duration = 1400,
+  delay = 0,
+  immediate = false,
+}: {
+  value: string;
+  className?: string;
+  duration?: number;
+  delay?: number;
+  /** Count as soon as it mounts, even if it is on screen at load (the cover) */
+  immediate?: boolean;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const [text, setText] = useState(value);
 
@@ -66,16 +79,16 @@ export function CountUp({ value, className, duration = 1400 }: { value: string; 
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!/\d/.test(value)) return;
     const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.9) return;
+    if (!immediate && r.top < window.innerHeight * 0.9) return;
     setText(render(value, 0));
     let raf = 0;
     const io = new IntersectionObserver(
       ([e]) => {
         if (!e.isIntersecting) return;
         io.disconnect();
-        const start = performance.now();
+        const start = performance.now() + delay;
         const step = (now: number) => {
-          const t = Math.min(1, (now - start) / duration);
+          const t = Math.min(1, Math.max(0, (now - start) / duration));
           const eased = 1 - Math.pow(1 - t, 3);
           setText(render(value, eased));
           if (t < 1) raf = requestAnimationFrame(step);
@@ -89,7 +102,7 @@ export function CountUp({ value, className, duration = 1400 }: { value: string; 
       io.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, [value, duration]);
+  }, [value, duration, delay, immediate]);
 
   return (
     <span ref={ref} className={className}>

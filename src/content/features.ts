@@ -16,6 +16,8 @@ export interface Feature {
   meta: string;
   /** The feature's spot colour */
   plate: Plate;
+  /** The teaser on the cover: a number and one line */
+  cover: { figure: string; label: string; line: string };
   /** The 30-second version: three lines a skimmer reads instead of the body */
   brief: string[];
   /** Three numbers set large beside the brief */
@@ -47,6 +49,7 @@ export const features: Feature[] = [
     pull: { figure: "55", label: "orphaned stacks", quote: "Infrastructure nobody owns still costs money." },
     figure: "trace",
     plate: "ochre",
+    cover: { figure: "$6–9K", label: "a month, recovered", line: "A 1.4-billion-call AWS bill, traced to 55 forgotten stacks." },
     brief: [
       "API Gateway showed a spike of 1.4 billion calls, with a bill to match.",
       "I traced it back through CloudWatch to 55 orphaned CloudFormation stacks.",
@@ -71,6 +74,7 @@ export const features: Feature[] = [
     pull: { figure: "0.831", label: "mean score, from 0.641", quote: "The harness turned down two of my own ideas, and it was right both times." },
     figure: "ablation",
     plate: "cobalt",
+    cover: { figure: "0.831", label: "eval score, from 0.641", line: "The harness that decided what shipped, and said no to two of my ideas." },
     brief: [
       "I built the eval harness before tuning the agent: eight rubric-scored questions and an LLM judge.",
       "Nine runs, one change each. Hybrid retrieval with RRF took the mean from 0.641 to 0.831.",
@@ -97,6 +101,7 @@ export const features: Feature[] = [
     pull: { figure: "31", label: "tests, 4 against real Kafka", quote: "At-least-once delivery, exactly-once effects." },
     figure: "ledger",
     plate: "oxblood",
+    cover: { figure: "31", label: "tests, 4 on real Kafka", line: "A ledger you can crash yourself. It still charges you once." },
     brief: [
       "Kafka delivers at least once, so a crash brings a message back.",
       "Three idempotency layers make sure the balance moves exactly once anyway.",
@@ -124,6 +129,7 @@ export const features: Feature[] = [
     pull: { figure: "15%", label: "within one level, on real faces", quote: "My simulated camera exposed every face perfectly. Real phones don’t." },
     figure: "tinted",
     plate: "plum",
+    cover: { figure: "15%", label: "on real faces", line: "What my 84% simulation was hiding, level by level." },
     brief: [
       "Tinted classifies skin tone on the ten-point Monk scale.",
       "In simulation it landed within one level 84% of the time. On 1,356 real photos, 15%.",
@@ -150,6 +156,7 @@ export const features: Feature[] = [
     pull: { figure: "0", label: "servers between glove and page", quote: "The glove pairs directly to a web page." },
     figure: "glove",
     plate: "forest",
+    cover: { figure: "0", label: "servers in the path", line: "A glove that signs to a web page over Bluetooth." },
     brief: [
       "A glove with a flex sensor on each finger reads hand poses.",
       "An ESP32 streams them over Bluetooth Low Energy straight to a web page.",

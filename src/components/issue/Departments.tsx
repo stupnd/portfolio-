@@ -2,6 +2,36 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { site } from "@/content/site.config";
 import wieStage from "../../../public/photos/wie-team-stage.jpg";
+import wieGala from "../../../public/photos/wie-gala.jpg";
+import panelEvent from "../../../public/photos/panel-event.webp";
+import crewStairs from "../../../public/photos/crew-stairs.webp";
+
+const offPhotos = [
+  {
+    src: panelEvent,
+    alt: "A panel of seven speakers seated in front of an audience in a lecture room",
+    caption: "A panel, seen from the audience.",
+    cell: "lg:col-span-5",
+    aspect: "aspect-[4/3]",
+    focus: "50% 55%",
+  },
+  {
+    src: crewStairs,
+    alt: "A large group of students posing on a red staircase, most giving a thumbs up",
+    caption: "Everyone on the stairs. Nobody missed the cue.",
+    cell: "lg:col-span-3 lg:mt-16",
+    aspect: "aspect-[3/4]",
+    focus: "50% 45%",
+  },
+  {
+    src: wieGala,
+    alt: "A large group in formal wear posing together at an evening event",
+    caption: "The whole room, for once standing still.",
+    cell: "lg:col-span-4 lg:mt-6",
+    aspect: "aspect-[3/2]",
+    focus: "50% 50%",
+  },
+];
 
 /**
  * The back of the book: short takes, contributors' notes, off the page and
@@ -175,6 +205,27 @@ export function OffThePage() {
             ))}
           </ul>
         </div>
+      </div>
+
+      <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-3 lg:grid-cols-12 lg:items-start">
+        {offPhotos.map((p) => (
+          <figure key={p.caption} className={`-mx-4 sm:mx-0 ${p.cell}`}>
+            <div className="border-y border-rule-strong py-2 sm:border sm:p-2">
+              <div className={`relative overflow-hidden bg-paper-2 ${p.aspect}`}>
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  fill
+                  placeholder="blur"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 520px"
+                  className="object-cover"
+                  style={{ objectPosition: p.focus }}
+                />
+              </div>
+            </div>
+            <figcaption className="mt-3 px-4 text-[15px] italic leading-snug text-ink-2 sm:px-0">{p.caption}</figcaption>
+          </figure>
+        ))}
       </div>
     </section>
   );

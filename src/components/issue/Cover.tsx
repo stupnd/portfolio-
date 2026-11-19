@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { site } from "@/content/site.config";
+import { CoverLines } from "./CoverLines";
 
 /**
  * The cover: the positioning line set as the cover line, a standfirst, the
@@ -57,6 +58,7 @@ export function Cover() {
           ]}
         />
       </div>
+      <CoverLines />
     </section>
   );
 }
